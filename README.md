@@ -13,7 +13,7 @@ Engineering Methods for Software Systems Development - Ort Braude College of Eng
 * [Library Project](https://drive.google.com/file/d/1ylRLafnkxrmmW_v-e1N15jRnkbQvrfCx/view?usp=sharing)
 * [GitHub Guides](https://guides.github.com)
 
-## Stage
+## Progress 
 | Number | Stage                     | Status            | Deadline    |
 | -------| --------------------------| ------------------| ------------|
 |1|[Initial Version](https://drive.google.com/file/d/12a7PqRIhnVGxzQJu8xPEMC_QUpPxNH6w/view?usp=sharing)|Meeting|10.12.2018|
