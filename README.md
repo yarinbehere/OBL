@@ -1,8 +1,8 @@
 
-<img align="middle" width="140" height="95" src="https://www.el-mor.co.il/wp-content/uploads/ort_brauda.png">
+
 # [OBL Project: GitHub Repository](https://github.com/yarinbehere/LibraryProject)
 <img align="right" width="75" height="75" src="https://i.ibb.co/K9yP5wr/web-hi-res-512.png">
-
+<img align="middle" width="140" height="95" src="https://www.el-mor.co.il/wp-content/uploads/ort_brauda.png">
 ### Team 6
 
 Welcome to OBL (Ort Braude Library) GitHub Repository of Team 6!
