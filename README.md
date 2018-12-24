@@ -2,8 +2,9 @@
 
 # [OBL Project: GitHub Repository](https://github.com/yarinbehere/LibraryProject)
 
+### Team 6
 
-Welcome to OBL (Ort Braude Library) GitHub Repository!
+Welcome to OBL (Ort Braude Library) GitHub Repository of Team 6!
 Engineering Methods for Software Systems Development - Ort Braude College of Engineering, Winter 2018.
 
 ## Useful Links
