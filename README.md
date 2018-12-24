@@ -9,7 +9,7 @@ Engineering Methods for Software Systems Development - Ort Braude College of Eng
 
 ## Useful Links
 
-* [Project Google Drive](https://goo.gl/G8cMne)
+* [Google Drive](https://goo.gl/G8cMne)
 * [Course Moodle](https://moodle.braude.ac.il/course/view.php?id=17717)
 * [Library Project](https://drive.google.com/file/d/1ylRLafnkxrmmW_v-e1N15jRnkbQvrfCx/view?usp=sharing)
 * [GitHub Guides](https://guides.github.com)
