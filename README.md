@@ -1,5 +1,5 @@
 
-
+<img align="middle" width="140" height="95" src="https://www.el-mor.co.il/wp-content/uploads/ort_brauda.png">
 # [OBL Project: GitHub Repository](https://github.com/yarinbehere/LibraryProject)
 <img align="right" width="75" height="75" src="https://i.ibb.co/K9yP5wr/web-hi-res-512.png">
 
@@ -21,4 +21,4 @@ Engineering Methods for Software Systems Development - Ort Braude College of Eng
 |1|[Initial Version](https://drive.google.com/file/d/12a7PqRIhnVGxzQJu8xPEMC_QUpPxNH6w/view?usp=sharing)|Complete|10.12.2018|
 |2|[Prototype](https://drive.google.com/file/d/1wAxsbzrhtbeR8ND2x6PZCwbLrZnK3nW0/view?usp=sharing)| Working|30.12.2018|
 
-<img align="right" width="280" height="190" src="https://www.el-mor.co.il/wp-content/uploads/ort_brauda.png">
+
