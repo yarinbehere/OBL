@@ -1,5 +1,4 @@
 
-<img align="right" width="75" height="75" src="https://i.ibb.co/K9yP5wr/web-hi-res-512.png">
 
 # [OBL Project: GitHub Repository](https://github.com/yarinbehere/LibraryProject)
 <img align="right" width="75" height="75" src="https://i.ibb.co/K9yP5wr/web-hi-res-512.png">
