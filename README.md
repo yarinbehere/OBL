@@ -21,6 +21,6 @@ Engineering Methods for Software Systems Development - Ort Braude College of Eng
 | Number | Stage                     | Status            | Deadline    |
 | -------| --------------------------| ------------------| ------------|
 |1|[Initial Version](https://drive.google.com/file/d/12a7PqRIhnVGxzQJu8xPEMC_QUpPxNH6w/view?usp=sharing)|Complete|10.12.2018|
-|2|[Prototype](https://drive.google.com/file/d/1wAxsbzrhtbeR8ND2x6PZCwbLrZnK3nW0/view?usp=sharing)| Working|30.12.2018|
+|2|[Prototype](https://drive.google.com/file/d/1wAxsbzrhtbeR8ND2x6PZCwbLrZnK3nW0/view?usp=sharing)| Complete|30.12.2018|
 
 
