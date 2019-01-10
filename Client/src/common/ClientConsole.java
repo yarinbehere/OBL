@@ -4,6 +4,8 @@ package common;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.Scanner;
+
 import common.*;
 
 /**
@@ -49,8 +51,7 @@ public class ClientConsole implements ChatIF
     } 
     catch(IOException exception) 
     {
-      System.out.println("Error: Can't setup connection!"
-                + " Terminating client.");
+      System.out.println("Error: Can't setup connection!" + " Terminating client.");
       System.exit(1);
     }
   }
@@ -66,13 +67,13 @@ public class ClientConsole implements ChatIF
   {
     try
     {
-      BufferedReader fromConsole = 
-        new BufferedReader(new InputStreamReader(System.in));
-      String message;
-
+      Scanner input = new Scanner(System.in); 
+      BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
+      int message;
       while (true) 
       {
-        message = fromConsole.readLine();
+    	 System.out.println("Press ID to choose student (1 or 2)");
+        message = input.nextInt();
         client.handleMessageFromClientUI(message);
       }
     } 

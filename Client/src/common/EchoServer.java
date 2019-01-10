@@ -3,7 +3,11 @@ package common;
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
-import java.io.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 import common.ocsf.server.*;
 
@@ -47,12 +51,34 @@ public class EchoServer extends AbstractServer
    * @param msg The message received from the client.
    * @param client The connection from which the message originated.
    */
-  public void handleMessageFromClient
-    (Object msg, ConnectionToClient client)
+  public void handleMessageFromClient(Object msg, ConnectionToClient client)
   {
+		Statement stmt;
+		Connection con;
+		DataBaseManager dbManager = new DataBaseManager();
+	    dbManager.dbConnection();
+	    System.out.println("Mistake in the query");
+		try 
+		{
+			con = dbManager.getConnection();
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM student WHERE `Student ID` = " + (int)msg + ";" );
+	 		while(rs.next())
+	 		{
+				 // Print out the values
+				 System.out.println(rs.getInt("Student ID")+" " +rs.getString("Student Name") + " " 
+						 + rs.getString("StatusMembership") + " " + rs.getString("Operation") + " " + rs.getString("Freeze"));
+			} 
+			rs.close();
+			//stmt.executeUpdate("UPDATE course SET semestr=\"W08\" WHERE num=61309");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	    System.out.println("Message received: " + msg + " from " + client);
 	    this.sendToAllClients(msg);
-	  }
+  }
 
     
   /**
@@ -87,7 +113,8 @@ public class EchoServer extends AbstractServer
   public static void main(String[] args) 
   {
     int port = 0; //Port to listen on
-
+    DataBaseManager dbManager = new DataBaseManager();
+    dbManager.dbConnection();
     try
     {
       port = Integer.parseInt(args[0]); //Get port from command line
