@@ -22,13 +22,13 @@
       <children>
             <ImageView fitHeight="585.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../Screen%20Shot%202018-12-16%20at%203.28.05.png" />
+                  <Image url="@../images/background_image.png" />
                </image>
             </ImageView>
             <Separator layoutX="11.0" layoutY="537.0" prefHeight="7.0" prefWidth="619.0" />
             <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Downloads/res%204/drawable-xhdpi/searchSub_icon.png" />
+                  <Image url="@../images/searchSub_icon.png" />
                </image>
                <effect>
                   <Glow />
@@ -39,21 +39,21 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="205.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Subscriber's details:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
-                  <TextField layoutX="105.0" layoutY="45.0" prefHeight="27.0" prefWidth="188.0" />
+                  <TextField fx:id="usernameTextField" layoutX="105.0" layoutY="45.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="304.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
-                  <TextField layoutX="381.0" layoutY="45.0" prefHeight="27.0" prefWidth="212.0" />
+                  <TextField fx:id="emailTextField" layoutX="381.0" layoutY="45.0" prefHeight="27.0" prefWidth="212.0" />
                   <Text layoutX="28.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
-                  <TextField layoutX="105.0" layoutY="84.0" prefHeight="27.0" prefWidth="188.0" />
+                  <TextField fx:id="idTextField" layoutX="105.0" layoutY="84.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="28.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname:" />
-                  <TextField layoutX="105.0" layoutY="120.0" prefHeight="27.0" prefWidth="188.0" />
+                  <TextField fx:id="firstnameTextField" layoutX="105.0" layoutY="120.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="304.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:" />
-                  <TextField layoutX="381.0" layoutY="120.0" prefHeight="27.0" prefWidth="212.0" />
+                  <TextField fx:id="lastnameTextField" layoutX="381.0" layoutY="120.0" prefHeight="27.0" prefWidth="212.0" />
                   <Text layoutX="304.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
-                  <TextField layoutX="487.0" layoutY="84.0" prefHeight="27.0" prefWidth="106.0" />
-                  <ChoiceBox accessibleText="dsfsdf" layoutX="409.0" layoutY="84.0" prefHeight="27.0" prefWidth="70.0" />
+                  <TextField fx:id="phoneTextField" layoutX="487.0" layoutY="84.0" prefHeight="27.0" prefWidth="106.0" />
+                  <ChoiceBox fx:id="phoneChoiceBox" layoutX="409.0" layoutY="84.0" prefHeight="27.0" prefWidth="70.0" />
                   <Separator layoutX="181.0" layoutY="21.0" prefHeight="7.0" prefWidth="433.0" />
-                  <Button layoutX="221.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="104.0" text="Search" />
-                  <Button layoutX="336.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="Clear" />
+                  <Button fx:id="searchButton" defaultButton="true" layoutX="221.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="104.0" text="Search" />
+                  <Button fx:id="clearButton" layoutX="336.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="Clear" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Search Subscriber">
@@ -66,20 +66,20 @@
             </Text>
             <ButtonBar layoutX="13.0" layoutY="542.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2020/drawable-hdpi/help_icon.png" />
+                              <Image url="@../images/help_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Close">
+                  <Button fx:id="closeButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Close">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2018/drawable-hdpi/cancel_icon.png" />
+                              <Image url="@../images/cancel_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -88,17 +88,17 @@
             </ButtonBar>
             <ImageView fitHeight="40.0" fitWidth="143.0" layoutX="529.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../e49ffc_8cae3a8be48f4149a2d3f0e5a7832e49.png" />
+                  <Image url="@../images/braude_logo.png" />
                </image>
             </ImageView>
-            <Text layoutX="182.0" layoutY="566.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Borrow a Book &gt; Search Subscriber">
+            <Text fx:id="pathLabel" layoutX="182.0" layoutY="566.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Borrow a Book &gt; Search Subscriber">
                <font>
                   <Font size="11.0" />
                </font>
             </Text>
             <ListView layoutX="10.0" layoutY="301.0" prefHeight="193.0" prefWidth="619.0" />
             <Text layoutX="14.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:" />
-            <Button disable="true" layoutX="251.0" layoutY="501.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="139.0" text="Select Subscriber" />
+            <Button fx:id="selectSusbcriberButton" disable="true" layoutX="251.0" layoutY="501.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="139.0" text="Select Subscriber" />
       </children>
     </AnchorPane>
   </children>
