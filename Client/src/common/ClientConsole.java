@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
  * @author Dr Robert Lagani&egrave;re
  * @version July 2000
  */
-public class ClientConsole extends Application implements ChatIF 
+public class ClientConsole implements ChatIF
 {
   //Class variables *************************************************
   
@@ -40,7 +41,7 @@ public class ClientConsole extends Application implements ChatIF
    */
   ChatClient client;
   private Stage primaryStage;
-  private AnchorPane mainLayout;
+  private VBox mainLayout;
 
   
   //Constructors ****************************************************
@@ -79,12 +80,11 @@ public class ClientConsole extends Application implements ChatIF
    //   BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
    //   int message;
      
-       showLoginForm();
+       client.handleMessageFromClientUI(123);
     } 
     catch (Exception ex) 
     {
-      System.out.println
-        ("Unexpected error while reading from console!");
+      System.out.println("Unexpected error while reading from console!");
     }
   }
 
@@ -107,40 +107,6 @@ public class ClientConsole extends Application implements ChatIF
    *
    * @param args[0] The host to connect to.
    */
-  public static void main(String[] args) 
-  {
-    launch(args);
-  }
 
-
-	@Override
-	public void start(Stage arg0) throws Exception
-	{
-		String host = "";
-	    int port = 0;  //The port number
-	    try
-	    {
-	    	Parameters params = getParameters();                    
-	    	List<String> commandLineList = params.getRaw();  
-	    	host = commandLineList.get(0);
-	    }
-	    catch(ArrayIndexOutOfBoundsException e)
-	    {
-	      host = "localhost";
-	    }
-	    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
-	    chat.accept();  //Wait for console data
-		
-	}
-	
-	public void showLoginForm() throws IOException
-	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("gui.login/Login.fxml"));
-		mainLayout = loader.load();
-		Scene scene = new Scene(mainLayout);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
 }
 //End of ConsoleChat class
