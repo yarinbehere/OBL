@@ -45,6 +45,8 @@ public class MainClient extends Application implements Initializable{
 	    {
 	      host = "localhost";
 	    }
+	    ClientConsole chat= new ClientConsole(host, 5555);
+		
 	}
 	
 	public void showLoginForm() throws IOException
