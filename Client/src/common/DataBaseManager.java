@@ -24,8 +24,7 @@ public class DataBaseManager {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/obldb?autoReconnect=true&useSSL=false","root","Aa123456");
             //Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.3.68/test","root","Root");
             System.out.println("SQL connection succeed");
-            //createTableCourses(conn);
-            printCourses(conn);
+            //createTableCourses(conn)
      	} catch (SQLException ex) 
      	    {/* handle any errors*/
             System.out.println("SQLException: " + ex.getMessage());
@@ -33,12 +32,6 @@ public class DataBaseManager {
             System.out.println("VendorError: " + ex.getErrorCode());
             }
    	}
-	
-	public static void printCourses(Connection con)
-	{
-	
-	}
-
 	
 	public static void createTableCourses(Connection con1){
 		Statement stmt;

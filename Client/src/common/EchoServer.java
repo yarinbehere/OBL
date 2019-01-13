@@ -58,7 +58,6 @@ public class EchoServer extends AbstractServer
 		Connection con;
 		DataBaseManager dbManager = new DataBaseManager();
 	    dbManager.dbConnection();
-	    System.out.println("Mistake in the query");
 		try 
 		{
 			con = dbManager.getConnection();

@@ -4,9 +4,15 @@ package common;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
-import common.*;
+import application.Main;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * This class constructs the UI for a chat client.  It implements the
@@ -18,7 +24,7 @@ import common.*;
  * @author Dr Robert Lagani&egrave;re
  * @version July 2000
  */
-public class ClientConsole implements ChatIF 
+public class ClientConsole extends Application implements ChatIF 
 {
   //Class variables *************************************************
   
@@ -33,6 +39,8 @@ public class ClientConsole implements ChatIF
    * The instance of the client that created this ConsoleChat.
    */
   ChatClient client;
+  private Stage primaryStage;
+  private AnchorPane mainLayout;
 
   
   //Constructors ****************************************************
@@ -67,15 +75,11 @@ public class ClientConsole implements ChatIF
   {
     try
     {
-      Scanner input = new Scanner(System.in); 
-      BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
-      int message;
-      while (true) 
-      {
-    	 System.out.println("Press ID to choose student (1 or 2)");
-        message = input.nextInt();
-        client.handleMessageFromClientUI(message);
-      }
+   //   Scanner input = new Scanner(System.in); 
+   //   BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
+   //   int message;
+     
+       showLoginForm();
     } 
     catch (Exception ex) 
     {
@@ -105,19 +109,38 @@ public class ClientConsole implements ChatIF
    */
   public static void main(String[] args) 
   {
-    String host = "";
-    int port = 0;  //The port number
-
-    try
-    {
-      host = args[0];
-    }
-    catch(ArrayIndexOutOfBoundsException e)
-    {
-      host = "localhost";
-    }
-    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
-    chat.accept();  //Wait for console data
+    launch(args);
   }
+
+
+	@Override
+	public void start(Stage arg0) throws Exception
+	{
+		String host = "";
+	    int port = 0;  //The port number
+	    try
+	    {
+	    	Parameters params = getParameters();                    
+	    	List<String> commandLineList = params.getRaw();  
+	    	host = commandLineList.get(0);
+	    }
+	    catch(ArrayIndexOutOfBoundsException e)
+	    {
+	      host = "localhost";
+	    }
+	    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
+	    chat.accept();  //Wait for console data
+		
+	}
+	
+	public void showLoginForm() throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("gui.login/Login.fxml"));
+		mainLayout = loader.load();
+		Scene scene = new Scene(mainLayout);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 }
 //End of ConsoleChat class
