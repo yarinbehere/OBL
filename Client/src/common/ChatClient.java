@@ -63,13 +63,14 @@ public class ChatClient extends AbstractClient
   /**
    * This method handles all data coming from the UI            
    *
-   * @param message The message from the UI.    
+   * @param i The message from the UI.    
    */
-  public void handleMessageFromClientUI(int message)  
+  public void handleMessageFromClientUI(int i)  
   {
     try
     {
-    	sendToServer(message);
+    	System.out.println("hi");
+    	sendToServer(i);
     }
     catch(IOException e)
     {

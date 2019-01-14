@@ -53,7 +53,7 @@ public class EchoServer extends AbstractServer
    */
   public void handleMessageFromClient(Object msg, ConnectionToClient client)
   {
-		Statement stmt;
+	/*	Statement stmt;
 		Connection con;
 		DataBaseManager dbManager = new DataBaseManager();
 	    dbManager.dbConnection();
@@ -74,9 +74,9 @@ public class EchoServer extends AbstractServer
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
-		}
-	    System.out.println("Message received: " + msg + " from " + client);
-	    this.sendToAllClients(msg);
+		}*/
+	//    System.out.println("Message received: " + msg + " from " + client);
+	    this.sendToAllClients((int)msg);
   }
 
     
@@ -88,6 +88,12 @@ public class EchoServer extends AbstractServer
   {
     System.out.println
       ("Server listening for connections on port " + getPort());
+  }
+  
+  
+  protected void clientConnected(ConnectionToClient client) 
+  {
+	System.out.println("Client Connected From " + client);  
   }
   
   /**
@@ -133,6 +139,7 @@ public class EchoServer extends AbstractServer
     {
       System.out.println("ERROR - Could not listen for clients!");
     }
+    
   }
 }
 //End of EchoServer class

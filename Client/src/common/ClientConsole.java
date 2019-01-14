@@ -40,8 +40,7 @@ public class ClientConsole implements ChatIF
    * The instance of the client that created this ConsoleChat.
    */
   ChatClient client;
-  private Stage primaryStage;
-  private VBox mainLayout;
+
 
   
   //Constructors ****************************************************
@@ -79,8 +78,8 @@ public class ClientConsole implements ChatIF
    //   Scanner input = new Scanner(System.in); 
    //   BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
    //   int message;
-     
-       client.handleMessageFromClientUI(123);
+     System.out.println("dsad");
+     //  client.handleMessageFromClientUI(123);
     } 
     catch (Exception ex) 
     {
