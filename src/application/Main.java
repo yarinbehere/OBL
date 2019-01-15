@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-// Omri is in the house
+
 public class Main extends Application {
 	Stage primaryStage;
 	VBox mainLayout;

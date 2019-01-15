@@ -65,13 +65,13 @@
       <children>
             <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../Screen%20Shot%202018-12-16%20at%203.28.05.png" />
+                  <Image url="@../images/background_image.png" />
                </image>
             </ImageView>
             <Separator layoutX="11.0" layoutY="423.0" prefHeight="7.0" prefWidth="619.0" />
             <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Downloads/res%202/drawable-xhdpi/borrow_icon.png" />
+                  <Image url="@../images/borrow_icon.png" />
                </image>
                <effect>
                   <Glow />
@@ -82,17 +82,17 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="341.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Subscriber's details:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Borrow for:" />
-                  <TextField layoutX="125.0" layoutY="45.0" prefHeight="27.0" prefWidth="267.0" text="Username, email, ID" />
-                  <Button layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
+                  <TextField fx:id="subscriberEditLabel" layoutX="125.0" layoutY="45.0" prefHeight="27.0" prefWidth="267.0" text="Username, email, ID" />
+                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
                   <Text layoutX="28.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Name:" />
-                  <TextField layoutX="125.0" layoutY="162.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
-                  <Button layoutX="409.0" layoutY="162.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
+                  <TextField fx:id="bookLabel" layoutX="125.0" layoutY="162.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
+                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="162.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="125.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Status:">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Text fill="#40c900" layoutX="244.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Active" wrappingWidth="57.4287109375">
+                  <Text fx:id="subscriberStatusLabel" fill="#40c900" layoutX="244.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" wrappingWidth="57.4287109375">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -105,7 +105,7 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink layoutX="493.0" layoutY="79.0" prefHeight="25.0" prefWidth="57.0" text="6587" textAlignment="CENTER">
+                  <Hyperlink fx:id="subscriberIDLabel" layoutX="493.0" layoutY="79.0" prefHeight="25.0" prefWidth="57.0" text="[id]" textAlignment="CENTER">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -115,7 +115,7 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Text fill="#40c900" layoutX="239.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Available" textAlignment="RIGHT" wrappingWidth="57.4287109375">
+                  <Text fx:id="bookStatusLabel" fill="#40c900" layoutX="239.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" textAlignment="RIGHT" wrappingWidth="57.4287109375">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -125,16 +125,16 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink layoutX="493.0" layoutY="196.0" prefHeight="25.0" prefWidth="57.0" text="ID2231" textAlignment="RIGHT">
+                  <Hyperlink fx:id="bookIDLabel" layoutX="493.0" layoutY="196.0" prefHeight="25.0" prefWidth="57.0" text="[num]" textAlignment="RIGHT">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Hyperlink>
                   <Text layoutX="28.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Borrow Date:" wrappingWidth="87.4072265625" />
-                  <DatePicker layoutX="121.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
+                  <DatePicker fx:id="borrowDate" layoutX="121.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
                   <Text layoutX="262.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date:" wrappingWidth="87.4072265625" />
-                  <DatePicker layoutX="351.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
-                  <Button layoutX="239.0" layoutY="300.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Borrow" />
+                  <DatePicker fx:id="returnDate" layoutX="351.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
+                  <Button fx:id="borrowButton" layoutX="239.0" layoutY="300.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Borrow" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Borrow a Book">
@@ -147,20 +147,20 @@
             </Text>
             <ButtonBar layoutX="11.0" layoutY="431.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2020/drawable-hdpi/help_icon.png" />
+                              <Image url="@../images/help_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Cancel">
+                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Return">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2018/drawable-hdpi/cancel_icon.png" />
+                              <Image url="@../images/return_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -169,10 +169,10 @@
             </ButtonBar>
             <ImageView fitHeight="45.0" fitWidth="150.0" layoutX="513.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../e49ffc_8cae3a8be48f4149a2d3f0e5a7832e49.png" />
+                  <Image url="@../images/braude_logo.png" />
                </image>
             </ImageView>
-            <Text layoutX="195.0" layoutY="455.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Borrow a Book">
+            <Text fx:id="pathLabel" layoutX="195.0" layoutY="455.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Borrow a Book">
                <font>
                   <Font size="11.0" />
                </font></Text>

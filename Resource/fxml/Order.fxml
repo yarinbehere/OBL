@@ -65,13 +65,13 @@
       <children>
             <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../Screen%20Shot%202018-12-16%20at%203.28.05.png" />
+                  <Image url="@../images/background_image.png" />
                </image>
             </ImageView>
             <Separator layoutX="11.0" layoutY="426.0" prefHeight="7.0" prefWidth="619.0" />
             <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Downloads/res%207/drawable-xhdpi/orderBook_icon.png" />
+                  <Image url="@../images/orderBook_icon.png" />
                </image>
                <effect>
                   <Glow />
@@ -81,15 +81,15 @@
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="153.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="28.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Name:" />
-                  <TextField layoutX="125.0" layoutY="46.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
-                  <Button layoutX="409.0" layoutY="46.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
+                  <TextField fx:id="bookTextField" layoutX="125.0" layoutY="46.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
+                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="46.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book details:" />
                   <Separator layoutX="137.0" layoutY="21.0" prefHeight="3.0" prefWidth="478.0" />
-                  <Button layoutX="257.0" layoutY="115.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
+                  <Button fx:id="placeOrderButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
                   <Text layoutX="28.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your status is:" />
-                  <Text fill="#00a130" layoutX="125.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Active" />
+                  <Text fx:id="subscriberStatusLabel" fill="#00a130" layoutX="125.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" />
                   <Text layoutX="188.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book code:" />
-                  <Hyperlink layoutX="259.0" layoutY="84.0" text="5857" />
+                  <Hyperlink fx:id="bookCodeLabel" layoutX="259.0" layoutY="84.0" text="[code]" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Order a Book">
@@ -102,20 +102,20 @@
             </Text>
             <ButtonBar layoutX="11.0" layoutY="431.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Help">
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Help">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2020/drawable-hdpi/help_icon.png" />
+                              <Image url="@../images/help_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Cancel">
+                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Return">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Downloads/res%2018/drawable-hdpi/cancel_icon.png" />
+                              <Image url="@../images/return_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -124,16 +124,16 @@
             </ButtonBar>
             <ImageView fitHeight="50.0" fitWidth="170.0" layoutX="507.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../e49ffc_8cae3a8be48f4149a2d3f0e5a7832e49.png" />
+                  <Image url="@../images/braude_logo.png" />
                </image>
             </ImageView>
-            <Text layoutX="192.0" layoutY="456.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Order a Book">
+            <Text fx:id="pathLabel" layoutX="192.0" layoutY="456.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Order a Book">
                <font>
                   <Font size="11.0" />
                </font></Text>
             <ListView layoutX="11.0" layoutY="252.0" prefHeight="137.0" prefWidth="619.0" />
             <Text layoutX="17.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Orders:" />
-            <Button disable="true" layoutX="268.0" layoutY="395.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Cancel Order" />
+            <Button fx:id="cancelButton" disable="true" layoutX="268.0" layoutY="395.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Cancel Order" />
       </children>
     </AnchorPane>
   </children>
