@@ -12,7 +12,7 @@ public class DataBaseManager {
 	
 	private Connection conn;
 
-	public void dbConnection()
+	public Connection dbConnection()
 	{
 		try 
 		{
@@ -31,19 +31,32 @@ public class DataBaseManager {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
             }
+        return conn;
    	}
 	
-	public static void createTableCourses(Connection con1){
+	public ResultSet runQuery(Connection conn, String query) {
+		Statement stmt;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public void runUpdateQuery(Connection conn, String query)
+	{
 		Statement stmt;
 		try 
 		{
-			stmt = con1.createStatement();
-			stmt.executeUpdate("create table courses(num int, name VARCHAR(40), semestr VARCHAR(10));");
-			stmt.executeUpdate("load data local infile \"courses.txt\" into table courses");
-	 		
+			stmt = conn.createStatement();
+			stmt.executeUpdate(query);
 		} 
-		catch (SQLException e) {	e.printStackTrace();}
-		 		
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public Connection getConnection() {

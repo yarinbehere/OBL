@@ -8,6 +8,7 @@ import common.*;
 import common.ocsf.client.AbstractClient;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -57,7 +58,10 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
-    clientUI.display(msg.toString());
+    if(msg instanceof MessageCS)
+    {
+    	ClientController.messageAnalyze(msg);
+    }
   }
 
   /**
@@ -65,17 +69,15 @@ public class ChatClient extends AbstractClient
    *
    * @param i The message from the UI.    
    */
-  public void handleMessageFromClientUI(int i)  
+  public void handleMessageFromClientUI(Object message)  
   {
     try
     {
-    	System.out.println("hi");
-    	sendToServer(i);
+    	sendToServer(message);
     }
     catch(IOException e)
     {
-      clientUI.display
-        ("Could not send message to server.  Terminating client.");
+      clientUI.display("Could not send message to server.  Terminating client.");
       quit();
     }
   }
@@ -92,5 +94,7 @@ public class ChatClient extends AbstractClient
     catch(IOException e) {}
     System.exit(0);
   }
+
+
 }
 //End of ChatClient class

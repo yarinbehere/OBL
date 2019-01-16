@@ -4,10 +4,12 @@ package common;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import application.Main;
+import common.user.entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -71,15 +73,11 @@ public class ClientConsole implements ChatIF
    * This method waits for input from the console.  Once it is 
    * received, it sends it to the client's message handler.
    */
-  public void accept() 
+  public void accept(Object message) 
   {
     try
     {
-   //   Scanner input = new Scanner(System.in); 
-   //   BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
-   //   int message;
-     System.out.println("dsad");
-     //  client.handleMessageFromClientUI(123);
+       client.handleMessageFromClientUI(message);
     } 
     catch (Exception ex) 
     {
@@ -97,6 +95,7 @@ public class ClientConsole implements ChatIF
   {
     System.out.println("> " + message);
   }
+
 
   
   //Class methods ***************************************************
