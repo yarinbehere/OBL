@@ -35,5 +35,17 @@ public class ReaderMenuController {
 	    void loginAccount(ActionEvent event) throws IOException {
 		    LoadGUI.loadFXML("Login.fxml", loginButton); 
 	    }
+	   /**
+	    * moving toe page for searching a book
+	    * @param evet
+	    * @throws IOException
+	    */
+	   	@FXML
+	   	void goToBookSearchPage(ActionEvent event) throws IOException
+	   	{
+	   		LoadGUI.loadFXML("SearchBook.fxml", searchBookButton);
+	   	}
+	   	
+	   
 	   
 }

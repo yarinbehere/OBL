@@ -108,7 +108,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Return">
+                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" onAction="#returnPreviousPage" prefHeight="27.0" text="Return">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -119,7 +119,7 @@
                   </Button>
               </buttons>
             </ButtonBar>
-            <Button fx:id="mainMenuButton" layoutX="233.0" layoutY="370.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" text="Main Menu" />
+            <Button fx:id="mainMenuButton" layoutX="233.0" layoutY="370.0" mnemonicParsing="false" onAction="#returnMainMenuPage" prefHeight="27.0" prefWidth="190.0" text="Main Menu" />
             <ImageView blendMode="MULTIPLY" cache="true" fitHeight="45.0" fitWidth="150.0" layoutX="509.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/braude_logo.png" />

@@ -1,5 +1,6 @@
 package common;
 
+import boundary.LoadGUI;
 import controller.LoginController;
 import entity.User;
 
@@ -18,7 +19,6 @@ public class ClientController {
 				//go to main menu of subscriber
 				if(message.user.getRole() == User.Role.SUBSCRIBER)
 				{
-					System.out.println("hi");
 					LoginController.userRole = User.Role.SUBSCRIBER;
 				}
 				//go to main menu of librarian
@@ -31,7 +31,6 @@ public class ClientController {
 				{
 					LoginController.userRole = User.Role.MANAGER;
 				}
-				
 			}	
 	}
 }

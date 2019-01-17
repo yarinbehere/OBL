@@ -1,11 +1,11 @@
 package controller;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
+import common.ThreadTest;
+import common.ThreadTest.ThreadTest2;
 import entity.User;
 import entity.User.Role;
 import javafx.event.ActionEvent;
@@ -15,6 +15,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+
 
 	public class LoginController 
 	{
@@ -28,19 +29,21 @@ import javafx.scene.text.Text;
 	    @FXML private Button helpButton;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
+	    @FXML private Button searchBookButton;
 	    MainClient main;
 	    
 	    public static Role userRole = null;
 	    
 	    @FXML
-	    void loginToOBL(ActionEvent event) throws IOException {
+	    void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
 	    	User user = new User(usernameTextField.getText(),passwordTextField.getText());
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
 	    	MainClient.client.accept(message);
+	    //	new ThreadTest.ThreadTest2(message).run();
+	    	Thread.sleep(100);
+	    	System.out.println(userRole);
 	    	if(userRole == Role.SUBSCRIBER)
 	    	{
-	    		System.out.println("fail");
-	    		System.out.println(userRole);
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}
 	    	else if(userRole == Role.LIBRARIAN)
@@ -51,9 +54,19 @@ import javafx.scene.text.Text;
 	    	{
 	    		
 	    	}
-	    	
 	    }
-
+	    
+	    @FXML
+		void returnPreviousPage(ActionEvent event) throws IOException
+	   	{
+	   		LoadGUI.loadFXML("ReaderMenu.fxml", returnButton);
+	   	}
+	    
+	    @FXML
+		void returnMainMenuPage(ActionEvent event) throws IOException
+	   	{
+	   		LoadGUI.loadFXML("ReaderMenu.fxml", mainMenuButton);
+	   	}
 	}
 
 

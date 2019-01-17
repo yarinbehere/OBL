@@ -86,7 +86,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="searchBookButton" layoutX="159.0" layoutY="86.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Search Book">
+                  <Button fx:id="searchBookButton" layoutX="159.0" layoutY="86.0" mnemonicParsing="false" onAction="#goToBookSearchPage" prefHeight="29.0" prefWidth="192.0" text="Search Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
