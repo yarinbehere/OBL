@@ -1,6 +1,7 @@
 package common;
 
-import common.user.entity.User;
+import controller.LoginController;
+import entity.User;
 
 public class ClientController {
 	
@@ -17,17 +18,18 @@ public class ClientController {
 				//go to main menu of subscriber
 				if(message.user.getRole() == User.Role.SUBSCRIBER)
 				{
-					
+					System.out.println("hi");
+					LoginController.userRole = User.Role.SUBSCRIBER;
 				}
 				//go to main menu of librarian
 				else if(message.user.getRole() == User.Role.LIBRARIAN)
 				{
-					
+					LoginController.userRole = User.Role.LIBRARIAN;
 				}
 				//go to main menu of manager
 				else
 				{
-					
+					LoginController.userRole = User.Role.MANAGER;
 				}
 				
 			}	

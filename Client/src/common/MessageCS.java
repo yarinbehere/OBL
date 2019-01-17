@@ -3,7 +3,7 @@ package common;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import common.user.entity.User;
+import entity.User;
 
 public class MessageCS implements Serializable {
 
@@ -21,10 +21,10 @@ public class MessageCS implements Serializable {
 	User user;
 
 	/**
-	 * @author roman
 	 * user wants to login to the system
 	 * @param messageType - messageType will be login
 	 * @param user 
+	 * @author Roman
 	 */
 	public MessageCS(MessageType messageType, User user)
 	{

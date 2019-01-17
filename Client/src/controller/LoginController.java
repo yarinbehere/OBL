@@ -1,12 +1,13 @@
-package common.gui.login;
+package controller;
+import java.io.IOException;
 import java.util.ArrayList;
 
-
-import application.Main;
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
-import common.user.entity.User;
+import entity.User;
+import entity.User.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,13 +28,29 @@ import javafx.scene.text.Text;
 	    @FXML private Button helpButton;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
-	    Main main;
+	    MainClient main;
+	    
+	    public static Role userRole = null;
 	    
 	    @FXML
-	    void loginToOBL(ActionEvent event) {
+	    void loginToOBL(ActionEvent event) throws IOException {
 	    	User user = new User(usernameTextField.getText(),passwordTextField.getText());
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
 	    	MainClient.client.accept(message);
+	    	if(userRole == Role.SUBSCRIBER)
+	    	{
+	    		System.out.println("fail");
+	    		System.out.println(userRole);
+	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
+	    	}
+	    	else if(userRole == Role.LIBRARIAN)
+	    	{
+	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton);
+	    	}
+	    	else
+	    	{
+	    		
+	    	}
 	    	
 	    }
 

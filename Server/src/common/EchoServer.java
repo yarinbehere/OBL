@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import common.ocsf.server.*;
-import common.user.entity.User.Role;
+import entity.User.Role;
 
 
 /**
