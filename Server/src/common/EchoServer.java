@@ -100,13 +100,14 @@ public class EchoServer extends AbstractServer
 				  		
 				  else {
 					  // Error msg: password not match
-					  System.out.println("Password does not match");
+					  client.sendToClient("password");
 				  }
 
 			  }
 			  else {
 				  // Error msg: user not found
 				  System.out.println("User not found.");
+				  client.sendToClient("User");
 			  }
 			  break;
 		  }

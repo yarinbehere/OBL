@@ -62,6 +62,7 @@ public class ChatClient extends AbstractClient
     {
     	ClientController.messageAnalyze(msg);
     }
+    System.out.println("123");
     
   }
 
