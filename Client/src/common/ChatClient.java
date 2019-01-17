@@ -6,6 +6,8 @@ package common;
 
 import common.*;
 import common.ocsf.client.AbstractClient;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -58,9 +60,19 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
+	  Alert alert = new Alert(AlertType.ERROR);
+	  System.out.println("hi");
+	  System.out.println(msg);
+	 //if message succeeded then it goes to the ClientController
     if(msg instanceof MessageCS)
     {
     	ClientController.messageAnalyze(msg);
+    }
+    //if message failed then post on screen
+    if(msg instanceof String)
+    {
+    	alert.setHeaderText("Error!!!");
+    	alert.setContentText((String) msg);
     }
     
   }
