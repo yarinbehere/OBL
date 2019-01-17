@@ -4,9 +4,17 @@ package common;
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import common.*;
+import entity.User;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * This class constructs the UI for a chat client.  It implements the
@@ -18,7 +26,7 @@ import common.*;
  * @author Dr Robert Lagani&egrave;re
  * @version July 2000
  */
-public class ClientConsole implements ChatIF 
+public class ClientConsole implements ChatIF
 {
   //Class variables *************************************************
   
@@ -33,6 +41,7 @@ public class ClientConsole implements ChatIF
    * The instance of the client that created this ConsoleChat.
    */
   ChatClient client;
+
 
   
   //Constructors ****************************************************
@@ -63,24 +72,15 @@ public class ClientConsole implements ChatIF
    * This method waits for input from the console.  Once it is 
    * received, it sends it to the client's message handler.
    */
-  public void accept() 
+  public void accept(Object message) 
   {
     try
     {
-      Scanner input = new Scanner(System.in); 
-      BufferedReader fromConsole = new BufferedReader(new InputStreamReader(System.in));
-      int message;
-      while (true) 
-      {
-    	 System.out.println("Press ID to choose student (1 or 2)");
-        message = input.nextInt();
-        client.handleMessageFromClientUI(message);
-      }
+       client.handleMessageFromClientUI(message);
     } 
     catch (Exception ex) 
     {
-      System.out.println
-        ("Unexpected error while reading from console!");
+      System.out.println("Unexpected error while reading from console!");
     }
   }
 
@@ -95,6 +95,7 @@ public class ClientConsole implements ChatIF
     System.out.println("> " + message);
   }
 
+
   
   //Class methods ***************************************************
   
@@ -103,21 +104,6 @@ public class ClientConsole implements ChatIF
    *
    * @param args[0] The host to connect to.
    */
-  public static void main(String[] args) 
-  {
-    String host = "";
-    int port = 0;  //The port number
 
-    try
-    {
-      host = args[0];
-    }
-    catch(ArrayIndexOutOfBoundsException e)
-    {
-      host = "localhost";
-    }
-    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
-    chat.accept();  //Wait for console data
-  }
 }
 //End of ConsoleChat class

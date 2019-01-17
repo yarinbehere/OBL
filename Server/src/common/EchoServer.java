@@ -3,13 +3,14 @@ package common;
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-
 import common.ocsf.server.*;
+import entity.User.Role;
+
 
 /**
  * This class overrides some of the methods in the abstract 
@@ -24,7 +25,8 @@ import common.ocsf.server.*;
 public class EchoServer extends AbstractServer 
 {
   //Class variables *************************************************
-  
+	private static DataBaseManager dbManager;
+	private static Connection conn;
   /**
    * The default port to listen on.
    */
@@ -46,38 +48,79 @@ public class EchoServer extends AbstractServer
   //Instance methods ************************************************
   
   /**
+   * @author Yarin, Roman
    * This method handles any messages received from the client.
+   * 
+   * ArrayList<String,Object>
+   * String is the option desired,
+   * Object is the entity related to the method.
    *
    * @param msg The message received from the client.
    * @param client The connection from which the message originated.
    */
   public void handleMessageFromClient(Object msg, ConnectionToClient client)
   {
-		Statement stmt;
-		Connection con;
-		DataBaseManager dbManager = new DataBaseManager();
-	    dbManager.dbConnection();
-	    System.out.println("Mistake in the query");
-		try 
-		{
-			con = dbManager.getConnection();
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM student WHERE `Student ID` = " + (int)msg + ";" );
-	 		while(rs.next())
-	 		{
-				 // Print out the values
-				 System.out.println(rs.getInt("Student ID")+" " +rs.getString("Student Name") + " " 
-						 + rs.getString("StatusMembership") + " " + rs.getString("Operation") + " " + rs.getString("Freeze"));
-			} 
-			rs.close();
-			//stmt.executeUpdate("UPDATE course SET semestr=\"W08\" WHERE num=61309");
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	    System.out.println("Message received: " + msg + " from " + client);
-	    this.sendToAllClients(msg);
+	 MessageCS message = (MessageCS)msg;
+	 String query;
+	 Statement stmt;
+	 try {
+		 stmt = conn.createStatement();
+		 switch(message.messageType)
+		 {
+		  case LOGIN:
+			  //Query to find user in DB
+			  query = "SELECT * FROM user WHERE `User Name` = '" +  message.user.getUserName() + "'" + ";";
+			  ResultSet rset = stmt.executeQuery(query);
+			  // If user is exists in DB 
+			  if(rset.next() == true)
+			  {
+				  // If password is match
+				  if(rset.getString("Password").equals(message.user.getPassword()))
+				  { 
+					  // Go to relevant main menu 
+					  switch(rset.getString("Role"))
+					  {
+					  case "Subscriber":
+						  message.user.setRole(Role.SUBSCRIBER);
+						  System.out.println("Subscriber");
+						  break;
+					  case "Librarian":
+						  message.user.setRole(Role.LIBRARIAN);
+						  System.out.println("Librarian");
+						  break;
+					  case "Manager":
+						  message.user.setRole(Role.MANAGER);
+						  System.out.println("Manager");
+						  break;
+						  
+					  }
+					  client.sendToClient(message);
+					 
+				  }
+				  		
+				  else {
+					  // Error msg: password not match
+					  client.sendToClient("password");
+				  }
+
+			  }
+			  else {
+				  // Error msg: user not found
+				  System.out.println("User not found.");
+				  client.sendToClient("User");
+			  }
+			  break;
+		  }
+	  } 
+	  catch (SQLException e) 
+	  {
+		e.printStackTrace();
+	  }
+	  catch (IOException e)
+	  {
+	      e.printStackTrace();
+	  }
+	  
   }
 
     
@@ -89,6 +132,12 @@ public class EchoServer extends AbstractServer
   {
     System.out.println
       ("Server listening for connections on port " + getPort());
+  }
+  
+  
+  protected void clientConnected(ConnectionToClient client) 
+  {
+	System.out.println("Client Connected From " + client);  
   }
   
   /**
@@ -113,8 +162,8 @@ public class EchoServer extends AbstractServer
   public static void main(String[] args) 
   {
     int port = 0; //Port to listen on
-    DataBaseManager dbManager = new DataBaseManager();
-    dbManager.dbConnection();
+    dbManager = new DataBaseManager();
+    conn = dbManager.dbConnection();
     try
     {
       port = Integer.parseInt(args[0]); //Get port from command line
@@ -134,6 +183,7 @@ public class EchoServer extends AbstractServer
     {
       System.out.println("ERROR - Could not listen for clients!");
     }
+    
   }
 }
 //End of EchoServer class
