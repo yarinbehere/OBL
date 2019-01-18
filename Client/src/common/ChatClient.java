@@ -6,6 +6,8 @@ package common;
 
 import common.*;
 import common.ocsf.client.AbstractClient;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -58,12 +60,13 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
+	
     if(msg instanceof MessageCS)
     {
     	ClientController.messageAnalyze(msg);
     }
-    System.out.println("123");
     
+
   }
 
   /**
