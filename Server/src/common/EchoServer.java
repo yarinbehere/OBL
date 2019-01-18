@@ -60,12 +60,14 @@ public class EchoServer extends AbstractServer
    */
   public void handleMessageFromClient(Object msg, ConnectionToClient client)
   {
+
 	  //go to the controller class
 	  ServerController server = new ServerController();
 	  server.messageReceivedFromClient(msg,client,conn);
+
   }
 
-    
+   
   /**
    * This method overrides the one in the superclass.  Called
    * when the server starts listening for connections.
