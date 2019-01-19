@@ -23,7 +23,7 @@ public class DataBaseManager {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/OBLdb?autoReconnect=true&useSSL=false","root","Aa123456");
             //Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.3.68/test","root","Root");
             System.out.println("SQL connection succeed");
-            //createTableCourses(conn)
+            //createTableCourses(conn) 
      	} catch (SQLException ex) 
      	    {/* handle any errors*/
             System.out.println("SQLException: " + ex.getMessage());

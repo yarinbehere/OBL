@@ -71,12 +71,5 @@ public class MainClient extends Application{
 		primaryStage.show();
 	}
 
-	public ClientConsole getClient() {
-		return client;
-		
-	}
 
-	public Stage getPrimaryStage() {
-		return primaryStage;
-	}
 }
