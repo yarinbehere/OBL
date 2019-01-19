@@ -24,7 +24,7 @@ public class ServerController {
 			 {
 			  case LOGIN:
 				  //Query to find user in DB
-				  query = "SELECT * FROM user WHERE `User Name` = '" +  message.user.getUserName() + "'" + ";";
+				  query = "SELECT * FROM user WHERE userName = '" +  message.user.getUserName() + "'" + ";";
 				  ResultSet rset = stmt.executeQuery(query);
 				  // If user is exists in DB 
 				  if(rset.next() == true)
@@ -37,22 +37,19 @@ public class ServerController {
 						  {
 						  case "Subscriber":
 							  message.user.setRole(Role.SUBSCRIBER);
-							  System.out.println("Subscriber");
 							  break;
 						  case "Librarian":
 							  message.user.setRole(Role.LIBRARIAN);
-							  System.out.println("Librarian");
 							  break;
 						  case "Manager":
 							  message.user.setRole(Role.MANAGER);
-							  System.out.println("Manager");
 							  break;
 							  
 						  }
+						  //sending message back with the relevant user
 						  client.sendToClient(message);
 						 
-					  }
-					  		
+					  }	
 					  else {
 						  //password is wrong
 						  client.sendToClient("Password inserted is incorrect!!");

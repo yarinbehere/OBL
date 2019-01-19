@@ -60,14 +60,10 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
-	  System.out.println("hi");
-	  System.out.println(msg);
-	
     if(msg instanceof MessageCS)
     {
     	ClientController.messageAnalyze(msg);
     }
-
   }
 
   /**
