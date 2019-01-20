@@ -1,8 +1,6 @@
 package common;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import entity.User;
 
 public class MessageCS implements Serializable {
@@ -11,7 +9,7 @@ public class MessageCS implements Serializable {
 	 * enum that differ between screens
 	 */
 	public enum MessageType {
-		LOGIN;
+		LOGIN, SEARCH_A_BOOK;
 	}
 	
 	

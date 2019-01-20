@@ -60,67 +60,11 @@ public class EchoServer extends AbstractServer
    */
   public void handleMessageFromClient(Object msg, ConnectionToClient client)
   {
-	 MessageCS message = (MessageCS)msg;
-	 String query;
-	 Statement stmt;
-	 try {
-		 stmt = conn.createStatement();
-		 switch(message.messageType)
-		 {
-		  case LOGIN:
-			  //Query to find user in DB
-			  query = "SELECT * FROM user WHERE `User Name` = '" +  message.user.getUserName() + "'" + ";";
-			  ResultSet rset = stmt.executeQuery(query);
-			  // If user is exists in DB 
-			  if(rset.next() == true)
-			  {
-				  // If password is match
-				  if(rset.getString("Password").equals(message.user.getPassword()))
-				  { 
-					  // Go to relevant main menu 
-					  switch(rset.getString("Role"))
-					  {
-					  case "Subscriber":
-						  message.user.setRole(Role.SUBSCRIBER);
-						  System.out.println("Subscriber");
-						  break;
-					  case "Librarian":
-						  message.user.setRole(Role.LIBRARIAN);
-						  System.out.println("Librarian");
-						  break;
-					  case "Manager":
-						  message.user.setRole(Role.MANAGER);
-						  System.out.println("Manager");
-						  break;
-						  
-					  }
-					  client.sendToClient(message);
-					 
-				  }
-				  		
-				  else {
-					  // Error msg: password not match
-					  client.sendToClient("password");
-				  }
 
-			  }
-			  else {
-				  // Error msg: user not found
-				  System.out.println("User not found.");
-				  client.sendToClient("User");
-			  }
-			  break;
-		  }
-	  } 
-	  catch (SQLException e) 
-	  {
-		e.printStackTrace();
-	  }
-	  catch (IOException e)
-	  {
-	      e.printStackTrace();
-	  }
-	  
+	  //go to the controller class
+	  ServerController server = new ServerController();
+	  server.messageReceivedFromClient(msg,client,conn);
+
   }
 
     

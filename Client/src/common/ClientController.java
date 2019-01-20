@@ -1,10 +1,11 @@
 package common;
 
-import boundary.LoadGUI;
 import controller.LoginController;
 import entity.User;
 
 public class ClientController {
+	
+	
 	
 	/**
 	 * message send back to the client (from the server) and has analyze
@@ -13,7 +14,8 @@ public class ClientController {
 	 */
 	public static void messageAnalyze(Object msg) 
 	{
-		MessageCS message = (MessageCS)msg;
+		{
+			MessageCS message = (MessageCS)msg;
 			switch(message.messageType) {
 			case LOGIN:
 				//go to main menu of subscriber
@@ -27,10 +29,13 @@ public class ClientController {
 					LoginController.userRole = User.Role.LIBRARIAN;
 				}
 				//go to main menu of manager
-				else
+				else if(message.user.getRole() == User.Role.LIBRARIAN)
 				{
 					LoginController.userRole = User.Role.MANAGER;
 				}
+				
 			}	
+		}
+		
 	}
 }
