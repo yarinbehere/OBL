@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
--- Host: localhost    Database: ortbraudelibrarydb
+-- Host: localhost    Database: obldb
 -- ------------------------------------------------------
 -- Server version	8.0.13
 
@@ -247,12 +247,12 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('100','aA123456','library'),('101','skre544','management'),('102','Aa123456','library'),('103','1010abba','library'),('104','5646bird','library'),('105','lock55','library'),('106','Aa123456','library'),('107','beholy1','library'),('200','12345','subscriber'),('201','Aa1342','subscriber'),('202','654re','subscriber'),('203','hey123','subscriber'),('204','204204','subscriber'),('205','0','subscriber'),('206','1111','subscriber'),('207','5454aA','subscriber'),('208','Aa123456','subscriber');
+INSERT INTO `user` VALUES ('100','aA123456','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber'),('208','Aa123456','Subscriber');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'ortbraudelibrarydb'
+-- Dumping routines for database 'obldb'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -264,4 +264,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-20 17:36:41
+-- Dump completed on 2019-01-20 20:41:20
