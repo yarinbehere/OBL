@@ -43,10 +43,11 @@ public class OrderBookController
     @FXML
     void searchBook(ActionEvent event) 
     {
-    	String=
-    	OrderBook orderBook = new OrderBook(bookTextField.get);
-    	MessageCS message = new MessageCS(MessageType.ORDER_BOOK,orderBook);
-    	MainClient.client.accept(message);
+    	//String=
+    //	OrderBook orderBook = new OrderBook(bookTextField.get);
+    	//MessageCS message = new MessageCS(MessageType.ORDER_BOOK,orderBook);
+    //	MainClient.client.accept(message);
+    	
 
     }
 }
