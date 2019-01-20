@@ -3,7 +3,7 @@
 // license found at www.lloseng.com 
 
 package common;
-// Roman is gay
+
 /**
  * This interface implements the abstract method used to display
  * objects onto the client or server UIs.
