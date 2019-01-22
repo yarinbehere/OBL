@@ -30,7 +30,6 @@ import javafx.scene.text.Text;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
-	    MainClient main;
 	    
 	    public static Role userRole = null;
 	    
@@ -41,7 +40,7 @@ import javafx.scene.text.Text;
 	    	MainClient.client.accept(message);
 	    //	new ThreadTest.ThreadTest2(message).run();
 	    	Thread.sleep(100);
-	    	System.out.println(userRole);
+	    	//load the page for the specific user
 	    	if(userRole == Role.SUBSCRIBER)
 	    	{
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
@@ -54,6 +53,7 @@ import javafx.scene.text.Text;
 	    	{
 	    		
 	    	}
+	    	
 	    }
 	    
 	    @FXML

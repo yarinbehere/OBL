@@ -2,7 +2,6 @@ package common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,10 +20,10 @@ public class DataBaseManager {
         
         try 
         {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/obldb?autoReconnect=true&useSSL=false","root","Aa123456");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/OBLdb?autoReconnect=true&useSSL=false","root","Aa123456");
             //Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.3.68/test","root","Root");
             System.out.println("SQL connection succeed");
-            //createTableCourses(conn)
+            //createTableCourses(conn) 
      	} catch (SQLException ex) 
      	    {/* handle any errors*/
             System.out.println("SQLException: " + ex.getMessage());
