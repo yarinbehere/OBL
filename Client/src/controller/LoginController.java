@@ -30,7 +30,6 @@ import javafx.scene.text.Text;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
-	    MainClient main;
 	    
 	    public static Role userRole = null;
 	    
@@ -54,6 +53,7 @@ import javafx.scene.text.Text;
 	    	{
 	    		
 	    	}
+	    	
 	    }
 	    
 	    @FXML

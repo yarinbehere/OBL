@@ -5,10 +5,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-
+import java.util.ArrayList;
 
 import common.ocsf.server.ConnectionToClient;
+import entity.Book;
 import entity.User.Role;
 
 public class ServerController {
@@ -18,6 +18,7 @@ public class ServerController {
 		 MessageCS message = (MessageCS)msg;
 		 String query;
 		 Statement stmt;
+		 ResultSet rset;
 		 try {
 			 stmt = conn.createStatement();
 			 switch(message.messageType)
@@ -25,7 +26,7 @@ public class ServerController {
 			  case LOGIN:
 				  //Query to find user in DB
 				  query = "SELECT * FROM user WHERE userName = '" +  message.user.getUserName() + "'" + ";";
-				  ResultSet rset = stmt.executeQuery(query);
+				  rset = stmt.executeQuery(query);
 				  // If user is exists in DB 
 				  if(rset.next() == true)
 				  {
@@ -61,7 +62,23 @@ public class ServerController {
 					  client.sendToClient("User can't be found");
 				  }
 				  break;
+			  case SEARCH_BOOK:
+				  ArrayList<Book> bookList = new ArrayList<>();
+				  query = "SELECT * FROM book WHERE title LIKE '%"+message.book.getBookTitle()+"%' " 
+				  + "AND author LIKE '%"+ message.book.getAuthorName() + "%' "
+				  + "AND category = '" + message.book.getBookGenre()+ "' "
+				  + "AND description LIKE '%" + message.book.getBookDescription() + "%';";
+				  rset = stmt.executeQuery(query);
+				  while(rset.next())
+				  {
+					  Book book = new Book(rset.getString("title"), rset.getString("author"),
+							  rset.getString("category"), rset.getString("description"));
+					  bookList.add(book);
+				  }
+				  client.sendToClient(bookList);
+				  		
 			  }
+			 
 		  } 
 		  catch (SQLException e) 
 		  {

@@ -6,6 +6,7 @@ package common;
 
 import common.*;
 import common.ocsf.client.AbstractClient;
+import entity.Book;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -63,6 +64,14 @@ public class ChatClient extends AbstractClient
     if(msg instanceof MessageCS)
     {
     	ClientController.messageAnalyze(msg);
+    }
+    if(msg instanceof ArrayList<?>)
+    {
+    	ArrayList<Book> message = (ArrayList<Book>)msg;
+    	  for(int i =0; i<message.size();i++)
+		  {
+			  System.out.println(message.get(i).getAuthorName());
+		  }
     }
   }
 
