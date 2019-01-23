@@ -9,7 +9,7 @@ public class MessageCS implements Serializable {
 	 * enum that differ between screens
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_A_BOOK;
+		LOGIN, SEARCH_A_BOOK, CREATE_SUBSCRIBER;
 	}
 	
 	
