@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 import entity.Book;
+import entity.Subscriber;
 import entity.User;
 
 public class MessageCS implements Serializable {
@@ -14,8 +15,7 @@ public class MessageCS implements Serializable {
 	 * @author rami
 	 */
 	public enum MessageType {
-
-		LOGIN,SEARCH_BOOK,ORDER_BOOK;
+		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK;
 	}
 	
 	
@@ -24,6 +24,7 @@ public class MessageCS implements Serializable {
 	/* Entities */
 	User user;
 	Book book;
+	Subscriber subscriber;
 
 
 	/**
@@ -49,5 +50,15 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.book = book;
 	}
-
+	/**
+	 * subscriber wants to borrow a book
+	 * @param messageType - messageType will be borrow book
+	 * @param subscriber 
+	 * @author Hai
+	 */
+	public MessageCS(MessageType messageType, Subscriber subscriber)
+	{
+		this.messageType = messageType;
+		this.subscriber = subscriber;
+	}
 }

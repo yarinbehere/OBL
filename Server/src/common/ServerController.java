@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
 import entity.Book;
+import entity.Subscriber;
 import entity.User.Role;
 
 public class ServerController {
@@ -76,7 +78,21 @@ public class ServerController {
 					  bookList.add(book);
 				  }
 				  client.sendToClient(bookList);
-				  		
+				  break;
+			  case ORDER_BOOK:
+				  Subscriber subscriber = null;
+				  //שאילתה שתחזיר לי את סטאסטוס המשתמש 
+				  //במידה וצריך, להכניס גם שאילתות שתוציא את סטאוס המשתמש לפי אימייל או תעודת זהות
+				  query = "SELECT * FROM readingcard r, user u WHERE u.userName = r.userName AND (r.userName = '"+ 
+				  message.subscriber.getSubscriberDetails() + "' OR r.email = '" + message.subscriber.getSubscriberDetails() + 
+				  "' OR r.subscriberID = '" + message.subscriber.getSubscriberDetails() + "');";
+				  rset=	stmt.executeQuery(query);
+				  if(rset.next() == true)
+				  {
+					  subscriber = new Subscriber(rset.getString("subscriberID"),rset.getString("subscriberStatus"));
+				  }
+				  MessageCS resultSearchSubscriber = new MessageCS(MessageType.SEARCH_SUBSCRIBER, subscriber);
+				  client.sendToClient(resultSearchSubscriber);
 			  }
 			 
 		  } 

@@ -1,5 +1,6 @@
 package common;
 
+import controller.BorrowBookController;
 import controller.LoginController;
 import entity.User;
 
@@ -33,6 +34,10 @@ public class ClientController {
 				{
 					LoginController.userRole = User.Role.MANAGER;
 				}
+			case SEARCH_SUBSCRIBER:
+				BorrowBookController.resultSubscriber = message.subscriber;
+			default:
+				break;
 				
 			}	
 		}
