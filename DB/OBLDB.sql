@@ -66,10 +66,10 @@ CREATE TABLE `bookorder` (
   `bookId` int(11) NOT NULL,
   `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`bookOrderNum`),
-  KEY `fk_BookOrder_reading cards1_idx` (`subscriptionNumber`),
   KEY `fk_BookOrder_books1_idx` (`bookId`),
+  KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
   CONSTRAINT `fk_BookOrder_books1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
-  CONSTRAINT `fk_BookOrder_reading cards1` FOREIGN KEY (`subscriptionNumber`) REFERENCES `readingcard` (`subscriptionnumber`)
+  CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriptionnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,7 +214,7 @@ CREATE TABLE `subscriber` (
   `email` varchar(45) NOT NULL,
   `subscriberStatus` varchar(15) NOT NULL,
   PRIMARY KEY (`subscriptionNumber`),
-  KEY `fk_readingCard_user1_idx` (`userName`),
+  KEY `fk_subscriber_user_idx` (`userName`),
   CONSTRAINT `fk_subscriber_user` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -263,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-24 21:42:34
+-- Dump completed on 2019-01-24 22:10:25
