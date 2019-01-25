@@ -49,19 +49,11 @@ public class CreateController {
 		char c2 = (char) (r.nextInt(26) + 'a');
 		int fourdigitNum = 1000 + r.nextInt(10000 - 1000);
 		// assigns the nodes values to meaningful named locals
-//		String userName = "208";
-//		String password = "" + c1 + c2 + String.valueOf(fourdigitNum);
-//		String firstName = "moshe";
-//		String lastName = "peretz";
-//		int id = Integer.parseInt("208");
-//		String email = "moshe@gmail.com";
-//		String phone = "0502979234";
-		
 		String userName = usernameTextField.getText();
 		String password = "" + c1 + c2 + String.valueOf(fourdigitNum);
 		String firstName = firstnameTextField.getText();
 		String lastName = lastnameTextField.getText();
-		int id = Integer.parseInt(idTextField.getText());
+		String id = idTextField.getText();
 		String email = emailTextField.getText();
 		String phone = /* phoneChoiceBox.getValue() + */ phoneTextField.getText();
 

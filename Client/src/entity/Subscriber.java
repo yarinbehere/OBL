@@ -14,7 +14,7 @@ public class Subscriber extends User {
 	String password;
 	String firstName;
 	String lastName;
-	int id;
+	String id;
 	String email;
 	String phone;
 	String subscriberStatus;
@@ -30,7 +30,7 @@ public class Subscriber extends User {
 	 * @param email
 	 * @param phone
 	 */
-	public Subscriber(String userName, String password, String firstName, String lastName, int id, String email,
+	public Subscriber(String userName, String password, String firstName, String lastName, String id, String email,
 			String phone) {
 		super(userName, password);
 		this.firstName = firstName;
@@ -71,14 +71,14 @@ public class Subscriber extends User {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
