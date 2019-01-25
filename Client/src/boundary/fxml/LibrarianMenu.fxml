@@ -86,7 +86,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="manageInventoryButton" alignment="CENTER" layoutX="159.0" layoutY="132.0" mnemonicParsing="false" onAction="#manageInventory" prefHeight="29.0" prefWidth="192.0" text="Manage Inventory">
+                  <Button fx:id="manageInventoryButton" alignment="CENTER" layoutX="159.0" layoutY="132.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Manage Inventory">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

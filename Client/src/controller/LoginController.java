@@ -47,7 +47,8 @@ import javafx.scene.text.Text;
 	    	}
 	    	else if(userRole == Role.LIBRARIAN)
 	    	{
-	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton);
+	    		System.out.println("dsaf");
+	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton); 
 	    	}
 	    	else
 	    	{

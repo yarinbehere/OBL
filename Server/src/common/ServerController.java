@@ -95,9 +95,10 @@ public class ServerController {
 				  {
 			
 					 FileTransfer tableOfContent = new FileTransfer(rset.getString("title"));
-					 String path =  "/common/" + rset.getString("tableOfContent");
-					 File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\src\\common\\Harry Potter and the Prisoner of Azkaban.pdf");
-				     byte [] mybytearray  = new byte [(int)newFile.length()];
+					 String path =  "/common/" + rset.getString("pdf");
+					 //File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\src\\common\\Harry Potter and the Prisoner of Azkaban.pdf");
+					 File newFile = new File ("Harry Potter and the Prisoner of Azkaban.pdf");
+					 byte [] mybytearray  = new byte [(int)newFile.length()];
 				     FileInputStream fis = new FileInputStream(newFile);
 				     BufferedInputStream bis = new BufferedInputStream(fis);			 
 				     tableOfContent.initArray(mybytearray.length);
