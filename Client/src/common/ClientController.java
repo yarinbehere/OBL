@@ -1,6 +1,7 @@
 package common;
 
 import controller.LoginController;
+import controller.SearchBookController;
 import entity.User;
 
 public class ClientController {
@@ -14,28 +15,34 @@ public class ClientController {
 	 */
 	public static void messageAnalyze(Object msg) 
 	{
+		MessageCS message = (MessageCS)msg;
+		switch(message.messageType) 
 		{
-			MessageCS message = (MessageCS)msg;
-			switch(message.messageType) {
-			case LOGIN:
-				//go to main menu of subscriber
-				if(message.user.getRole() == User.Role.SUBSCRIBER)
-				{
-					LoginController.userRole = User.Role.SUBSCRIBER;
-				}
-				//go to main menu of librarian
-				else if(message.user.getRole() == User.Role.LIBRARIAN)
-				{
-					LoginController.userRole = User.Role.LIBRARIAN;
-				}
-				//go to main menu of manager
-				else if(message.user.getRole() == User.Role.LIBRARIAN)
-				{
-					LoginController.userRole = User.Role.MANAGER;
-				}
-				
-			}	
-		}
+		case LOGIN:
+			//go to main menu of subscriber
+			if(message.getUser().getRole() == User.Role.SUBSCRIBER)
+			{
+				LoginController.userRole = User.Role.SUBSCRIBER;
+			}
+			//go to main menu of librarian
+			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
+			{
+				LoginController.userRole = User.Role.LIBRARIAN;
+			}
+			//go to main menu of manager
+			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
+			{
+				LoginController.userRole = User.Role.MANAGER;
+			}
+			break;
+		case SEARCH_BOOK:
+			SearchBookController.bookResult = message.getBooks();
+			break;
+		case TABLE_OF_CONTENT:
+			SearchBookController.tableOfContent = message.getTableOfContent();
+		default:
+			break;
+		}	
 		
 	}
 }

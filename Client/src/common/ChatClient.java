@@ -65,14 +65,6 @@ public class ChatClient extends AbstractClient
     {
     	ClientController.messageAnalyze(msg);
     }
-    if(msg instanceof ArrayList<?>)
-    {
-    	ArrayList<Book> message = (ArrayList<Book>)msg;
-    	  for(int i =0; i<message.size();i++)
-		  {
-			  System.out.println(message.get(i).getAuthorName());
-		  }
-    }
   }
 
   /**

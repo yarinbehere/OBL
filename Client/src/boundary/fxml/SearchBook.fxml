@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
@@ -91,9 +92,16 @@
                   <Font size="11.0" />
                </font>
             </Text>
-            <ListView fx:id="searchResult" layoutX="10.0" layoutY="301.0" prefHeight="193.0" prefWidth="619.0" />
             <Text layoutX="14.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:" />
-            <Button fx:id="selectBookButton" disable="true" layoutX="251.0" layoutY="501.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="139.0" text="Select Book" />
+            <Button fx:id="selectBookButton" disable="true" layoutX="251.0" layoutY="501.0" mnemonicParsing="false" onAction="#showTableOfContent" prefHeight="27.0" prefWidth="139.0" text="Select Book" />
+            <TableView fx:id="searchResultTable" layoutX="13.0" layoutY="296.0" onMouseClicked="#chooseBookFromTableViwe" prefHeight="190.0" prefWidth="619.0">
+              <columns>
+                <TableColumn fx:id="tableColumnTitle" prefWidth="81.60003662109375" text="Title" />
+                <TableColumn fx:id="tableColumnAuthor" prefWidth="117.5999755859375" text="Author" />
+                  <TableColumn fx:id="tableColumnGenre" prefWidth="122.39996337890625" text="Genre" />
+                  <TableColumn fx:id="tableColumnDescription" prefWidth="298.39990234375" text="Description" />
+              </columns>
+            </TableView>
       </children>
     </AnchorPane>
   </children>

@@ -1,12 +1,20 @@
 package controller;
 
+import java.awt.Desktop;
+import java.awt.Scrollbar;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
+import entity.FileTransfer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 public class SearchBookController implements Initializable{
 	
@@ -30,8 +43,16 @@ public class SearchBookController implements Initializable{
     @FXML private Button selectBookButton;
     
     @FXML private ChoiceBox<String> subjectChoiceBox;
-
-    @FXML private ListView<?> searchResult;
+    
+    @FXML private TableView<Book> searchResultTable;
+    @FXML private TableColumn<Book, String> tableColumnTitle;
+    @FXML private TableColumn<Book, String> tableColumnAuthor;
+    @FXML private TableColumn<Book, String> tableColumnGenre;
+    @FXML private TableColumn<Book, String> tableColumnDescription;
+    
+    public static ArrayList<Book> bookResult;
+    public static FileTransfer tableOfContent;
+    private ObservableList<Book> listOfBooks;
 
     
     //initialize the choicebox with genre options
@@ -41,24 +62,70 @@ public class SearchBookController implements Initializable{
 				("Action","Fantasy","Comedy","Software","Horror");
 		subjectChoiceBox.setValue("Action");//make the first value chosen as "Action"
 		subjectChoiceBox.setItems(subjectList);
+		//initialize the TableView
+		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("BookTitle"));
+		tableColumnAuthor.setCellValueFactory(new PropertyValueFactory<>("AuthorName"));
+		tableColumnGenre.setCellValueFactory(new PropertyValueFactory<>("BookGenre"));
+		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("BookDescription"));
 
 	}
-    
+    /**
+     * clears all data inserted by the user from the fields when button is pressed
+     * @param event
+     */
     @FXML
     void clearFields(ActionEvent event) 
     {
     	titleTextField.setText("");
     	authorTextField.setText("");
     	freeTextField.setText("");
+    	searchResultTable.getItems().clear();
+    	selectBookButton.setDisable(true);
     }
 
     @FXML
-    void searchBook(ActionEvent event) {
+    void searchBook(ActionEvent event) throws InterruptedException {
     	Book book = new Book
     			(titleTextField.getText(), authorTextField.getText(), 
     					subjectChoiceBox.getSelectionModel().getSelectedItem(), freeTextField.getText());
     	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK, book);
     	MainClient.client.accept(message);
+    	Thread.sleep(100);
+ 
+    	listOfBooks = FXCollections.observableArrayList(bookResult);
+    	searchResultTable.setItems(listOfBooks);
+    	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
+    	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     }
+    /**
+     * a row in TableView has been clicked
+     * @param event
+     */
+    @FXML
+    void chooseBookFromTableViwe(MouseEvent event) 
+    {
+    	if(searchResultTable.hasProperties())
+    		selectBookButton.setDisable(false);
+    	
+    }
+    
+    @FXML
+    void showTableOfContent(ActionEvent event) throws InterruptedException, IOException {
+    	Book book = searchResultTable.getSelectionModel().getSelectedItem();
+    	MessageCS message = new MessageCS(MessageType.TABLE_OF_CONTENT,book);
+    	MainClient.client.accept(message);
+    	Thread.sleep(100);
+    	String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
+    	File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\src\\common\\Harry Potter and the Prisoner of Azkaban2.pdf");
+	    FileOutputStream fos = new FileOutputStream(newFile);
+	    BufferedOutputStream bos = new BufferedOutputStream(fos);			  
+	    bos.write(tableOfContent.getMybytearray(),0,tableOfContent.getSize());
+	    bos.flush();
+    	bos.close();
+    	Desktop desktop = Desktop.getDesktop();
+    	desktop.open(newFile);
+    	
+    }
+
 }

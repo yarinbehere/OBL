@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LibrarianMenuController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -78,7 +78,7 @@
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="296.0" layoutY="-10.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="510.0" />
                   <Text layoutX="14.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select option:" />
-                  <Button fx:id="borrowBookButton" alignment="CENTER" layoutX="159.0" layoutY="55.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Borrow Book">
+                  <Button fx:id="borrowBookButton" alignment="CENTER" layoutX="159.0" layoutY="55.0" mnemonicParsing="false" onAction="#borrowBook" prefHeight="29.0" prefWidth="192.0" text="Borrow Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -86,7 +86,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="manageInventoryButton" alignment="CENTER" layoutX="159.0" layoutY="132.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Manage Inventory">
+                  <Button fx:id="manageInventoryButton" alignment="CENTER" layoutX="159.0" layoutY="132.0" mnemonicParsing="false" onAction="#manageInventory" prefHeight="29.0" prefWidth="192.0" text="Manage Inventory">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,7 +94,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="returnBookButton" alignment="CENTER" layoutX="159.0" layoutY="94.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Return Book">
+                  <Button fx:id="returnBookButton" alignment="CENTER" layoutX="159.0" layoutY="94.0" mnemonicParsing="false" onAction="#bookReturn" prefHeight="29.0" prefWidth="192.0" text="Return Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,7 +111,7 @@
                         </ImageView>
                      </graphic></Button>
                   <Separator layoutX="155.0" layoutY="176.0" prefWidth="200.0" />
-                  <Button fx:id="searchBookButton" alignment="CENTER" layoutX="159.0" layoutY="17.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Search Book">
+                  <Button fx:id="searchBookButton" alignment="CENTER" layoutX="159.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="29.0" prefWidth="192.0" text="Search Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

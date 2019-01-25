@@ -3,20 +3,31 @@ package entity;
 import java.io.Serializable;
 
 public class Book implements Serializable{
-	String bookTitle;
-	String authorName;
-	String editionNumber;
-	String publishedDate;
-	String bookDescription;
-	String bookGenre;
-	String cataologNumber;
-	String datePurchase;
-	String shelfLocation;
+	private String bookTitle;
+	private String authorName;
+	private String editionNumber;
+	private String publishedDate;
+	private String bookDescription;
+	private String bookGenre;
+	private String cataologNumber;
+	private String datePurchase;
+	private String shelfLocation;
+	private String bookID;
 	int amountOfBooks;
 	int quanity;
+	
 
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
 	{
+		this.bookTitle = bookTitle;
+		this.authorName = authorName;
+		this.bookGenre = bookGenre;
+		this.bookDescription = bookDescription;
+	}
+	
+	public Book(String bookID, String bookTitle, String authorName, String bookGenre, String bookDescription)
+	{
+		this.bookID = bookID;
 		this.bookTitle = bookTitle;
 		this.authorName = authorName;
 		this.bookGenre = bookGenre;
@@ -53,6 +64,14 @@ public class Book implements Serializable{
 	
 	public void setBookDescription(String bookDescription) {
 		this.bookDescription = bookDescription;
+	}
+
+	public String getBookID() {
+		return bookID;
+	}
+
+	public void setBookID(String bookID) {
+		this.bookID = bookID;
 	}
 	
 	
