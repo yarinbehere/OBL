@@ -89,7 +89,7 @@ public class EchoServer extends AbstractServer
    * when the server stops listening for connections.
    */
   protected void serverStopped()
-  {
+  { 
     System.out.println
       ("Server has stopped listening for connections.");
   }
