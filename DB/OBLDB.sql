@@ -83,6 +83,34 @@ LOCK TABLES `bookorder` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bookreturn`
+--
+
+DROP TABLE IF EXISTS `bookreturn`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `bookreturn` (
+  `bookID` varchar(45) NOT NULL,
+  `returnDate` date NOT NULL,
+  `returnAttempts` int(11) NOT NULL,
+  PRIMARY KEY (`bookID`,`returnDate`),
+  KEY `fk_returnAttempts_borrowedbook_idx` (`returnDate`),
+  CONSTRAINT `fk_returnAttempts_borrowedbook` FOREIGN KEY (`returnDate`) REFERENCES `borrowedbook` (`returndate`),
+  CONSTRAINT `fk_returnattempts_book` FOREIGN KEY (`bookID`) REFERENCES `book` (`bookid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bookreturn`
+--
+
+LOCK TABLES `bookreturn` WRITE;
+/*!40000 ALTER TABLE `bookreturn` DISABLE KEYS */;
+INSERT INTO `bookreturn` VALUES ('1','2019-01-23',1),('4','2019-01-10',0);
+/*!40000 ALTER TABLE `bookreturn` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `borrowedbook`
 --
 
@@ -97,7 +125,8 @@ CREATE TABLE `borrowedbook` (
   `lostBook` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`bookId`,`subscriptionNumber`),
   KEY `bookFK_idx` (`bookId`),
-  KEY `fk_borrowedbook_subscriber_idx` (`subscriptionNumber`),
+  KEY `fk_borrowedbook_subscriber_idx` (`subscriptionNumber`) /*!80000 INVISIBLE */,
+  KEY `returnDate_idx` (`returnDate`),
   CONSTRAINT `fk_borrowedbook_book` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
   CONSTRAINT `fk_borrowedbook_subscriber` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriptionnumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -225,7 +254,7 @@ CREATE TABLE `subscriber` (
 
 LOCK TABLES `subscriber` WRITE;
 /*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
-INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','perets','0502712993','moshe@gmail.com','Active');
+INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','peretz','0502712993','moshe@gmail.com','Active');
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +279,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('100','aA123456','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber'),('208','gb9789','Subscriber');
+INSERT INTO `user` VALUES ('100','aA123456','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber'),('208','ol9895','Subscriber');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -263,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-25 14:02:02
+-- Dump completed on 2019-01-25 21:05:44
