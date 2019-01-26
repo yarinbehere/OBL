@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="585.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <ImageView fitHeight="585.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../images/background_image.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="11.0" layoutY="537.0" prefHeight="7.0" prefWidth="619.0" />
+            <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/searchBook_icon.png" />
+               </image>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
+            <Pane layoutX="11.0" layoutY="66.0" prefHeight="205.0" prefWidth="619.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="205.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book details:" />
+                  <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
+                  <TextField fx:id="titleTextField" layoutX="105.0" layoutY="45.0" prefHeight="27.0" prefWidth="188.0" />
+                  <Text layoutX="304.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authors:" />
+                  <TextField fx:id="authorTextField" layoutX="381.0" layoutY="45.0" prefHeight="27.0" prefWidth="212.0" />
+                  <Text layoutX="28.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject:" />
+                  <Text layoutX="28.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
+                  <Separator layoutX="137.0" layoutY="21.0" prefHeight="7.0" prefWidth="477.0" />
+                  <Button fx:id="searchButton" layoutX="221.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="104.0" text="Search" />
+                  <Button fx:id="clearButton" layoutX="336.0" layoutY="166.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="Clear" />
+                  <ChoiceBox fx:id="subjectChoiceBox" accessibleText="dsfsdf" layoutX="105.0" layoutY="84.0" prefHeight="27.0" prefWidth="188.0" />
+                  <TextField fx:id="freeTextField" layoutX="105.0" layoutY="120.0" prefHeight="27.0" prefWidth="490.0" />
+               </children>
+            </Pane>
+            <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Search Book">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Text>
+            <ButtonBar layoutX="13.0" layoutY="542.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
+              <buttons>
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/help_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="closeButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Close">
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cancel_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+            <ImageView fitHeight="40.0" fitWidth="143.0" layoutX="529.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/braude_logo.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="pathLabel" layoutX="181.0" layoutY="568.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Search Book">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Text>
+            <ListView layoutX="10.0" layoutY="301.0" prefHeight="193.0" prefWidth="619.0" />
+            <Text layoutX="14.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Results:" />
+            <Button fx:id="selectBookButton" disable="true" layoutX="251.0" layoutY="501.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="139.0" text="Select Book" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
