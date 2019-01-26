@@ -80,9 +80,7 @@ public class ServerController {
 				client.sendToClient(bookList);
 				break;
 			case SEARCH_SUBSCRIBER:
-				Subscriber subscriber = null;
-				//שאילתה שתחזיר לי את סטאסטוס המשתמש 
-				//במידה וצריך, להכניס גם שאילתות שתוציא את סטאוס המשתמש לפי אימייל או תעודת זהות
+				Subscriber subscriber = null; 
 				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = '"+ 
 						message.subscriber.getSubscriberDetails() + "' OR r.email = '" + message.subscriber.getSubscriberDetails() + 
 						"' OR r.subscriberID = '" + message.subscriber.getSubscriberDetails() + "');";
@@ -100,14 +98,14 @@ public class ServerController {
 				rset=	stmt.executeQuery(query);
 				if(rset.next() == true)
 				{
-					book = new Book(rset.getString("bookId"),rset.getString("wanted"));
-					System.out.println(book.getwantedLevel());
+					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"));
 				}
 				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_OPTIONS, book);
 				client.sendToClient(resultBook);
 				break;
 
-
+			case BORROW:
+				
 			}
 
 

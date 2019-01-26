@@ -16,10 +16,9 @@ public class Book implements Serializable{
 	String bookSerialNumber;
 	String bookDetails;
 	String wantedLevel;
+	int OriginalBookQuanity;
+	int CurrentBookQuanity;
 	////
-	int amountOfBooks;
-	int quanity;
-
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
 	{
 		this.bookTitle = bookTitle;
@@ -28,10 +27,11 @@ public class Book implements Serializable{
 		this.bookDescription = bookDescription;
 	}
 	//contractor for borrowing book
-	public Book(String bookSerialNumber, String wantedLevel) 
+	public Book(String bookSerialNumber, String wantedLevel,int CurrentBookQuanity) 
 	{
 		this.bookSerialNumber=bookSerialNumber;
 		this.wantedLevel=wantedLevel;
+		this.CurrentBookQuanity=CurrentBookQuanity;
 	}
 	//
 	public Book(String bookDetails) 
@@ -83,9 +83,20 @@ public class Book implements Serializable{
 		return bookDescription;
 	}
 	
+	public void setOriginalBookQuanity(int OriginalBookQuanity) {
+		this.OriginalBookQuanity = OriginalBookQuanity;
+	}
+	public int getOriginalBookQuanity() {
+		return OriginalBookQuanity;
+	}
 	public void setBookDescription(String bookDescription) {
 		this.bookDescription = bookDescription;
 	}
-	
+	public void setCurrentBookQuanity(int CurrentBookQuanity) {
+		this.CurrentBookQuanity = CurrentBookQuanity;
+	}
+	public int getCurrentBookQuanity() {
+		return CurrentBookQuanity;
+	}
 	
 }
