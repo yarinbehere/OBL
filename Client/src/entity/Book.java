@@ -12,6 +12,11 @@ public class Book implements Serializable{
 	String cataologNumber;
 	String datePurchase;
 	String shelfLocation;
+	////
+	String bookSerialNumber;
+	String bookDetails;
+	String wantedLevel;
+	////
 	int amountOfBooks;
 	int quanity;
 
@@ -22,15 +27,42 @@ public class Book implements Serializable{
 		this.bookGenre = bookGenre;
 		this.bookDescription = bookDescription;
 	}
+	//contractor for borrowing book
+	public Book(String bookSerialNumber, String wantedLevel) 
+	{
+		this.bookSerialNumber=bookSerialNumber;
+		this.wantedLevel=wantedLevel;
+	}
+	//
+	public Book(String bookDetails) 
+	{
+		this.bookDetails = bookDetails;
+	}
 	
+	public String getwantedLevel() {
+		return wantedLevel;
+	}
+	public String getbookDetails() {
+		return bookDetails;
+	}
 	public String getBookTitle() {
 		return bookTitle;
 	}
-	
+	public String getbookSerialNumber() {
+		return bookSerialNumber;
+	}
+	public void setbookSerialNumber(String bookSerialNumber) {
+		this.bookSerialNumber = bookSerialNumber;
+	}
+	public void setwantedLevel(String wantedLevel) {
+		this.wantedLevel = wantedLevel;
+	}
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
 	}
-	
+	public void setbookDetails(String bookDetails) {
+		this.bookDetails = bookDetails;
+	}
 	public String getAuthorName() {
 		return authorName;
 	}

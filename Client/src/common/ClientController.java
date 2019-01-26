@@ -30,12 +30,20 @@ public class ClientController {
 					LoginController.userRole = User.Role.LIBRARIAN;
 				}
 				//go to main menu of manager
-				else if(message.user.getRole() == User.Role.LIBRARIAN)
+				else if(message.user.getRole() == User.Role.LIBRARIAN) 
 				{
 					LoginController.userRole = User.Role.MANAGER;
 				}
+				break;
 			case SEARCH_SUBSCRIBER:
 				BorrowBookController.resultSubscriber = message.subscriber;
+				break;
+			case SEARCH_BOOK_FOR_OPTIONS:
+
+				BorrowBookController.resultBook = message.book;
+				System.out.println(BorrowBookController.resultBook);
+
+				break;
 			default:
 				break;
 				

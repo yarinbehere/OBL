@@ -86,7 +86,7 @@
                   <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchSubscriber" text="Search Subscriber" />
                   <Text layoutX="28.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Name:" />
                   <TextField fx:id="bookLabel" layoutX="125.0" layoutY="162.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
-                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="162.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
+                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="162.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="125.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Status:">
                      <font>
                         <Font name="System Italic" size="13.0" />

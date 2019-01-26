@@ -3,6 +3,7 @@ package controller;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
+import entity.Book;
 import entity.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class BorrowBookController {
+public class BorrowBookController { 
 
     @FXML private TextField subscriberEditLabel;
     @FXML private Button searchSubscriberButton;
@@ -30,16 +31,30 @@ public class BorrowBookController {
     @FXML private Text pathLabel;
     
     public static Subscriber resultSubscriber;
+    public static Book resultBook;
     
     @FXML
     void searchSubscriber(ActionEvent event) throws InterruptedException
     {
     	Subscriber subscriber = new Subscriber(subscriberEditLabel.getText());
-    	MessageCS message = new MessageCS(MessageType.ORDER_BOOK,subscriber);
+    	MessageCS message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
     	MainClient.client.accept(message);
     	Thread.sleep(100);
     	subscriberStatusLabel.setText(resultSubscriber.getSubscriberStatus());
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
+    }
+
+    @FXML
+    void searchBook(ActionEvent event) throws InterruptedException
+    {
+    	Book book = new Book(bookLabel.getText());
+    	System.out.println(book.getbookDetails());
+    	System.out.println(bookLabel.getText());
+    	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_OPTIONS,book);
+    	MainClient.client.accept(message);
+    	Thread.sleep(100);
+    	bookStatusLabel.setText(resultBook.getwantedLevel());
+    	bookIDLabel.setText(resultBook.getbookSerialNumber());
     }
 
 }

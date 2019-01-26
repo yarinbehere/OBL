@@ -15,7 +15,7 @@ public class MessageCS implements Serializable {
 	 * @author rami
 	 */
 	public enum MessageType {
-		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK;
+		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK,SEARCH_BOOK_FOR_OPTIONS;
 	}
 	
 	
@@ -61,4 +61,5 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.subscriber = subscriber;
 	}
+	
 }

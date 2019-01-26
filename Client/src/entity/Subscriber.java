@@ -30,7 +30,8 @@ public class Subscriber implements Serializable
 		this.setSubscriberDetails(subscriberDetails);
 	}
 	
-	public Subscriber(String subscriberID, String subscriberStatus) {
+	public Subscriber(String subscriberID, String subscriberStatus) 
+	{ 
 		this.subscriberID = subscriberID;
 		this.subscriberStatus = subscriberStatus;
 	}
