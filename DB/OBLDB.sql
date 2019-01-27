@@ -64,7 +64,8 @@ CREATE TABLE `bookorder` (
   `orderDate` date NOT NULL,
   `subscriptionNumber` varchar(45) NOT NULL,
   `bookId` varchar(45) NOT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `status` varchar(45) NOT NULL,
+  `orderTime` time NOT NULL,
   PRIMARY KEY (`bookOrderNum`),
   KEY `fk_BookOrder_books1_idx` (`bookId`),
   KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
@@ -79,6 +80,7 @@ CREATE TABLE `bookorder` (
 
 LOCK TABLES `bookorder` WRITE;
 /*!40000 ALTER TABLE `bookorder` DISABLE KEYS */;
+INSERT INTO `bookorder` VALUES ('1','2019-01-15','207','6','wanted','12:55:03'),('2','2019-01-10','208','8','not wanted','16:20:00');
 /*!40000 ALTER TABLE `bookorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +256,7 @@ CREATE TABLE `subscriber` (
 
 LOCK TABLES `subscriber` WRITE;
 /*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
-INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','peretz','0502712993','moshe@gmail.com','Active');
+INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','peretz','0502712993','moshe@gmail.com','Frozen');
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-26 21:12:45
+-- Dump completed on 2019-01-27 19:45:03
