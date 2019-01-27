@@ -64,7 +64,7 @@ public class ClientConsole implements ChatIF
       System.exit(1);
     }
   }
-
+ 
   
   //Instance methods ************************************************
   

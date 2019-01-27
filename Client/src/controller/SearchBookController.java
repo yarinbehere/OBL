@@ -55,7 +55,7 @@ public class SearchBookController implements Initializable{
     private ObservableList<Book> listOfBooks;
 
     
-    //initialize the choicebox with genre options
+    //initialize the ChoiceBox and TableView
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<String> subjectList = FXCollections.observableArrayList
@@ -86,14 +86,14 @@ public class SearchBookController implements Initializable{
     @FXML
     void searchBook(ActionEvent event) throws InterruptedException {
     	selectBookButton.setDisable(true);//if user pressed search again, disable the button
-    	Book book = new Book
+    	Book book = new Book //build an entity of type book with parameters inserted from user
     			(titleTextField.getText(), authorTextField.getText(), 
     					subjectChoiceBox.getSelectionModel().getSelectedItem(), freeTextField.getText());
-    	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK, book);
-    	MainClient.client.accept(message);
-    	Thread.sleep(100);
- 
-    	listOfBooks = FXCollections.observableArrayList(bookResult);
+    	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK, book); //build the type of message we want the server to perfrom
+    	MainClient.client.accept(message);//send message to the client
+    	Thread.sleep(400);//need to fix this with real threads instead of making main thread sleep
+    	//set the items in the table list
+    	listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
     	searchResultTable.setItems(listOfBooks);
     	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
     	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -102,6 +102,7 @@ public class SearchBookController implements Initializable{
     /**
      * a row in TableView has been clicked
      * @param event
+     * @author Roman
      */
     @FXML
     void chooseBookFromTableViwe(MouseEvent event) 
@@ -111,21 +112,29 @@ public class SearchBookController implements Initializable{
     	
     }
     
+    /**
+     * opening the table of content of the chosen book by it's serial number
+     * @param event
+     * @throws InterruptedException
+     * @throws IOException
+     * @author Roman
+     */
+    
     @FXML
     void showTableOfContent(ActionEvent event) throws InterruptedException, IOException {
     	Book book = searchResultTable.getSelectionModel().getSelectedItem();
     	MessageCS message = new MessageCS(MessageType.TABLE_OF_CONTENT,book);
-    	MainClient.client.accept(message);
-    	Thread.sleep(100);
+    	MainClient.client.accept(message);//send message to the client
+    	Thread.sleep(400);
     	//String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
-    	File newFile = new File (tableOfContent.getFileName() + "1.pdf");
+    	File newFile = new File (tableOfContent.getFileName() + "1.pdf");//write the file to location and added "1" to differ from main file
 	    FileOutputStream fos = new FileOutputStream(newFile);
 	    BufferedOutputStream bos = new BufferedOutputStream(fos);			  
 	    bos.write(tableOfContent.getMybytearray(),0,tableOfContent.getSize());
 	    bos.flush();
     	bos.close();
     	Desktop desktop = Desktop.getDesktop();
-    	desktop.open(newFile);
+    	desktop.open(newFile);//open the file after it finished writing it
     }
 
 }

@@ -63,10 +63,10 @@ public class ChatClient extends AbstractClient
   {
     if(msg instanceof MessageCS)
     {
-    	ClientController.messageAnalyze(msg);
+    	ClientController.messageAnalyze(msg);	
     }
   }
-
+ 
   /**
    * This method handles all data coming from the UI            
    *
