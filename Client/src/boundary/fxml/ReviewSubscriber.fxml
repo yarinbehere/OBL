@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="568.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="OBL">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Action">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="543.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
+      <children>
+            <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@fxml/images/background_image.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="11.0" layoutY="500.0" prefHeight="7.0" prefWidth="619.0" />
+            <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@fxml/images/borrow_icon.png" />
+               </image>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
+            <Pane layoutX="11.0" layoutY="66.0" prefHeight="176.0" prefWidth="619.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Susbcriber :" />
+                  <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review Subscriber:" />
+                  <TextField fx:id="subscriberEditLabel" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Username, email, ID" />
+                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
+                  <Separator layoutX="119.0" layoutY="22.0" prefHeight="6.0" prefWidth="491.0" />
+                  <Button fx:id="editSubscriberButton" layoutX="256.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Edit Subscriber" />
+                  <Text layoutX="135.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Status:">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="subscriberStatusLabel" fill="#40c900" layoutX="254.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" wrappingWidth="57.4287109375">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="353.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber ID number:">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink fx:id="subscriberIDLabel" layoutX="503.0" layoutY="76.0" prefHeight="25.0" prefWidth="57.0" text="[id]" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Hyperlink>
+                  <Text layoutX="135.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View Activity Log:">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink fx:id="subscriberIDLabel1" layoutX="246.0" layoutY="104.0" prefHeight="27.0" prefWidth="105.0" text="[Activity Log]" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </Hyperlink>
+               </children>
+            </Pane>
+            <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Review Subscriber">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Text>
+            <ButtonBar layoutX="11.0" layoutY="500.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
+              <buttons>
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxml/images/help_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Return">
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxml/images/return_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+            <ImageView fitHeight="45.0" fitWidth="150.0" layoutX="513.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@fxml/images/braude_logo.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="pathLabel" layoutX="195.0" layoutY="525.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Review Subscriber">
+               <font>
+                  <Font size="11.0" />
+               </font></Text>
+            <Pane layoutX="11.0" layoutY="251.0" prefHeight="239.0" prefWidth="619.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="243.0" layoutY="-1.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Text layoutX="13.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Subscriber's details:" />
+                  <Separator layoutX="153.0" layoutY="24.0" prefHeight="4.0" prefWidth="454.0" />
+                  <Button fx:id="changeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
+                  <Text layoutX="27.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
+                  <TextField fx:id="usernameTextField" layoutX="104.0" layoutY="42.0" prefHeight="27.0" prefWidth="188.0" />
+                  <Text layoutX="303.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
+                  <TextField fx:id="emailTextField" layoutX="380.0" layoutY="42.0" prefHeight="27.0" prefWidth="212.0" />
+                  <Text layoutX="27.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
+                  <TextField fx:id="idTextField" layoutX="104.0" layoutY="81.0" prefHeight="27.0" prefWidth="188.0" />
+                  <Text layoutX="27.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname:" />
+                  <TextField fx:id="firstnameTextField" layoutX="104.0" layoutY="117.0" prefHeight="27.0" prefWidth="188.0" />
+                  <Text layoutX="303.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:" />
+                  <TextField fx:id="lastnameTextField" layoutX="380.0" layoutY="117.0" prefHeight="27.0" prefWidth="212.0" />
+                  <Text layoutX="303.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone:" />
+                  <TextField fx:id="phoneTextField" layoutX="457.0" layoutY="81.0" prefHeight="27.0" prefWidth="135.0" />
+                  <ChoiceBox fx:id="phoneChoiceBox" layoutX="380.0" layoutY="82.0" prefHeight="27.0" prefWidth="70.0" />
+                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Reset" />
+                  <Text layoutX="27.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
+                  <ChoiceBox fx:id="statusChoiceBox" layoutX="104.0" layoutY="155.0" prefHeight="27.0" prefWidth="100.0" />
+                  <Text layoutX="302.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Type:" />
+                  <ChoiceBox fx:id="roleChoiceBox" layoutX="380.0" layoutY="155.0" prefHeight="27.0" prefWidth="100.0" />
+               </children>
+            </Pane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

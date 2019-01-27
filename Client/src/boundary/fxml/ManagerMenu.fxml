@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LibrarianMenuController">
+<VBox prefHeight="638.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerMenuController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -62,68 +62,97 @@
       <children>
             <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../images/background_image.png" />
+                  <Image url="@images/background_image.png" />
                </image>
             </ImageView>
-            <Separator layoutX="11.0" layoutY="424.0" prefHeight="7.0" prefWidth="619.0" />
+            <Separator layoutX="14.0" layoutY="565.0" prefHeight="7.0" prefWidth="648.0" />
             <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/main_icon.png" />
+                  <Image url="@images/main_icon.png" />
                </image>
                <effect>
                   <Glow />
                </effect>
             </ImageView>
-            <Pane layoutX="66.0" layoutY="115.0" prefHeight="286.0" prefWidth="510.0">
+            <Pane layoutX="66.0" layoutY="115.0" prefHeight="425.0" prefWidth="510.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="296.0" layoutY="-10.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="510.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="438.0" layoutY="-10.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="510.0" />
                   <Text layoutX="14.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select option:" />
-                  <Button fx:id="borrowBookButton" alignment="CENTER" layoutX="159.0" layoutY="55.0" mnemonicParsing="false" onAction="#borrowBook" prefHeight="29.0" prefWidth="192.0" text="Borrow Book">
+                  <Button fx:id="borrowBookButton" alignment="CENTER" layoutX="160.0" layoutY="60.0" mnemonicParsing="false" onAction="#borrowBook" prefHeight="29.0" prefWidth="192.0" text="Borrow Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/borrow_icon.png" />
+                              <Image url="@images/borrow_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="manageInventoryButton" alignment="CENTER" layoutX="159.0" layoutY="132.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Manage Inventory">
+                  <Button fx:id="addNewBookButton" alignment="CENTER" layoutX="160.0" layoutY="150.0" mnemonicParsing="false" onAction="#addNewBook" prefHeight="29.0" prefWidth="192.0" text="Add New Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/inventory_icon.png" />
+                              <Image url="@images/inventory_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="returnBookButton" alignment="CENTER" layoutX="159.0" layoutY="94.0" mnemonicParsing="false" onAction="#bookReturn" prefHeight="29.0" prefWidth="192.0" text="Return Book">
+                  <Button fx:id="returnBookButton" alignment="CENTER" layoutX="160.0" layoutY="100.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="29.0" prefWidth="192.0" text="Return Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/returnBook_icon.png" />
+                              <Image url="@images/returnBook_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="reviewSubscriberButton" alignment="CENTER" layoutX="159.0" layoutY="231.0" mnemonicParsing="false" onAction="#reviewSubscriber" prefHeight="29.0" prefWidth="192.0" text="Review Subscriber">
+                  <Button fx:id="reviewSubscriberButton" alignment="CENTER" layoutX="160.0" layoutY="320.0" mnemonicParsing="false" onAction="#reviewSubscriber" prefHeight="29.0" prefWidth="192.0" text="Review Subscriber">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/review_icon.png" />
+                              <Image url="@images/review_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Separator layoutX="155.0" layoutY="176.0" prefWidth="200.0" />
-                  <Button fx:id="searchBookButton" alignment="CENTER" layoutX="159.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="29.0" prefWidth="192.0" text="Search Book">
+                  <Separator layoutX="155.0" layoutY="270.0" prefWidth="200.0" />
+                  <Button fx:id="searchBookButton" alignment="CENTER" layoutX="160.0" layoutY="20.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="29.0" prefWidth="192.0" text="Search Book">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/searchBook_icon.png" />
+                              <Image url="@images/searchBook_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="createSubscriberButton" alignment="CENTER" layoutX="159.0" layoutY="189.0" mnemonicParsing="false" onAction="#createSubscriber" prefHeight="29.0" prefWidth="192.0" text="Create Subscriber">
+                  <Button fx:id="createSubscriberButton" alignment="CENTER" layoutX="160.0" layoutY="280.0" mnemonicParsing="false" onAction="#createSubscriber" prefHeight="29.0" prefWidth="192.0" text="Create Subscriber">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/createSubscriber_icon.png" />
+                              <Image url="@images/createSubscriber_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator layoutX="158.0" layoutY="139.0" prefHeight="4.0" prefWidth="200.0" />
+                  <Button fx:id="updateBookButton" alignment="CENTER" layoutX="160.0" layoutY="190.0" mnemonicParsing="false" onAction="#updateBook" prefHeight="29.0" prefWidth="192.0" text="Update Book">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/inventory_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteBookButton" alignment="CENTER" layoutX="160.0" layoutY="230.0" mnemonicParsing="false" onAction="#deleteBook" prefHeight="29.0" prefWidth="192.0" text="Delete Book">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/inventory_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator layoutX="155.0" layoutY="360.0" prefWidth="200.0" />
+                  <Button fx:id="generateReportButton" alignment="CENTER" layoutX="160.0" layoutY="370.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Generate Report">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/review_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -138,7 +167,7 @@
                   <Glow />
                </effect>
             </Text>
-            <ButtonBar layoutX="11.0" layoutY="431.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
+            <ButtonBar layoutX="8.0" layoutY="569.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
                   <Text fx:id="pathLabel" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu">
                      <font>
@@ -149,7 +178,7 @@
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/help_icon.png" />
+                              <Image url="@images/help_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -157,15 +186,15 @@
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/logout_icon.png" />
+                              <Image url="@images/logout_icon.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
               </buttons>
             </ButtonBar>
-            <ImageView fitHeight="45.0" fitWidth="150.0" layoutX="512.0" layoutY="430.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="150.0" layoutX="509.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/braude_logo.png" />
+                  <Image url="@images/braude_logo.png" />
                </image>
             </ImageView>
             <Text fx:id="firstnameLabel" fill="#282828" layoutX="94.0" layoutY="42.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.2" text="Hello, [firstname]!">

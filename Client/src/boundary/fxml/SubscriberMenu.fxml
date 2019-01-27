@@ -86,7 +86,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="extensionRequestButton" layoutX="159.0" layoutY="124.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Extension Request">
+                  <Button fx:id="extensionRequestButton" layoutX="159.0" layoutY="124.0" mnemonicParsing="false" onAction="#extensionRequest" prefHeight="29.0" prefWidth="192.0" text="Extension Request">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,7 +94,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="actvityLogButton" layoutX="159.0" layoutY="216.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Activity Log">
+                  <Button fx:id="activityLogButton" layoutX="159.0" layoutY="216.0" mnemonicParsing="false" onAction="#activityLog" prefHeight="29.0" prefWidth="192.0" text="Activity Log">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -110,7 +110,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="personalInformationButton" layoutX="159.0" layoutY="178.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Personal Information">
+                  <Button fx:id="personalInformationButton" layoutX="159.0" layoutY="178.0" mnemonicParsing="false" onAction="#personalInformation" prefHeight="29.0" prefWidth="192.0" text="Personal Information">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

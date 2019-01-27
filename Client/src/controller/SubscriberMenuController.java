@@ -12,7 +12,7 @@ public class SubscriberMenuController {
 	
     @FXML private Button searchBookButton;
     @FXML private Button extensionRequestButton;
-    @FXML private Button actvityLogButton;
+    @FXML private Button activityLogButton;
     @FXML private Button orderBookButton;
     @FXML private Button personalInformationButton;
     @FXML private Text pathLabel;
@@ -29,5 +29,19 @@ public class SubscriberMenuController {
     void orderBook(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("OrderBook.fxml", orderBookButton);
     }
-
+    
+    @FXML
+    void extensionRequest(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ExtensionRequest.fxml", extensionRequestButton);
+    }
+    
+    @FXML
+    void personalInformation(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("PersonalInformation.fxml", personalInformationButton);
+    }
+    
+    @FXML
+    void activityLog(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ActivityLog.fxml", activityLogButton);
+    }
 }

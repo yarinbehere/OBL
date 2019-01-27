@@ -47,12 +47,11 @@ import javafx.scene.text.Text;
 	    	}
 	    	else if(userRole == Role.LIBRARIAN)
 	    	{
-	    		System.out.println("dsaf");
 	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton); 
 	    	}
 	    	else
 	    	{
-	    		
+	    		LoadGUI.loadFXML("ManagerMenu.fxml", loginButton);
 	    	}
 	    	
 	    }
