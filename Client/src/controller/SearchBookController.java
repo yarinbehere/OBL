@@ -35,7 +35,7 @@ public class SearchBookController implements Initializable{
     @FXML private TextField titleTextField;
     @FXML private TextField authorTextField;
     @FXML private TextField freeTextField;
-   
+    
     @FXML private Button searchButton;
     @FXML private Button clearButton;
     @FXML private Button helpButton;
@@ -46,9 +46,9 @@ public class SearchBookController implements Initializable{
     
     @FXML private TableView<Book> searchResultTable;
     @FXML private TableColumn<Book, String> tableColumnTitle;
-    @FXML private TableColumn<Book, String> tableColumnAuthor;
-    @FXML private TableColumn<Book, String> tableColumnGenre;
-    @FXML private TableColumn<Book, String> tableColumnDescription;
+    @FXML private TableColumn<Book, String> tableColumnAvailable;
+    @FXML private TableColumn<Book, String> tableColumnShelfLocation;
+    @FXML private TableColumn<Book, String> tableColumnSoonestReturn;
     
     public static ArrayList<Book> bookResult;
     public static FileTransfer tableOfContent;
@@ -64,9 +64,9 @@ public class SearchBookController implements Initializable{
 		subjectChoiceBox.setItems(subjectList);
 		//initialize the TableView
 		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("BookTitle"));
-		tableColumnAuthor.setCellValueFactory(new PropertyValueFactory<>("AuthorName"));
-		tableColumnGenre.setCellValueFactory(new PropertyValueFactory<>("BookGenre"));
-		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("BookDescription"));
+		tableColumnAvailable.setCellValueFactory(new PropertyValueFactory<>("Available"));
+		tableColumnShelfLocation.setCellValueFactory(new PropertyValueFactory<>("ShelfLocation"));
+		tableColumnSoonestReturn.setCellValueFactory(new PropertyValueFactory<>("SoonestReturn"));
 
 	}
     /**
@@ -80,11 +80,12 @@ public class SearchBookController implements Initializable{
     	authorTextField.setText("");
     	freeTextField.setText("");
     	searchResultTable.getItems().clear();
-    	selectBookButton.setDisable(true);
+    	selectBookButton.setDisable(true); 
     }
 
     @FXML
     void searchBook(ActionEvent event) throws InterruptedException {
+    	selectBookButton.setDisable(true);//if user pressed search again, disable the button
     	Book book = new Book
     			(titleTextField.getText(), authorTextField.getText(), 
     					subjectChoiceBox.getSelectionModel().getSelectedItem(), freeTextField.getText());
@@ -116,8 +117,8 @@ public class SearchBookController implements Initializable{
     	MessageCS message = new MessageCS(MessageType.TABLE_OF_CONTENT,book);
     	MainClient.client.accept(message);
     	Thread.sleep(100);
-    	String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
-    	File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\src\\common\\Harry Potter and the Prisoner of Azkaban2.pdf");
+    	//String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
+    	File newFile = new File (tableOfContent.getFileName() + "1.pdf");
 	    FileOutputStream fos = new FileOutputStream(newFile);
 	    BufferedOutputStream bos = new BufferedOutputStream(fos);			  
 	    bos.write(tableOfContent.getMybytearray(),0,tableOfContent.getSize());
@@ -125,7 +126,6 @@ public class SearchBookController implements Initializable{
     	bos.close();
     	Desktop desktop = Desktop.getDesktop();
     	desktop.open(newFile);
-    	
     }
 
 }

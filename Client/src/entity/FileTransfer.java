@@ -15,12 +15,12 @@ public class FileTransfer implements Serializable {
 		mybytearray = new byte [size];	
 	}
 	
-	public FileTransfer( String fileName) {
+	public FileTransfer(String fileName) {
 		this.fileName = fileName;
 	}
 	
 	
-	public String getFileName() {
+	public String getFileName() { 
 		return fileName;
 	}
 

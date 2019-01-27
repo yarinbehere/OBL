@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Book implements Serializable{
 	private String bookTitle;
@@ -15,6 +16,8 @@ public class Book implements Serializable{
 	private String bookID;
 	int amountOfBooks;
 	int quanity;
+	private String available;
+	private Date soonestReturn; 
 	
 
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
@@ -25,13 +28,13 @@ public class Book implements Serializable{
 		this.bookDescription = bookDescription;
 	}
 	
-	public Book(String bookID, String bookTitle, String authorName, String bookGenre, String bookDescription)
+	public Book(String bookID, String bookTitle, String shelfLocation, String available, Date soonestReturn)
 	{
 		this.bookID = bookID;
 		this.bookTitle = bookTitle;
-		this.authorName = authorName;
-		this.bookGenre = bookGenre;
-		this.bookDescription = bookDescription;
+		this.shelfLocation = shelfLocation;
+		this.available = available;
+		this.setSoonestReturn(soonestReturn);
 	}
 	
 	public String getBookTitle() {
@@ -40,7 +43,7 @@ public class Book implements Serializable{
 	
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
-	}
+	} 
 	
 	public String getAuthorName() {
 		return authorName;
@@ -72,6 +75,30 @@ public class Book implements Serializable{
 
 	public void setBookID(String bookID) {
 		this.bookID = bookID;
+	}
+
+	public String getShelfLocation() {
+		return shelfLocation;
+	}
+
+	public void setShelfLocation(String shelfLocation) {
+		this.shelfLocation = shelfLocation;
+	}
+
+	public String getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(String available) {
+		this.available = available;
+	}
+
+	public Date getSoonestReturn() {
+		return soonestReturn;
+	}
+
+	public void setSoonestReturn(Date soonestReturn) {
+		this.soonestReturn = soonestReturn;
 	}
 	
 	

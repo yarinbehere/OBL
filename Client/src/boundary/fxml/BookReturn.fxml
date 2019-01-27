@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BookReturnController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -114,7 +114,7 @@
                   <DatePicker fx:id="borrowDate" layoutX="125.0" layoutY="207.0" prefHeight="27.0" prefWidth="113.0" />
                   <Text layoutX="257.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date:" wrappingWidth="87.4072265625" />
                   <DatePicker fx:id="returnDate" layoutX="362.0" layoutY="207.0" prefHeight="27.0" prefWidth="113.0" />
-                  <Button fx:id="returnBookButton" layoutX="239.0" layoutY="300.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Return" />
+                  <Button fx:id="returnBookButton" layoutX="239.0" layoutY="300.0" mnemonicParsing="false" onAction="#returnBook" prefHeight="27.0" prefWidth="106.0" text="Return" />
                   <Text layoutX="28.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Returned on:" wrappingWidth="87.4072265625" />
                   <DatePicker fx:id="returnedDate" layoutX="125.0" layoutY="251.0" prefHeight="27.0" prefWidth="113.0" />
                   <Text fx:id="lateLabel" fill="#c70000" layoutX="258.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Late Duration]" wrappingWidth="282.99999809265137">

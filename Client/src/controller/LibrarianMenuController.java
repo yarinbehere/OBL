@@ -24,21 +24,31 @@ public class LibrarianMenuController {
     @FXML private Text pathLabel;
     @FXML private Text firstnameLabel;
     
+    
     @FXML
-    void borrowBook(ActionEvent event) throws IOException {
-    	LoadGUI.loadFXML("BorrowBook.fxml", borrowBookButton);
-    }
-
-    @FXML
-    void searchBook(ActionEvent event) throws IOException {
+    public void searchBook(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("SearchBook.fxml", searchBookButton);
     }
     
+    
     @FXML
-    void bookReturn(ActionEvent event) throws IOException
+    public void borrowBook(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("BorrowBook.fxml", borrowBookButton);
+    }
+  
+    @FXML
+    public void bookReturn(ActionEvent event) throws IOException
     {
     	LoadGUI.loadFXML("BookReturn.fxml", returnBookButton);
     }
+    
+    @FXML
+    public void createSubscriber(ActionEvent event) throws IOException
+    {
+    	LoadGUI.loadFXML("CreateSubscriber", createSubscriberButton);
+    }
+    
+    
     
     
 }

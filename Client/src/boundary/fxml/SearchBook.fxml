@@ -97,9 +97,9 @@
             <TableView fx:id="searchResultTable" layoutX="13.0" layoutY="296.0" onMouseClicked="#chooseBookFromTableViwe" prefHeight="190.0" prefWidth="619.0">
               <columns>
                 <TableColumn fx:id="tableColumnTitle" prefWidth="81.60003662109375" text="Title" />
-                <TableColumn fx:id="tableColumnAuthor" prefWidth="117.5999755859375" text="Author" />
-                  <TableColumn fx:id="tableColumnGenre" prefWidth="122.39996337890625" text="Genre" />
-                  <TableColumn fx:id="tableColumnDescription" prefWidth="298.39990234375" text="Description" />
+                <TableColumn fx:id="tableColumnAvailable" prefWidth="117.5999755859375" text="Available" />
+                  <TableColumn fx:id="tableColumnShelfLocation" prefWidth="122.39996337890625" text="Shelf Location" />
+                  <TableColumn fx:id="tableColumnSoonestReturn" prefWidth="298.39990234375" text="Soonest Return" />
               </columns>
             </TableView>
       </children>
