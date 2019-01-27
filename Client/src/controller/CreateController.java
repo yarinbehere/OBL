@@ -29,16 +29,13 @@ public class CreateController {
 	private TextField emailTextField;
 	@FXML
 	private TextField usernameTextField;
-//	@FXML
-//	private ChoiceBox<String> phoneChoiceBox; TODO: restore it when learned how to use
 	@FXML
 	private TextField phoneTextField;
 	@FXML
 	private Button createButton;
 	@FXML
 	public TextArea requestInfoTextArea;
-
-	public static String serverAnser;
+	public static Subscriber foundSubscriber;
 
 	// assumption: input is valid
 	@FXML
@@ -49,21 +46,26 @@ public class CreateController {
 		char c2 = (char) (r.nextInt(26) + 'a');
 		int fourdigitNum = 1000 + r.nextInt(10000 - 1000);
 		// assigns the nodes values to meaningful named locals
+		String id = idTextField.getText();
 		String userName = usernameTextField.getText();
-		String password = "" + c1 + c2 + String.valueOf(fourdigitNum);
 		String firstName = firstnameTextField.getText();
 		String lastName = lastnameTextField.getText();
-		String id = idTextField.getText();
-		String email = emailTextField.getText();
 		String phone = /* phoneChoiceBox.getValue() + */ phoneTextField.getText();
+		String email = emailTextField.getText();
+		String password = "" + c1 + c2 + String.valueOf(fourdigitNum);
 
 		// sends the server a new subscriber initialized with the above state
-		Subscriber newSubscriber = new Subscriber(userName, password, firstName, lastName, id, email, phone);
+		Subscriber newSubscriber = new Subscriber(id, userName, firstName, lastName, phone, email, password);
 		MessageCS message = new MessageCS(MessageType.CREATE_SUBSCRIBER, newSubscriber);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(100);
-		// informs the librarian that the subscriber was added succesfully
-		requestInfoTextArea.setText(serverAnser);
+		Thread.sleep(400);
+		// informs the librarian that the subscriber was added successfully
+		if (foundSubscriber == null) {
+			requestInfoTextArea.setText("Subscriber already exists");
+		} else {
+			requestInfoTextArea.setText(
+					foundSubscriber.getFirstName() + " " + foundSubscriber.getLastName() + " was created succesfully");
+		}
 	}
 }

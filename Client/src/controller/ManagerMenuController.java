@@ -10,27 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+
+
 /**
- * @author shalev
+ * @author שלו קובי
  *
  */
-public class LibrarianMenu {
-
-	@FXML
-	private Button createSubscriberButton;
-	
+public class ManagerMenuController {
 	@FXML
 	private Button reviewSubscriberButton;
-	
+
 	@FXML
-	/** listener for the button press of createSubscriber 
-	 * @throws IOException */
-	public void createSubscriber() throws IOException {
-		LoadGUI.loadFXML("Create.fxml",createSubscriberButton);
-	}
-	@FXML
-	/** listener for the button press of createSubscriber 
-	 * @throws IOException */
 	void reviewSubscriber(ActionEvent event) throws IOException {
 		LoadGUI.loadFXML("ReviewSubscriber.fxml", reviewSubscriberButton);
 	}

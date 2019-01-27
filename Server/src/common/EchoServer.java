@@ -129,5 +129,13 @@ public class EchoServer extends AbstractServer
     }
     
   }
+
+
+/**
+ * @return the dbManager
+ */
+static DataBaseManager getDbManager() {
+	return dbManager;
+}
 }
 //End of EchoServer class

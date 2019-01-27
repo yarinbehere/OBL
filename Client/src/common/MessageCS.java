@@ -14,7 +14,7 @@ public class MessageCS implements Serializable {
 	 * MessageType enum that differ between screens
 	 */
 	public enum MessageType {
-		LOGIN, CREATE_SUBSCRIBER;
+		LOGIN, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, REVIEW_SUBSCRIBER_UPDATE;
 	}
 
 	MessageType messageType;
@@ -22,6 +22,7 @@ public class MessageCS implements Serializable {
 	/* Entities */
 	User user;
 	Subscriber subscriber;
+	String textMessage;
 
 	/**
 	 * user wants to login to the system
@@ -38,9 +39,16 @@ public class MessageCS implements Serializable {
 	/**
 	 * @param subscriber
 	 */
-	public MessageCS(MessageType messageType,Subscriber subscriber) {
+	public MessageCS(MessageType messageType, Subscriber subscriber) {
+		this.messageType = messageType;
 		this.subscriber = subscriber;
-		this.messageType=messageType;
 	}
 
+	/**
+	 * @param textMessage
+	 */
+	public MessageCS(MessageType messageType, String textMessage) {
+		this.messageType = messageType;
+		this.textMessage = textMessage;
+	}
 }

@@ -30,8 +30,7 @@ public class Subscriber extends User {
 	 * @param email
 	 * @param phone
 	 */
-	public Subscriber(String userName, String password, String firstName, String lastName, String id, String email,
-			String phone) {
+	public Subscriber(String id, String userName, String firstName, String lastName, String phone, String email, String password) {
 		super(userName, password);
 		this.firstName = firstName;
 		this.lastName = lastName;

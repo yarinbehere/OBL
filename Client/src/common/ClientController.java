@@ -1,6 +1,7 @@
 package common;
 
 import controller.LoginController;
+import controller.ReviewSubscriberController;
 import controller.CreateController;
 import entity.Subscriber;
 import entity.User;
@@ -27,16 +28,26 @@ public class ClientController {
 					LoginController.userRole = User.Role.LIBRARIAN;
 				}
 				// go to main menu of manager
-				else if (message.user.getRole() == User.Role.LIBRARIAN) {
+				else if (message.user.getRole() == User.Role.MANAGER) {
 					LoginController.userRole = User.Role.MANAGER;
 				}
 				break;
 			case CREATE_SUBSCRIBER:
-				Subscriber subscriber = message.subscriber;
-				CreateController.serverAnser = subscriber.getFirstName() + " " + subscriber.getLastName() + " was created succesfully";
+				if (message.subscriber == null) {
+					CreateController.foundSubscriber = null;
+				} else {
+					CreateController.foundSubscriber = message.subscriber;
+				}
+				break;
+			case REVIEW_SUBSCRIBER_SEARCH:
+			case REVIEW_SUBSCRIBER_UPDATE:
+				if (message.subscriber == null) {
+					ReviewSubscriberController.foundSubscriber = null;
+				} else {
+					ReviewSubscriberController.foundSubscriber = message.subscriber;
+				}
 				break;
 			}
 		}
-
 	}
 }
