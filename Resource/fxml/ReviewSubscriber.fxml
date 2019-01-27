@@ -82,7 +82,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Susbcriber :" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review Subscriber:" />
-                  <TextField fx:id="subscriberEditLabel" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Username, email, ID" />
+                  <TextField fx:id="subscriberEdittxt" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Username, email, ID" />
                   <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
                   <Separator layoutX="119.0" layoutY="22.0" prefHeight="6.0" prefWidth="491.0" />
                   <Button fx:id="editSubscriberButton" layoutX="256.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Edit Subscriber" />
@@ -101,7 +101,7 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="subscriberIDLabel" layoutX="503.0" layoutY="76.0" prefHeight="25.0" prefWidth="57.0" text="[id]" textAlignment="CENTER">
+                  <Hyperlink fx:id="subscriberIdLabel" layoutX="503.0" layoutY="76.0" prefHeight="25.0" prefWidth="57.0" text="[id]" textAlignment="CENTER">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
