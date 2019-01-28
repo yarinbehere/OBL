@@ -12,8 +12,10 @@ import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
+import controller.SubscriberMenuController;
 import entity.Book;
 import entity.FileTransfer;
+import entity.Subscriber;
 import entity.User.Role;
 
 public class ServerController {
@@ -24,8 +26,9 @@ public class ServerController {
 		String query;
 		Statement stmt;
 		ResultSet rset;
+		Book book = null;
 		try {
-			stmt = conn.createStatement();
+			stmt = conn.createStatement(); 
 			switch(message.messageType)
 			{
 			case LOGIN:
@@ -67,9 +70,21 @@ public class ServerController {
 					client.sendToClient("User can't be found");
 				}
 				break;
+			case SEARCH_SUBSCRIBER:
+				Subscriber subscriber = null;
+				query = "SELECT * FROM User u, Subscriber s WHERE u.userName = s.userName AND s.userName = '"+
+				message.getSubscriber().getSubscriberDetails() + "';";
+				rset = stmt.executeQuery(query);
+				if(rset.next())
+				{
+					subscriber = new Subscriber(rset.getString("SubscriberID"));
+				}
+				MessageCS subscriberLoggedIn = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
+				client.sendToClient(subscriberLoggedIn);
+				break;
 			case SEARCH_BOOK:
 				ArrayList<Book> bookList = new ArrayList<>();
-				Book book = null;
+			    book = null;
 				//query to find title (substring), author(substring), category and description(substring) in the database
 				query = "SELECT * FROM book WHERE title LIKE '%"+message.getBook().getBookTitle()+"%' " 
 						+ "AND author LIKE '%"+ message.getBook().getAuthorName() + "%' "
@@ -84,11 +99,11 @@ public class ServerController {
 					if(rset.getInt("currentQuantity") == 0)
 					{
 						//find the unavailable books and arrange them in ascended return dates so we know the first list will be the soonest return date
-						String tempQuery;
-						tempQuery = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = '"
+						String soonestReturnQuery;
+						soonestReturnQuery = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = '"
 								+ rset.getString("bookID") + "' ORDER BY returnDate";
 						//must create new ResultSet for inner checking
-						ResultSet rsetFindSoonestReturn = stmtFindSoonestReturn.executeQuery(tempQuery);
+						ResultSet rsetFindSoonestReturn = stmtFindSoonestReturn.executeQuery(soonestReturnQuery);
 						//creating an entity with the first book in the list with soonest return date with quantity 0
 						if(rsetFindSoonestReturn.next())
 						{
@@ -131,7 +146,54 @@ public class ServerController {
 				}
 				//will never get to that else because we are sending a known book that exists in the list
 				else
-					System.out.println("no such a book");
+					message.setBook(null);
+				break;
+			case SEARCH_BOOK_FOR_BORROW:
+				book = null;
+				query = "SELECT * FROM book WHERE title= '" + message.getBook().getBookDetails() + "' OR bookId = '" + message.getBook().getBookDetails() + "';";
+				rset =	stmt.executeQuery(query);
+				if(rset.next() == true)
+				{
+					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"));
+				}
+				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW, book);
+				client.sendToClient(resultBook);
+				break;
+			case SEARCH_BOOK_FOR_ORDER:
+				query = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = '"
+						+ message.getBook().getBookDetails() + "' ORDER BY returnDate";
+				rset = stmt.executeQuery(query);
+				if(rset.next())
+				{
+					book = new Book(rset.getString("bookId"),rset.getDate("returnDate")); 
+				}
+				else
+					book = null;
+				MessageCS soonestReturn = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
+				client.sendToClient(soonestReturn);
+				break;
+			case LIST_OF_ORDERS:
+				query = "SELECT * FROM BookOrder o, Book b WHERE o.bookID = b.bookID AND o.subscriptionNumber = '" 
+			+ message.getSubscriber().getSubscriberDetails() + "';";
+				rset = stmt.executeQuery(query);
+				bookList = new ArrayList<Book>();
+				Statement stmtFindQueue = conn.createStatement();
+				while(rset.next())
+				{
+					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
+							+ rset.getDate("orderDate") + "'AND bookID = '" + rset.getString("bookID") + "' AND hour <= '"
+							+ rset.getTime("hour") + "';";
+					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
+					if(rsetFindQueue.next())
+					{
+						book = new Book(rset.getString("title"),rset.getDate("orderDate"),rsetFindQueue.getInt("count(bookID)"));
+					}
+					bookList.add(book);
+				}
+				for(int i=0; i<bookList.size();i++)
+					System.out.println(bookList.get(i).getBookTitle() + " " + bookList.get(i).getDateOrder() + " " + bookList.get(i).getQueue());
+				books = new MessageCS(MessageType.LIST_OF_ORDERS,bookList);
+				client.sendToClient(books);
 			}
 
 		} 

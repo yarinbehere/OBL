@@ -27,7 +27,7 @@ public class ManagerMenuController {
 	@FXML
     void searchBook(ActionEvent event) throws IOException {
 		LoadGUI.loadFXML("SearchBook.fxml", searchBookButton);
-    }
+    } 
 	
     @FXML
     void borrowBook(ActionEvent event) throws IOException {
