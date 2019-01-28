@@ -1,6 +1,10 @@
 package common;
 
+import java.util.ArrayList;
+
 import controller.LoginController;
+import controller.SearchSubscriberController;
+import entity.Subscriber;
 import entity.User;
 
 public class ClientController {
@@ -33,7 +37,8 @@ public class ClientController {
 				{
 					LoginController.userRole = User.Role.MANAGER;
 				}
-				
+			case SEARCH_SUBSCRIBER:
+				SearchSubscriberController.arrSubscriber=message.getArrSubscriber();
 			}	
 		}
 		
