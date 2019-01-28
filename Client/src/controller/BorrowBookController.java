@@ -9,17 +9,21 @@ import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
+import entity.BorrowedBook;
 import entity.Subscriber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-public class BorrowBookController { 
+public class BorrowBookController{ 
 
     @FXML private TextField subscriberEditLabel;
     @FXML private Button searchSubscriberButton;
@@ -38,15 +42,21 @@ public class BorrowBookController {
     
     public static Subscriber resultSubscriber;
     public static Book resultBook;
- /*  
-    @Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-    	//borrowButton.setDisable(true);
-	}
- */
+    public static BorrowedBook resultBorrowedBook;
+  
+    
+
     @FXML
     void searchSubscriber(ActionEvent event) throws InterruptedException
     {
+   	 Alert alert1=new Alert(Alert.AlertType.INFORMATION);
+   	if((subscriberEditLabel.getText().equals("Username, email, ID")) || subscriberEditLabel.getText().equals("") )
+		 {
+			alert1.setTitle("Empty Fields");
+			alert1.setContentText("please fill all the requierd fields! ");
+			alert1.showAndWait();
+			return;
+		 }
     	Subscriber subscriber = new Subscriber(subscriberEditLabel.getText());
     	MessageCS message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
     	MainClient.client.accept(message);
@@ -58,10 +68,16 @@ public class BorrowBookController {
     @FXML
     void searchBook(ActionEvent event) throws InterruptedException
     {
+      	 Alert alert2=new Alert(Alert.AlertType.INFORMATION);
+        	if((bookLabel.getText().equals("Serial number, name"))||subscriberEditLabel.getText().equals("") )
+     		 {
+     			alert2.setTitle("Empty Fields");
+     			alert2.setContentText("please fill all the requierd fields! ");
+     			alert2.showAndWait();
+     			return;
+     		 }
     	Book book = new Book(bookLabel.getText());
-    	System.out.println(book.getbookDetails());
-    	System.out.println(bookLabel.getText());
-    	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_OPTIONS,book);
+    	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
     	MainClient.client.accept(message);
     	Thread.sleep(100);
     	bookStatusLabel.setText(resultBook.getwantedLevel());
@@ -69,36 +85,75 @@ public class BorrowBookController {
     }
     
     @FXML
-    void borrowBook(ActionEvent event)
+    void borrowBook(ActionEvent event) throws InterruptedException
     {
-    	String checkSubscriberStatus;
+     	String checkSubscriberStatus;
     	int checkCurrentBookQuanity;
-    	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
-    	checkSubscriberStatus=resultSubscriber.getSubscriberStatus();
-    	LocalDate date1 = borrowDate.getValue();
-    	LocalDate date2 = returnDate.getValue();
-    	long borrow_period =ChronoUnit.DAYS.between(date1, date2);
+    	Alert alert4=new Alert(Alert.AlertType.ERROR);
     	
-    	//check if the subscriber status isn't "Active"
-    	if(!(checkSubscriberStatus.equals("Active")))
+    	
+    	if(borrowDate.getValue() == null||returnDate.getValue()==null)
     	{
-    		//alert
+  			alert4.setTitle("Empty Fields");
+  			alert4.setContentText("please fill all the requierd fields! ");
+  			alert4.showAndWait();
+  			return;
     	}
-    	//check if the wanted book quantity is 1 or more
-    	if(checkCurrentBookQuanity<=0)
+
+   
+    	if(!((borrowDate.getValue() == null)&&(returnDate.getValue()==null)))
     	{
-    		//alert
+        	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
+        	checkSubscriberStatus=resultSubscriber.getSubscriberStatus();
+        	LocalDate BorrowDate = borrowDate.getValue();
+        	LocalDate ReturnDate = returnDate.getValue();
+        	long borrow_period =ChronoUnit.DAYS.between(BorrowDate, ReturnDate);
+        	//check if the subscriber status isn't "Active"
+        	if(!(checkSubscriberStatus.equals("Active")))
+        	{
+        		alert4.setTitle("Subscriber Status");
+        		alert4.setHeaderText(null);
+        		alert4.setContentText("Subscriber status isn't 'active ");
+        		alert4.showAndWait();
+        	}
+        	//check if the wanted book quantity isn't available
+        	if(checkCurrentBookQuanity<=0)
+        	{
+        		alert4.setTitle("Current Book Quanity");
+        		alert4.setContentText("The wanted book quantity isn't available!");
+        		alert4.showAndWait();
+        	}
+        	//checks if the borrow date is further than the return date
+        	if (borrow_period < 0)
+        	{
+        		alert4.setTitle("Borrow Period");
+        		alert4.setContentText("The borrow date is further than the return date!");
+        		alert4.showAndWait();
+        	}
+        	//checks if the status of the book is "wanted", and the borrow period is three days or more
+        	if(resultBook.getwantedLevel().equals("wanted") && borrow_period > 3)
+        	{
+        		alert4.setTitle("Borrow Period");
+        		alert4.setContentText("'Wanted' book cant be borrowed for more than 3 days!");
+        		alert4.showAndWait();
+        	}
+        	//check if the borrow period is more than two weeks
+        	if(resultBook.getwantedLevel().equals("not wanted") && borrow_period > 14)
+        	{
+        		alert4.setTitle("Borrow Period");
+        		alert4.setContentText("'The borrow period is more than two weeks!");
+        		alert4.showAndWait();
+        	}
+        	
+        	BorrowedBook borrowedbook = new BorrowedBook(resultSubscriber.getSubscriberID(),resultBook.getbookSerialNumber(),ReturnDate,BorrowDate,0);
+        	System.out.println("1");
+        	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
+        	System.out.println("2");
+        	MainClient.client.accept(message);
+        	Thread.sleep(100);
     	}
-    	//checks if the borrow date is further than the return date
-    	if (borrow_period < 0)
-    	{
-    		//alert
-    	}
-    	//checks if the status of the book is "wanted", and the borrow period is three days or more
-    	if(checkSubscriberStatus.equals("Active") && borrow_period > 3)
-    	{
-    		//alert
-    	}
+
+
     }
 
 	

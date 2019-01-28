@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 import entity.Book;
+import entity.BorrowedBook;
 import entity.Subscriber;
 import entity.User;
 
@@ -15,16 +16,17 @@ public class MessageCS implements Serializable {
 	 * @author rami
 	 */
 	public enum MessageType {
-		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK,SEARCH_BOOK_FOR_OPTIONS,BORROW;
+		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK,SEARCH_BOOK_FOR_BORROW,BORROW;
 	}
 	
 	
 	MessageType messageType; 
 	
 	/* Entities */
-	User user;
-	Book book;
-	Subscriber subscriber;
+	private User user;
+	private Book book;
+	private Subscriber subscriber;
+	private BorrowedBook borrowedbook;
 
 
 	/**
@@ -36,7 +38,7 @@ public class MessageCS implements Serializable {
 	public MessageCS(MessageType messageType, User user)
 	{
 		this.messageType = messageType;
-		this.user = user;
+		this.setUser(user);
 	}
 
 	/**
@@ -48,7 +50,7 @@ public class MessageCS implements Serializable {
 	public MessageCS(MessageType messageType, Book book)
 	{
 		this.messageType = messageType;
-		this.book = book;
+		this.setBook(book);
 	}
 	/**
 	 * subscriber wants to borrow a book
@@ -59,7 +61,48 @@ public class MessageCS implements Serializable {
 	public MessageCS(MessageType messageType, Subscriber subscriber)
 	{
 		this.messageType = messageType;
+		this.setSubscriber(subscriber);
+	}
+	/**
+	 * subscriber wants to borrow a book
+	 * @param messageType - messageType will be borrow book
+	 * @param subscriber 
+	 * @author Hai
+	 */
+	public MessageCS(MessageType messageType, BorrowedBook borrowedbook)
+	{
+		this.messageType = messageType;
+		this.setBorrowedBook(borrowedbook);
+	}
+
+	public BorrowedBook getBorrowedBook() {
+		return borrowedbook;
+	}
+	public void setBorrowedBook(BorrowedBook borrowedbook) {
+		this.borrowedbook = borrowedbook;
+	}
+	public Subscriber getSubscriber() {
+		return subscriber;
+	}
+
+	public void setSubscriber(Subscriber subscriber) {
 		this.subscriber = subscriber;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

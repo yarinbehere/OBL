@@ -6,26 +6,37 @@ public class Subscriber implements Serializable
 {
 	private String userName;
 	private String password;
-	private String subscriberNumber;
 	private String mobileNumber;
 	private String email;
 	private String subscriberStatus;
 	private String subscriberDetails;
 	private String subscriberID;
+	private String firstName;
+	private String lastName;
 	//borrow history
 	//Late return
 	//Losing a book
 	
+	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus)
+	{
+		this.subscriberID=subscriberNumber;
+		this.userName=userName;
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.mobileNumber=mobileNumber;
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+	}
 	public Subscriber(String subscriberNumber,String mobileNumber,String email,String subscriberStatus)
 	{
 		
-		this.subscriberNumber=subscriberNumber;
+		this.subscriberID=subscriberNumber;
 		this.mobileNumber=mobileNumber;
 		this.email=email;
 		this.subscriberStatus=subscriberStatus;
 	}
 
-	public Subscriber(String subscriberDetails) 
+	public Subscriber(String subscriberDetails)
 	{
 		this.setSubscriberDetails(subscriberDetails);
 	}
@@ -38,13 +49,7 @@ public class Subscriber implements Serializable
 	
 	//set function
 
-	
 
-	public void setSubscriberNumber(String subscriberNumber) 
-	{
-		
-		this.subscriberNumber = subscriberNumber;
-	}
 	public void setUserName(String userName) 
 	{
 		
@@ -68,11 +73,6 @@ public class Subscriber implements Serializable
 	
 	//get function 
 	
-	public String getSubscriberNumber() 
-	{
-		
-		return subscriberNumber;
-	}
 	public String getUserName() 
 	{
 		
@@ -108,6 +108,30 @@ public class Subscriber implements Serializable
 
 	public void setSubscriberID(String subscriberID) {
 		this.subscriberID = subscriberID;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 }

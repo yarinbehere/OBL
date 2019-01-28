@@ -1,23 +1,27 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Book implements Serializable{
-	String bookTitle;
-	String authorName;
-	String editionNumber;
-	String publishedDate;
-	String bookDescription;
-	String bookGenre;
-	String cataologNumber;
-	String datePurchase;
-	String shelfLocation;
+	private String bookTitle;
+	private String authorName;
+	private String editionNumber;
+	private String publishedDate;
+	private String bookDescription;
+	private String bookGenre;
+	private String cataologNumber;
+	private String datePurchase;
+	private String shelfLocation;
 	////
-	String bookSerialNumber;
-	String bookDetails;
-	String wantedLevel;
-	int OriginalBookQuanity;
-	int CurrentBookQuanity;
+	private String bookSerialNumber;
+	private String bookDetails;
+	private String wantedLevel;
+	private int OriginalBookQuanity;
+	private int CurrentBookQuanity;
+	//אולי צריך לשים ב"יישות" חדשה
+	private LocalDate BorrowDate;
+	private LocalDate ReturnDate;
 	////
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
 	{
@@ -27,12 +31,19 @@ public class Book implements Serializable{
 		this.bookDescription = bookDescription;
 	}
 	//contractor for borrowing book
+	public Book(LocalDate BorrowDate,LocalDate ReturnDate)
+	{
+		this.setBorrowDate(BorrowDate);
+		this.setReturnDate(ReturnDate);
+
+	}
 	public Book(String bookSerialNumber, String wantedLevel,int CurrentBookQuanity) 
 	{
 		this.bookSerialNumber=bookSerialNumber;
 		this.wantedLevel=wantedLevel;
 		this.CurrentBookQuanity=CurrentBookQuanity;
 	}
+	
 	//
 	public Book(String bookDetails) 
 	{
@@ -97,6 +108,18 @@ public class Book implements Serializable{
 	}
 	public int getCurrentBookQuanity() {
 		return CurrentBookQuanity;
+	}
+	public LocalDate getReturnDate() {
+		return ReturnDate;
+	}
+	public void setReturnDate(LocalDate returnDate) {
+		ReturnDate = returnDate;
+	}
+	public LocalDate getBorrowDate() {
+		return BorrowDate;
+	}
+	public void setBorrowDate(LocalDate borrowDate) {
+		BorrowDate = borrowDate;
 	}
 	
 }
