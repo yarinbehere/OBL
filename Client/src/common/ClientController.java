@@ -1,13 +1,14 @@
 package common;
 
 import controller.LoginController;
+import controller.OrderBookController;
 import controller.SearchBookController;
 import entity.User;
 
 public class ClientController {
-	
-	
-	
+
+
+
 	/**
 	 * message send back to the client (from the server) and has analyze
 	 * what sort of message has been returned
@@ -19,30 +20,25 @@ public class ClientController {
 		switch(message.messageType) 
 		{
 		case LOGIN:
-			//go to main menu of subscriber
-			if(message.getUser().getRole() == User.Role.SUBSCRIBER)
-			{
-				LoginController.userRole = User.Role.SUBSCRIBER;
-			}
-			//go to main menu of librarian
-			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
-			{
-				LoginController.userRole = User.Role.LIBRARIAN;
-			}
-			//go to main menu of manager
-			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
-			{
-				LoginController.userRole = User.Role.MANAGER;
-			}
+			LoginController.userResult = message.getUser();
+			break;
+		case SEARCH_SUBSCRIBER:
+			LoginController.subscriberResult = message.getSubscriber();
 			break;
 		case SEARCH_BOOK:
 			SearchBookController.bookResult = message.getBooks();
 			break;
 		case TABLE_OF_CONTENT:
 			SearchBookController.tableOfContent = message.getTableOfContent();
-		default:
 			break;
+		case SEARCH_BOOK_FOR_ORDER:
+			OrderBookController.resultBook = message.getBook();
+			break;
+		case LIST_OF_ORDERS:
+			OrderBookController.bookResult = message.getBooks();
+		default:
+			break; 
 		}	
-		
+
 	}
 }

@@ -42,7 +42,7 @@ public class LibrarianMenuController {
     	LoadGUI.loadFXML("BookReturn.fxml", returnBookButton);
     }
     
-    @FXML
+    @FXML 
     public void createSubscriber(ActionEvent event) throws IOException
     {
     	LoadGUI.loadFXML("CreateSubscriber.fxml", createSubscriberButton);
