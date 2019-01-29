@@ -86,30 +86,42 @@ public class ServerController {
 				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = '"+ 
 						message.getSubscriber().getSubscriberDetails() + "' OR r.email = '" + message.getSubscriber().getSubscriberDetails() + 
 						"' OR r.subscriberID = '" + message.getSubscriber().getSubscriberDetails() + "');";
-				rset=	stmt.executeQuery(query);
-				if(rset.next() == true)
+				rset=stmt.executeQuery(query);
+				message.getSubscriber().setSubscriberDetails(message.getSubscriber().getSubscriberDetails());
+				//if the subscriber does not exist in the system
+				if(rset.next() == false)
 				{
-					subscriber = new Subscriber(rset.getString("subscriberID"),rset.getString("userName"),rset.getString("firstName"),rset.getString("lastName"),rset.getString("phoneNumber"),rset.getString("email"),rset.getString("subscriberStatus"));
+					subscriber = new Subscriber("null");
+				}
+				//if the subscriber exist in the system
+				else
+				{
+					subscriber = new Subscriber(rset.getString("subscriberID"),rset.getString("userName"),rset.getString("firstName"),rset.getString("lastName"),rset.getString("phoneNumber"),rset.getString("email"),rset.getString("subscriberStatus"),message.getSubscriber().getSubscriberDetails());
 				} 
 				MessageCS resultSearchSubscriber = new MessageCS(MessageType.SEARCH_SUBSCRIBER, subscriber);
 				client.sendToClient(resultSearchSubscriber);
 				break;
 			case SEARCH_BOOK_FOR_BORROW:
 				Book book = null;
+				System.out.println();
 				query = "SELECT * FROM book WHERE title= '" + message.getBook().getbookDetails() + "' OR bookId = '" + message.getBook().getbookDetails() + "';";
-				rset=	stmt.executeQuery(query);
-				if(rset.next() == true)
+				rset=stmt.executeQuery(query);
+				//if the book does not exist in the system
+				if(rset.next() == false)
 				{
-					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"));
+					book = new Book("null");
+				}
+				//if the book exist in the system
+				else
+				{
+					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"),rset.getInt("originalQuantity"),message.getBook().getbookDetails());
 				}
 				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW, book);
 				client.sendToClient(resultBook);
 				break;
 
 			case BORROW:
-				//לטפל ב"ספר אבוד" מה זה אומר?
-				//לטפל בכך שמכניסים שמות שלא קיימים במסד נתונים
-				//לכתוב עוד שאילתה להוריד את כמות הספרים בסיפרייה של הספר שהושאל ב-1
+				
 				System.out.println(message.getBorrowedBook().getSubscriptionNumber());
 				System.out.println(message.getBorrowedBook().getBookId());
 				System.out.println(message.getBorrowedBook().getReturnDate());
@@ -117,13 +129,24 @@ public class ServerController {
 				System.out.println(message.getBorrowedBook().getLostBook());
 				
 				int x;
-				query = "INSERT INTO borrowedbook VALUES(' " +
-				message.getBorrowedBook().getSubscriptionNumber()+ " ';' "+
-				message.getBorrowedBook().getBookId()+
-						" ';'"+message.getBorrowedBook().getReturnDate()+"';'"+message.getBorrowedBook().getBorrowDate()+"';'"+22 + "')";
+				//query = "INSERT INTO borrowedbook VALUES(' " +
+				//message.getBorrowedBook().getSubscriptionNumber()+ " ',' "+
+				//message.getBorrowedBook().getBookId()+
+				//		" ','"+message.getBorrowedBook().getReturnDate()+"','"+message.getBorrowedBook().getBorrowDate()+"','"+message.getBorrowedBook().getLostBook() + "')";
 				
-				query = "INSERT INTO `borrowedbook` (`subscriptionNumber`, `bookId`, `returnDate`, `borrowDate`, `lostBook`) VALUES ('207', '3', '2019-01-02', '2019-01-20', '0');";
-
+				//query = "INSERT INTO `borrowedbook` (`subscriptionNumber`, `bookId`, `returnDate`, `borrowDate`, `lostBook`) VALUES ('207', '3', '2019-01-02', '2019-01-20', '0');";
+				//query = "INSERT INTO `borrowedbook` (`subscriptionNumber`, `bookId`, `returnDate`, `borrowDate`, `lostBook`) VALUES'" (message.getBorrowedBook().getSubscriptionNumber(), message.getBorrowedBook().getBookId(), message.getBorrowedBook().getReturnDate(), message.getBorrowedBook().getBorrowDate(), '0');";
+				query = "INSERT INTO borrowedbook VALUES ('";
+				query += message.getBorrowedBook().getSubscriptionNumber();
+				query += "','";
+				query += message.getBorrowedBook().getBookId(); 
+				query += "','";
+				query += message.getBorrowedBook().getReturnDate();
+				query += "','";
+				query += message.getBorrowedBook().getBorrowDate();
+				query += "','";
+				query += message.getBorrowedBook().getLostBook();
+				query += "');";
 				x=stmt.executeUpdate(query);
 				System.out.println("hai");
 				break;

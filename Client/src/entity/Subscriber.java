@@ -17,7 +17,7 @@ public class Subscriber implements Serializable
 	//Late return
 	//Losing a book
 	
-	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus)
+	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
 	{
 		this.subscriberID=subscriberNumber;
 		this.userName=userName;
@@ -26,6 +26,7 @@ public class Subscriber implements Serializable
 		this.mobileNumber=mobileNumber;
 		this.email=email;
 		this.subscriberStatus=subscriberStatus;
+		this.subscriberDetails=subscriberDetails;
 	}
 	public Subscriber(String subscriberNumber,String mobileNumber,String email,String subscriberStatus)
 	{

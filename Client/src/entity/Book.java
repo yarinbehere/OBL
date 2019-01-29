@@ -20,8 +20,8 @@ public class Book implements Serializable{
 	private int OriginalBookQuanity;
 	private int CurrentBookQuanity;
 	//אולי צריך לשים ב"יישות" חדשה
-	private LocalDate BorrowDate;
-	private LocalDate ReturnDate;
+	//private LocalDate BorrowDate;
+	//private LocalDate ReturnDate;
 	////
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
 	{
@@ -30,21 +30,16 @@ public class Book implements Serializable{
 		this.bookGenre = bookGenre;
 		this.bookDescription = bookDescription;
 	}
-	//contractor for borrowing book
-	public Book(LocalDate BorrowDate,LocalDate ReturnDate)
-	{
-		this.setBorrowDate(BorrowDate);
-		this.setReturnDate(ReturnDate);
 
-	}
-	public Book(String bookSerialNumber, String wantedLevel,int CurrentBookQuanity) 
+	public Book(String bookSerialNumber, String wantedLevel,int CurrentBookQuanity,int OriginalBookQuanity,String bookDetails ) 
 	{
 		this.bookSerialNumber=bookSerialNumber;
 		this.wantedLevel=wantedLevel;
 		this.CurrentBookQuanity=CurrentBookQuanity;
+		this.OriginalBookQuanity=OriginalBookQuanity;
+		this.bookDetails=bookDetails;
 	}
 	
-	//
 	public Book(String bookDetails) 
 	{
 		this.bookDetails = bookDetails;
@@ -109,17 +104,5 @@ public class Book implements Serializable{
 	public int getCurrentBookQuanity() {
 		return CurrentBookQuanity;
 	}
-	public LocalDate getReturnDate() {
-		return ReturnDate;
-	}
-	public void setReturnDate(LocalDate returnDate) {
-		ReturnDate = returnDate;
-	}
-	public LocalDate getBorrowDate() {
-		return BorrowDate;
-	}
-	public void setBorrowDate(LocalDate borrowDate) {
-		BorrowDate = borrowDate;
-	}
-	
+
 }
