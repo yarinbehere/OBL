@@ -68,7 +68,6 @@ public class BorrowBookController{
 			alert1.showAndWait();
 			return;
     	}
-    	
     	//if the subscriber exist
     	subscriberStatusLabel.setText(resultSubscriber.getSubscriberStatus());
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
@@ -110,7 +109,7 @@ public class BorrowBookController{
      	String checkSubscriberStatus;
     	int checkCurrentBookQuanity;
     	Alert alert4=new Alert(Alert.AlertType.ERROR);
-    	
+    	Alert alert5=new Alert(Alert.AlertType.CONFIRMATION);
     	
     	if(borrowDate.getValue() == null||returnDate.getValue()==null||bookLabel.getText().equals("Serial number, name")||subscriberEditLabel.getText().equals("")||subscriberEditLabel.getText().equals("Username, email, ID") || subscriberEditLabel.getText().equals(""))
     	{
@@ -170,11 +169,13 @@ public class BorrowBookController{
         	}
         	
         	BorrowedBook borrowedbook = new BorrowedBook(resultSubscriber.getSubscriberID(),resultBook.getbookSerialNumber(),ReturnDate,BorrowDate,0);
-        	System.out.println("1");
         	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
-        	System.out.println("2");
         	MainClient.client.accept(message); 
         	Thread.sleep(100);
+        	alert5.setTitle("Borrowed book");
+        	alert5.setContentText("Book successfully borrowed");
+    		alert5.showAndWait();
+    		return;
     	}
 
 
