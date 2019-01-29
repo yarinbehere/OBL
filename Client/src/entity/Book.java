@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Book implements Serializable{
+	private String bookID;
 	private String bookTitle;
 	private String authorName;
 	private String editionNumber;
-	private String publishedDate;
-	private String bookDescription;
 	private String bookGenre;
-	private String cataologNumber;
-	private String datePurchase;
+	private String bookDescription;
+	private int originalQuantity;
+	private String publishedDate;
+	private String cataologNumber; // Yarin: WTF is this?
+	private String datePurchase; // Yarin: Unnecessary?
 	private String shelfLocation;
-	private String bookID;
-	int amountOfBooks;
-	int quanity;
+	private String pdfPath; // Yarin: Added
+	private int amountOfBooks; // Yarin: currentQuantity
 	private String available;
 	private Date soonestReturn; 
 	
@@ -37,9 +38,17 @@ public class Book implements Serializable{
 		this.setSoonestReturn(soonestReturn);
 	}
 	
+	/***
+	 * Search by ID only within the window.
+	 * @author Yarin
+	 */
+	public Book(String bookID) {
+		this.bookID=bookID;
+	}
+	
 	public String getBookTitle() {
 		return bookTitle;
-	}
+	} 
 	
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;

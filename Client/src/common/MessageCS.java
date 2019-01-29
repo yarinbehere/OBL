@@ -15,7 +15,7 @@ public class MessageCS implements Serializable {
 	 * @author Roman
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT;
+		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ADDNEWBOOK;
 	}
 	
 	

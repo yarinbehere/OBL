@@ -67,7 +67,20 @@ public class ServerController {
 					client.sendToClient("User can't be found");
 				}
 				break;
-			case SEARCH_BOOK:
+				
+			case SEARCH_BOOK_FOR_ADDNEWBOOK:
+				Book newBook = null;
+				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
+				rset=	stmt.executeQuery(query);
+				if(rset.next() == true)
+				{
+					newBook = new Book(rset.getString("title"),rset.getString("author"),rset.getString("category"),rset.getString("description"));
+				}
+				MessageCS resultBookForAddNewBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_ADDNEWBOOK, newBook);
+				client.sendToClient(resultBookForAddNewBook);
+				break;
+				
+			case SEARCH_BOOK: 
 				ArrayList<Book> bookList = new ArrayList<>();
 				Book book = null;
 				//query to find title (substring), author(substring), category and description(substring) in the database
@@ -109,6 +122,7 @@ public class ServerController {
 				MessageCS books = new MessageCS(MessageType.SEARCH_BOOK,bookList);
 				client.sendToClient(books);//send message back to the client
 				break;
+				
 			case TABLE_OF_CONTENT:
 				//choose book by it's serial number (since there might be 2 books with same names but different serial number)
 				query = "SELECT * FROM book WHERE bookID = " + message.getBook().getBookID() + " ;";
