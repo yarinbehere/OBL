@@ -3,6 +3,7 @@ package common;
 import controller.LoginController;
 import controller.OrderBookController;
 import controller.SearchBookController;
+import controller.UpdateBookController;
 import entity.User;
 
 public class ClientController {
@@ -36,6 +37,8 @@ public class ClientController {
 			break;
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = message.getBooks();
+		case SEARCH_BOOK_FOR_UPDATE_BOOK:
+			UpdateBookController.resultBook = message.getBook();
 		default:
 			break; 
 		}	

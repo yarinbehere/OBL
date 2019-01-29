@@ -64,7 +64,7 @@ public class MainClient extends Application{
 	public void showLoginForm() throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClient.class.getResource("/boundary/fxml/ReaderMenu.fxml"));
+		loader.setLocation(MainClient.class.getResource("/boundary/fxml/UpdateBook.fxml"));
 		mainLayout = loader.load();
 		Scene scene = new Scene(mainLayout);
 		primaryStage.setScene(scene);

@@ -96,6 +96,32 @@ public class Book implements Serializable{
 		this.bookDetails = bookDetails;
 	}
 	
+	/**find the books for update book's details
+	 * @author Omri Braymok
+	 * @param ID
+	 * @param available
+	 * @param Title
+	 * @param authorName
+	 * @param Genre
+	 * @param bookDescription
+	 * @param CurrentBookQuanity
+	 * @param shelfLocation
+	 * @param wantedLevel
+	 */
+	public Book(String bookID,String available, String bookTitle,String authorName,String bookGenre,String bookDescription,
+			int CurrentBookQuanity,String shelfLocation,String wantedLevel) {
+		this.bookID=bookID;
+		this.available=available;
+		this.bookTitle=bookTitle;
+		this.authorName=authorName;
+		this.bookGenre=bookGenre;
+		this.bookDescription=bookDescription;
+		this.CurrentBookQuanity=CurrentBookQuanity;
+		this.shelfLocation=shelfLocation;
+		this.wantedLevel=wantedLevel;
+		
+	}
+	
 	public String getBookTitle() {
 		return bookTitle;
 	}

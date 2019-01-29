@@ -172,6 +172,28 @@ public class ServerController {
 				MessageCS soonestReturn = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 				client.sendToClient(soonestReturn);
 				break;
+			case SEARCH_BOOK_FOR_UPDATE_BOOK:
+				//Query to find book in DB by bookID
+				query = "SELECT * FROM book WHERE bookID= '"+message.getBook().getBookID()+ "';";
+				//result of the query
+				rset = stmt.executeQuery(query);
+				//if book fund 
+				if(rset.next())
+				{
+					String available;
+					if((rset.getInt("originalQuantity")-rset.getInt("currentQuantity"))>0)
+							available = "available";
+					else 
+						available = "Not available";
+					book = new Book(rset.getString("bookId"),available, rset.getString("title"), rset.getString("author"),
+							rset.getString("category"),rset.getString("description"),rset.getInt("currentQuantity"),
+							rset.getString("location"),rset.getString("wanted")); 
+				}
+				else
+					book = null;
+				MessageCS resultReturn = new MessageCS(MessageType.SEARCH_BOOK_FOR_UPDATE_BOOK,book);
+				client.sendToClient(resultReturn);
+				break;
 			case LIST_OF_ORDERS:
 				query = "SELECT * FROM BookOrder o, Book b WHERE o.bookID = b.bookID AND o.subscriptionNumber = '" 
 			+ message.getSubscriber().getSubscriberDetails() + "';";
