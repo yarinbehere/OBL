@@ -31,7 +31,7 @@ import javafx.scene.text.Text;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
 	    
-	    public static Role userRole = null;
+	    public static Role userRole = null; 
 	    
 	    @FXML
 	    void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
