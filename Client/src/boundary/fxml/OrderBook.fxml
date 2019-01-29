@@ -86,7 +86,7 @@
                   <Button fx:id="searchBookButton" layoutX="409.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book details:" />
                   <Separator layoutX="137.0" layoutY="21.0" prefHeight="3.0" prefWidth="478.0" />
-                  <Button fx:id="placeOrderButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
+                  <Button fx:id="placeOrderButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
                   <Text layoutX="28.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soonest Return:" />
                   <Text fx:id="subscriberStatusLabel" fill="#00a130" layoutX="137.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" />
                   <Text layoutX="445.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book code:" />

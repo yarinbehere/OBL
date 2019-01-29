@@ -17,7 +17,7 @@ public class MessageCS implements Serializable {
 	 */
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ORDER, SEARCH_BOOK_FOR_BORROW,
-		SEARCH_SUBSCRIBER,LIST_OF_ORDERS; 
+		SEARCH_SUBSCRIBER,LIST_OF_ORDERS,CHECK_AVAILABLE_ORDER,ORDER_A_BOOK; 
 	}
 	
 	
@@ -29,6 +29,8 @@ public class MessageCS implements Serializable {
 	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
 	private Subscriber subscriber;
+	private String Error;
+	
 
 	/**
 	 * user wants to login to the system
@@ -82,7 +84,15 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setSubscriber(subscriber);	
 	}
-
+	/**
+	 * Will return a message error
+	 * @param checkAvailableOrder
+	 * @param Error
+	 */
+	public MessageCS(MessageType messageType, String Error) {
+		this.messageType = messageType;
+		this.setError(Error);
+	}
 	public User getUser() {
 		return user;
 	}
@@ -112,6 +122,12 @@ public class MessageCS implements Serializable {
 	}
 	public void setSubscriber(Subscriber subscriber) {
 		this.subscriber = subscriber;
+	}
+	public String getError() {
+		return Error;
+	}
+	public void setError(String error) {
+		Error = error;
 	}
 
 }

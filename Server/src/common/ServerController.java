@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
+import controller.LoginController;
 import controller.SubscriberMenuController;
 import entity.Book;
 import entity.FileTransfer;
@@ -160,12 +161,13 @@ public class ServerController {
 				client.sendToClient(resultBook);
 				break;
 			case SEARCH_BOOK_FOR_ORDER:
-				query = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = '"
-						+ message.getBook().getBookDetails() + "' ORDER BY returnDate";
+				query = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 AND (b.bookID = '"
+						+ message.getBook().getBookDetails() + "' OR title = '" + message.getBook().getBookDetails()+ "') ORDER BY returnDate";
 				rset = stmt.executeQuery(query);
 				if(rset.next())
 				{
 					book = new Book(rset.getString("bookId"),rset.getDate("returnDate")); 
+					System.out.println(book);
 				}
 				else
 					book = null;
@@ -190,10 +192,39 @@ public class ServerController {
 					}
 					bookList.add(book);
 				}
-				for(int i=0; i<bookList.size();i++)
-					System.out.println(bookList.get(i).getBookTitle() + " " + bookList.get(i).getDateOrder() + " " + bookList.get(i).getQueue());
 				books = new MessageCS(MessageType.LIST_OF_ORDERS,bookList);
 				client.sendToClient(books);
+				break;
+			case CHECK_AVAILABLE_ORDER:
+				query = "SELECT * FROM book WHERE bookID ='" + message.getBook().getBookDetails() + "';";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) 
+				{
+					Statement stmtCheckAvailableToOrder = conn.createStatement();
+					stmtCheckAvailableToOrder = conn.createStatement();
+					String queryCheckAvailableToOrder = "SELECT * FROM book WHERE bookID = '" + message.getBook().getBookDetails() + 
+							"' AND currentQuantity = '0'";
+					ResultSet CheckAvailableToOrder = stmtCheckAvailableToOrder.executeQuery(queryCheckAvailableToOrder);
+					if(CheckAvailableToOrder.next())
+					{
+						System.out.println(LoginController.subscriberResult.getSubscriberDetails()+ " " + message.getBook().getBookDetails());
+						book = new Book(message.getBook().getBookDetails(),LoginController.subscriberResult.getSubscriberDetails());
+						message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
+					}
+					else
+					{
+						message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,"The book exists in the library, you can borrow it");
+					}
+				}
+				else
+				{
+					message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,"Can't find such book");
+					
+				}
+				client.sendToClient(message);
+				break;
+			case ORDER_A_BOOK:
+				query = "";
 			}
 
 		} 

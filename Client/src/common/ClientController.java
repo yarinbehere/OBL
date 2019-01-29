@@ -34,6 +34,8 @@ public class ClientController {
 		case SEARCH_BOOK_FOR_ORDER:
 			OrderBookController.resultBook = message.getBook();
 			break;
+		case CHECK_AVAILABLE_ORDER:
+			OrderBookController.messageBookOrder = message.getError();
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = message.getBooks();
 		default:

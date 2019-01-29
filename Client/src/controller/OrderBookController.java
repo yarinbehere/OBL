@@ -40,8 +40,10 @@ public class OrderBookController implements Initializable{
     @FXML private TableColumn<Book, String> tableColumnOrderDate;
     @FXML private TableColumn<Book, String> tableColumnQueue;
 	public static Book resultBook = null;
+	
 	public static ArrayList<Book> bookResult = null;
 	private ObservableList<Book> listOfBooks;
+	public static String messageBookOrder = null;
 	
 
 	@FXML
@@ -50,6 +52,7 @@ public class OrderBookController implements Initializable{
 			System.out.println("empty field");
 		else
 		{
+			System.out.println(bookNameTextField.getText());
 			Book book = new Book(bookNameTextField.getText());
 			MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 			MainClient.client.accept(message);
@@ -90,5 +93,13 @@ public class OrderBookController implements Initializable{
 		}
 	}
 
+    @FXML
+    void placeOrder(ActionEvent event) throws InterruptedException {
+    	Book book = new Book(bookNameTextField.getText());
+		MessageCS message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
+		MainClient.client.accept(message);
+		Thread.sleep(100);
+		System.out.println(message.getError());
+    }
 
 }

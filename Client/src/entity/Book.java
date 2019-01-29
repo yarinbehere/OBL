@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Book implements Serializable{
+	
 	private String bookTitle;
 	private String authorName;
 	private String editionNumber;
@@ -23,6 +24,7 @@ public class Book implements Serializable{
 	private int CurrentBookQuanity;
 	private Date dateOrder;
 	private int queue;
+	private String subscriptionNumber;
 	
 	/**constructor when a message to server has been sent, to look for the book with these parameters
 	 * @author Roman
@@ -94,6 +96,11 @@ public class Book implements Serializable{
 	public Book(String bookDetails) 
 	{ 
 		this.bookDetails = bookDetails;
+	}
+	
+	public Book(String bookID, String subscriptionNumber) {
+		this.bookID = bookID;
+		this.setSubscriptionNumber(subscriptionNumber);
 	}
 	
 	public String getBookTitle() {
@@ -191,6 +198,12 @@ public class Book implements Serializable{
 	}
 	public void setQueue(int queue) {
 		this.queue = queue;
+	}
+	public String getSubscriptionNumber() {
+		return subscriptionNumber;
+	}
+	public void setSubscriptionNumber(String subscriptionNumber) {
+		this.subscriptionNumber = subscriptionNumber;
 	}
 	 
 	
