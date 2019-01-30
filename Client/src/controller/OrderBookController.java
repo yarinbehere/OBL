@@ -1,6 +1,7 @@
 package controller;
 
-import java.net.URL;
+import java.net.URL;import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -8,6 +9,7 @@ import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
+import entity.BookOrder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,12 +39,12 @@ public class OrderBookController implements Initializable{
 	
 	@FXML private TableView<Book> ordersTableView;
 	@FXML private TableColumn<Book, String> tableColumnTitle;
-    @FXML private TableColumn<Book, String> tableColumnOrderDate;
+    @FXML private TableColumn<Book, LocalDate> tableColumnOrderDate;
     @FXML private TableColumn<Book, String> tableColumnQueue;
-	public static Book resultBook = null;
+	public static Book wantedBook = null;
 	
 	public static ArrayList<Book> bookResult = null;
-	private ObservableList<Book> listOfBooks;
+	private ObservableList<Book> listOfBooks = null;
 	public static String messageBookOrder = null;
 	
 
@@ -52,22 +54,21 @@ public class OrderBookController implements Initializable{
 			System.out.println("empty field");
 		else
 		{
-			System.out.println(bookNameTextField.getText());
 			Book book = new Book(bookNameTextField.getText());
 			MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 			MainClient.client.accept(message);
 			Thread.sleep(400);
-			//LocalDate localDateConvert = resultBook.getSoonestReturn().toLocalDate();//convert from Date to LocalDate
+			//LocalDate localDateConvert = wantedBook.getSoonestReturn().toLocalDate();//convert from Date to LocalDate
 			//abc.setValue(localDateConvert);
-			if(resultBook == null)
+			if(wantedBook == null)
 			{
 				placeOrderButton.setDisable(true);
-				subscriberStatusLabel.setText("Book can't be ordered")	;
+				subscriberStatusLabel.setText("Book can't be found")	;
 			}
 			else
 			{
 				placeOrderButton.setDisable(false);
-				subscriberStatusLabel.setText(resultBook.getSoonestReturn().toString());
+				subscriberStatusLabel.setText(wantedBook.getSoonestReturn().toString());
 			}
 				
 		}
@@ -80,6 +81,7 @@ public class OrderBookController implements Initializable{
 		placeOrderButton.setDisable(true);
 		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("BookTitle"));
 		tableColumnOrderDate.setCellValueFactory(new PropertyValueFactory<>("DateOrder"));
+	//	tableColumnOrderDate.setCellValueFactory(new PropertyValueFactory<>("LocalDate"));
 		tableColumnQueue.setCellValueFactory(new PropertyValueFactory<>("Queue"));
 		
 		MessageCS message = new MessageCS(MessageType.LIST_OF_ORDERS,LoginController.subscriberResult);
@@ -95,11 +97,53 @@ public class OrderBookController implements Initializable{
 
     @FXML
     void placeOrder(ActionEvent event) throws InterruptedException {
-    	Book book = new Book(bookNameTextField.getText());
-		MessageCS message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
+    	if(wantedBook != null)
+		{
+    		
+    		if(listOfBooks != null)
+    		{
+    			for(int i = 0;i<listOfBooks.size();i++)
+    			{
+    				if(listOfBooks.get(i).getBookID().equals(wantedBook.getBookID()))
+    				{
+    					//remove the last book that has been added to the ArrayList
+    					System.out.println("Book Exists");
+    					return;
+    				}
+    			}
+    		}		
+		}
+    	BookOrder bookOrder = new BookOrder(bookNameTextField.getText(),LoginController.subscriberResult.getSubscriberDetails());
+		MessageCS message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,bookOrder);
 		MainClient.client.accept(message);
 		Thread.sleep(100);
-		System.out.println(message.getError());
+	/*	for(int i = 0; i<bookResult.size();i++)
+		{
+			System.out.println(bookResult.get(i).getLocalDate());
+			System.out.println();
+		}*/
+		System.out.println("bookResult: ");
+		for(int i=0 ; i<bookResult.size();i++) {
+			System.out.println(OrderBookController.bookResult.get(i).getBookID() + " " + bookResult.get(i).getBookTitle()
+					+ " " + OrderBookController.bookResult.get(i).getLocalDate() + " " + bookResult.get(i).getQueue());
+		}
+		
+		System.out.println("listOfBooks");
+		bookResult.get(bookResult.size()-1).setLocalDate(LocalDate.now());
+		listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
+		for(int i = 0; i<listOfBooks.size();i++ ) {
+			System.out.println(listOfBooks.get(i).getBookID() + " " + listOfBooks.get(i).getBookTitle()
+					+ " " + listOfBooks.get(i).getLocalDate() + " " + listOfBooks.get(i).getQueue());
+		}
+		
+		ordersTableView.setItems(listOfBooks);
+		if(message.getError() != null)
+			System.out.println(message.getError());
+		else
+		{
+			
+		}
     }
+  
 
 }

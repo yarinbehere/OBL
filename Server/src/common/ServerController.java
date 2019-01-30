@@ -5,9 +5,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
@@ -15,6 +22,7 @@ import common.ocsf.server.ConnectionToClient;
 import controller.LoginController;
 import controller.SubscriberMenuController;
 import entity.Book;
+import entity.BookOrder;
 import entity.FileTransfer;
 import entity.Subscriber;
 import entity.User.Role;
@@ -30,7 +38,7 @@ public class ServerController {
 		Book book = null;
 		try {
 			stmt = conn.createStatement(); 
-			switch(message.messageType)
+			switch(message.getMessageType())
 			{
 			case LOGIN:
 				//Query to find user in DB
@@ -167,7 +175,6 @@ public class ServerController {
 				if(rset.next())
 				{
 					book = new Book(rset.getString("bookId"),rset.getDate("returnDate")); 
-					System.out.println(book);
 				}
 				else
 					book = null;
@@ -180,6 +187,7 @@ public class ServerController {
 				rset = stmt.executeQuery(query);
 				bookList = new ArrayList<Book>();
 				Statement stmtFindQueue = conn.createStatement();
+				System.out.println(query);
 				while(rset.next())
 				{
 					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
@@ -188,7 +196,7 @@ public class ServerController {
 					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
 					if(rsetFindQueue.next())
 					{
-						book = new Book(rset.getString("title"),rset.getDate("orderDate"),rsetFindQueue.getInt("count(bookID)"));
+						book = new Book(rset.getString("bookID"),rset.getString("title"),rset.getDate("orderDate"),rsetFindQueue.getInt("count(bookID)"));
 					}
 					bookList.add(book);
 				}
@@ -196,35 +204,50 @@ public class ServerController {
 				client.sendToClient(books);
 				break;
 			case CHECK_AVAILABLE_ORDER:
-				query = "SELECT * FROM book WHERE bookID ='" + message.getBook().getBookDetails() + "';";
+				Statement stmtInsertOrder = conn.createStatement();		
+				//query to look if subscriber meets the requirements to order a book
+				query = "SELECT * FROM book WHERE bookID = '" + message.getBookOrder().getBookID()+ 
+						"' AND currentQuantity = '0' AND (SELECT COUNT(bookID) FROM BookOrder WHERE "
+						+ "bookID = '" + message.getBookOrder().getBookID()+ "') < originalQuantity";
 				rset = stmt.executeQuery(query);
+				stmtFindQueue = conn.createStatement();
+				//if found a book that meet the conditions to order a book
 				if(rset.next()) 
 				{
-					Statement stmtCheckAvailableToOrder = conn.createStatement();
-					stmtCheckAvailableToOrder = conn.createStatement();
-					String queryCheckAvailableToOrder = "SELECT * FROM book WHERE bookID = '" + message.getBook().getBookDetails() + 
-							"' AND currentQuantity = '0'";
-					ResultSet CheckAvailableToOrder = stmtCheckAvailableToOrder.executeQuery(queryCheckAvailableToOrder);
-					if(CheckAvailableToOrder.next())
+					
+					String insertOrder = "INSERT INTO BookOrder VALUES (NULL, '" + LocalDate.now() + "', '"
+							+ message.getBookOrder().getSubscriptionNumber() + "', '" 
+							+ message.getBookOrder().getBookID() + "', NULL, '" +LocalTime.now() + "');";
+					//insert the order to the database 
+					stmtInsertOrder.executeUpdate(insertOrder);
+					//query to find the queue of given book
+					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
+							+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND hour <= '"
+							+ LocalTime.now() + "';";
+					//stmtFindQueue = conn.createStatement();
+					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
+					if(rsetFindQueue.next())
 					{
-						System.out.println(LoginController.subscriberResult.getSubscriberDetails()+ " " + message.getBook().getBookDetails());
-						book = new Book(message.getBook().getBookDetails(),LoginController.subscriberResult.getSubscriberDetails());
-						message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
+						
+						//if there is already prior orders so this one will be the next in the queue that why we add 1
+						book = new Book(message.getBookOrder().getBookID(),rset.getString("title"),LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
+						System.out.println();
 					}
-					else
-					{
-						message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,"The book exists in the library, you can borrow it");
-					}
+					
+					//create the message of each types of the books
+					message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
+	
 				}
 				else
 				{
-					message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,"Can't find such book");
-					
+					message = new MessageCS(MessageType.ERROR_MESSAGE,"The book exists in the library, you can borrow it");
 				}
 				client.sendToClient(message);
 				break;
 			case ORDER_A_BOOK:
 				query = "";
+			default:
+				break;
 			}
 
 		} 
@@ -234,7 +257,7 @@ public class ServerController {
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 

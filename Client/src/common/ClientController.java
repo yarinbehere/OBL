@@ -17,7 +17,7 @@ public class ClientController {
 	public static void messageAnalyze(Object msg) 
 	{
 		MessageCS message = (MessageCS)msg;
-		switch(message.messageType) 
+		switch(message.getMessageType()) 
 		{
 		case LOGIN:
 			LoginController.userResult = message.getUser();
@@ -32,10 +32,16 @@ public class ClientController {
 			SearchBookController.tableOfContent = message.getTableOfContent();
 			break;
 		case SEARCH_BOOK_FOR_ORDER:
-			OrderBookController.resultBook = message.getBook();
+			OrderBookController.wantedBook = message.getBook();
 			break;
 		case CHECK_AVAILABLE_ORDER:
+			OrderBookController.bookResult.add(message.getBook());
+			System.out.println(message.getBook().getLocalDate());
+			System.out.println("2: " + OrderBookController.bookResult.get(1).getLocalDate());
+			break;
+		case ERROR_MESSAGE:
 			OrderBookController.messageBookOrder = message.getError();
+			break;
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = message.getBooks();
 		default:

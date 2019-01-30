@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import entity.Book;
+import entity.BookOrder;
 import entity.FileTransfer;
 import entity.Subscriber;
 import entity.User;
@@ -17,11 +18,11 @@ public class MessageCS implements Serializable {
 	 */
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ORDER, SEARCH_BOOK_FOR_BORROW,
-		SEARCH_SUBSCRIBER,LIST_OF_ORDERS,CHECK_AVAILABLE_ORDER,ORDER_A_BOOK; 
+		SEARCH_SUBSCRIBER,LIST_OF_ORDERS,CHECK_AVAILABLE_ORDER,ORDER_A_BOOK, ERROR_MESSAGE; 
 	}
 	
 	
-	MessageType messageType; 
+	private MessageType messageType; 
 	
 	/* Entities */
 	private User user;
@@ -30,6 +31,7 @@ public class MessageCS implements Serializable {
 	private FileTransfer tableOfContent;
 	private Subscriber subscriber;
 	private String Error;
+	private BookOrder bookOrder;
 	
 
 	/**
@@ -40,7 +42,7 @@ public class MessageCS implements Serializable {
 	 */
 	public MessageCS(MessageType messageType, User user)
 	{
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setUser(user);
 	}
 	/**
@@ -52,7 +54,7 @@ public class MessageCS implements Serializable {
 	
 	public MessageCS(MessageType messageType, Book book)
 	{
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setBook(book);
 	}
 	
@@ -65,7 +67,7 @@ public class MessageCS implements Serializable {
 	
 	public MessageCS(MessageType messageType, ArrayList<Book> books)
 	{
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setBooks(books);
 	}
 
@@ -76,12 +78,13 @@ public class MessageCS implements Serializable {
 	
 	public MessageCS(MessageType messageType, FileTransfer tableOfContent)
 	{
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setTableOfContent(tableOfContent);
 	}
 	
+	
 	public MessageCS(MessageType messageType, Subscriber subscriber) {
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setSubscriber(subscriber);	
 	}
 	/**
@@ -90,8 +93,12 @@ public class MessageCS implements Serializable {
 	 * @param Error
 	 */
 	public MessageCS(MessageType messageType, String Error) {
-		this.messageType = messageType;
+		this.setMessageType(messageType);
 		this.setError(Error);
+	}
+	public MessageCS(MessageType messageType, BookOrder bookOrder) {
+		this.setMessageType(messageType);
+		this.setBookOrder(bookOrder);
 	}
 	public User getUser() {
 		return user;
@@ -128,6 +135,18 @@ public class MessageCS implements Serializable {
 	}
 	public void setError(String error) {
 		Error = error;
+	}
+	public BookOrder getBookOrder() {
+		return bookOrder;
+	}
+	public void setBookOrder(BookOrder bookOrder) {
+		this.bookOrder = bookOrder;
+	}
+	public MessageType getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(MessageType messageType) {
+		this.messageType = messageType;
 	}
 
 }
