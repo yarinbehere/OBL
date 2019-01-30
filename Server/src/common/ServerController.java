@@ -116,19 +116,39 @@ public class ServerController {
 				{
 					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"),rset.getInt("originalQuantity"),message.getBook().getbookDetails());
 				}
-				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW, book);
+				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
 				client.sendToClient(resultBook);
 				break;
 
 			case BORROW:
 				int x;
-				System.out.println(message.getBorrowedBook().getSubscriptionNumber());
-				System.out.println(message.getBorrowedBook().getBookId());
-				System.out.println(message.getBorrowedBook().getReturnDate());
-				System.out.println(message.getBorrowedBook().getBorrowDate());
-				System.out.println(message.getBorrowedBook().getLostBook());
-				
+				////
+				boolean flag=true;
+				query = "SELECT * FROM borrowedbook WHERE bookId= \"" + message.getBorrowedBook().getBookId()  + "\";";
+				rset=stmt.executeQuery(query);
+				Book book2 = null;
+				while(flag)
+				{
+					if(rset.next() == true)
+					{
+						if(rset.getString("subscriptionNumber").equals(message.getBorrowedBook().getSubscriptionNumber()))
+						{
+							flag=false;
+							book2=new Book("subscriber already borrowed this book");
+							MessageCS cancel_borrow = new MessageCS(MessageType.BORROW1,book2);
+							client.sendToClient(cancel_borrow);
+							//book2=new Book(message.getBook().getbookDetails());
+							return;
+							
+						}
+					}
+					else
+						flag=false;
+				}
+				////
 
+				
+				System.out.println("11111111");
 				query = "INSERT INTO borrowedbook VALUES ('";
 				query += message.getBorrowedBook().getSubscriptionNumber();
 				query += "','";
@@ -141,6 +161,8 @@ public class ServerController {
 				query += message.getBorrowedBook().getLostBook();
 				query += "');";
 				x=stmt.executeUpdate(query);
+				
+				
 				System.out.println("hai");
 				break;
 				

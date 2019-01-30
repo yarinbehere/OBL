@@ -43,7 +43,7 @@ public class BorrowBookController{
     public static Subscriber resultSubscriber;
     public static Book resultBook;
     public static BorrowedBook resultBorrowedBook;
-  
+    public static Book cancel_borrow;
     
 
     @FXML
@@ -91,7 +91,7 @@ public class BorrowBookController{
     	//if the book does not exist in the system
     	if(resultBook.getbookDetails().equals("null"))
     	{
-    		alert2.setContentText("Book doesnt exist!");
+    		alert2.setContentText("Book doesn't exist!");
     		alert2.showAndWait();
 			return;
     	}
@@ -171,6 +171,19 @@ public class BorrowBookController{
         	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
         	MainClient.client.accept(message); 
         	Thread.sleep(100);
+        	System.out.println(cancel_borrow.getbookDetails());
+        	////
+        	 
+        	if(cancel_borrow.getbookDetails().equals("subscriber already borrowed this book"))
+        	{
+        		alert4.setTitle("information");
+        		alert4.setContentText("subscriber already borrowed this book!");
+        		alert4.showAndWait();
+        		cancel_borrow.setbookDetails(bookLabel.getText());
+        		return;
+        	}
+        
+        	////
         	alert5.setTitle("Borrowed book");
         	alert5.setContentText("Book successfully borrowed");
     		alert5.showAndWait();

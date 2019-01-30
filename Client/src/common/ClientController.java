@@ -42,6 +42,8 @@ public class ClientController {
 				BorrowBookController.resultBook = message.getBook();
 			case BORROW:
 				BorrowBookController.resultBorrowedBook = message.getBorrowedBook();
+			case BORROW1:
+				BorrowBookController.cancel_borrow=message.getBook();
 				break;
 			default:
 				break;
