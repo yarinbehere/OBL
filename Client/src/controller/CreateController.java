@@ -39,7 +39,7 @@ public class CreateController {
 
 	// assumption: input is valid
 	@FXML
-	void create(ActionEvent event) throws IOException, InterruptedException {
+	void create(ActionEvent event) {
 		// generates a password for the new subscriber
 		Random r = new Random();
 		char c1 = (char) (r.nextInt(26) + 'a');
@@ -59,7 +59,11 @@ public class CreateController {
 		MessageCS message = new MessageCS(MessageType.CREATE_SUBSCRIBER, newSubscriber);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(400);
+		try {
+			Thread.sleep(400);
+		} catch (InterruptedException e) {
+			System.out.println("interrupted while sleeping");
+		}
 		// informs the librarian that the subscriber was added successfully
 		if (foundSubscriber == null) {
 			requestInfoTextArea.setText("Subscriber already exists");

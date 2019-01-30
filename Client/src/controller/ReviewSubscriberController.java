@@ -51,7 +51,7 @@ public class ReviewSubscriberController {
 
 	@FXML
 	/** Initializing the choice box */
-	public void initialize() {
+	void initialize() {
 		// initializes status choice box
 		statusChoiceBox.getItems().add("Active");
 		statusChoiceBox.getItems().add("Frozen");
@@ -60,12 +60,16 @@ public class ReviewSubscriberController {
 
 	/** populates the labels with the requested users details from the database */
 	@FXML
-	public void searchSubscriber(ActionEvent event) throws IOException, InterruptedException {
+	void searchSubscriber(ActionEvent event) {
 		String subscriberId = subscriberEdittxt.getText();
 		MessageCS message = new MessageCS(MessageType.REVIEW_SUBSCRIBER_SEARCH, subscriberId);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(400);
+		try {
+			Thread.sleep(400);
+		} catch (InterruptedException e) {
+			System.out.println("interrupted while sleeping");
+		}
 		if (foundSubscriber == null) {
 			subscriberEdittxt.setText("not valid, try again!");
 		} else {
@@ -82,7 +86,7 @@ public class ReviewSubscriberController {
 
 	/** updates the subscriber in the database */
 	@FXML
-	public void saveChanges(ActionEvent event) throws IOException, InterruptedException {
+	void saveChanges(ActionEvent event) {
 		if (foundSubscriber == null) {
 			subscriberEdittxt.setText("not valid, try again!");
 		} else {
@@ -98,7 +102,11 @@ public class ReviewSubscriberController {
 			MessageCS message = new MessageCS(MessageType.REVIEW_SUBSCRIBER_UPDATE, subscriber);
 			MainClient.client.accept(message);
 			// wait for server processing
-			Thread.sleep(400);
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				System.out.println("interrupted while sleeping");
+			}
 			if (foundSubscriber == null) {
 				feedbackLabel.setText("Updating subscriber failed");
 			} else {
@@ -107,9 +115,10 @@ public class ReviewSubscriberController {
 			}
 		}
 	}
+
 	/** resets all fields in the lower rectangle */
 	@FXML
-	public void resetFields(ActionEvent event) throws IOException, InterruptedException{
+	void resetFields(ActionEvent event){
 		idTextField.setText("");
 		usernameTextField.setText("");
 		firstnameTextField.setText("");
