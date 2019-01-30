@@ -73,7 +73,7 @@ public class BorrowBookController{
 			return;
     	}
 		
-       
+      
        if( resultSubscriber.getSubscriberStatus().equals("Locked"))
     	   subscriberStatusLabel.setFill(Color.RED);
        if( resultSubscriber.getSubscriberStatus().equals("Frozen"))
@@ -119,7 +119,6 @@ public class BorrowBookController{
 
     	}
     }
-   // 
     @FXML
     void borrowBook(ActionEvent event) throws InterruptedException
     {
@@ -152,7 +151,7 @@ public class BorrowBookController{
         		return;
         	}
         	//check if the wanted book quantity isn't available
-        	if(checkCurrentBookQuanity<=0)
+        	if(checkCurrentBookQuanity<0)
         	{
         		alert4.setTitle("Current Book Quanity");
         		alert4.setContentText("The wanted book quantity isn't available!");
@@ -188,8 +187,6 @@ public class BorrowBookController{
         	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
         	MainClient.client.accept(message); 
         	Thread.sleep(100);
-        	System.out.println(cancel_borrow.getbookDetails());
-        	////
         	 
         	if(cancel_borrow.getbookDetails().equals("subscriber already borrowed this book"))
         	{
@@ -200,7 +197,6 @@ public class BorrowBookController{
         		return;
         	}
         
-        	////
         	alert5.setTitle("Borrowed book");
         	alert5.setContentText("Book successfully borrowed");
     		alert5.showAndWait();
