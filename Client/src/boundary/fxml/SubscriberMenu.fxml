@@ -94,7 +94,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="actvityLogButton" layoutX="159.0" layoutY="216.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Activity Log">
+                  <Button fx:id="actvityLogButton" layoutX="159.0" layoutY="216.0" mnemonicParsing="false" onAction="#viewActvityLog" prefHeight="29.0" prefWidth="192.0" text="Activity Log">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

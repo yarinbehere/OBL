@@ -118,6 +118,14 @@ public class BorrowBookController{
 
     	}
     }
+    
+    /**
+     * checking the requirement of the subscriber to borrow a book and let's him to borrow a book 
+     * (action made by librarian)
+     * @param event
+     * @throws InterruptedException
+     * @author Hai
+     */
     @FXML
     void borrowBook(ActionEvent event) throws InterruptedException
     {
