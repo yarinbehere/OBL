@@ -119,10 +119,8 @@ public class ServerController {
 				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
 				client.sendToClient(resultBook);
 				break;
-
 			case BORROW:
 				int x;
-				////
 				boolean flag=true;
 				query = "SELECT * FROM borrowedbook WHERE bookId= \"" + message.getBorrowedBook().getBookId()  + "\";";
 				rset=stmt.executeQuery(query);
@@ -137,19 +135,12 @@ public class ServerController {
 							book2=new Book("subscriber already borrowed this book");
 							MessageCS cancel_borrow = new MessageCS(MessageType.BORROW1,book2);
 							client.sendToClient(cancel_borrow);
-							//book2=new Book(message.getBook().getbookDetails());
 							return;
-							
 						}
 					}
 					else
 						flag=false;
 				}
-				////
-
-				
-				System.out.println("11111111");
-				
 				query = "INSERT INTO borrowedbook VALUES ('";
 				query += message.getBorrowedBook().getSubscriptionNumber();
 				query += "','";
@@ -162,7 +153,6 @@ public class ServerController {
 				query += message.getBorrowedBook().getLostBook();
 				query += "');";
 				x=stmt.executeUpdate(query);
-				/////
 				query = "SELECT * FROM book WHERE bookId= \"" + message.getBorrowedBook().getBookId()  + "\";";
 				rset=stmt.executeQuery(query);
 				if(rset.next() == true)
@@ -182,11 +172,6 @@ public class ServerController {
 			default:
 				break;
 			}
-
-
-
-
-
 		} 
 		catch (SQLException e) 
 		{

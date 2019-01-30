@@ -21,6 +21,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class BorrowBookController{ 
@@ -68,6 +72,14 @@ public class BorrowBookController{
 			alert1.showAndWait();
 			return;
     	}
+		
+       
+       if( resultSubscriber.getSubscriberStatus().equals("Locked"))
+    	   subscriberStatusLabel.setFill(Color.RED);
+       if( resultSubscriber.getSubscriberStatus().equals("Frozen"))
+    	   subscriberStatusLabel.setFill(Color.BLUE);
+       if( resultSubscriber.getSubscriberStatus().equals("Active"))
+    	   subscriberStatusLabel.setFill(Color.GREEN);
     	//if the subscriber exist
     	subscriberStatusLabel.setText(resultSubscriber.getSubscriberStatus());
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
@@ -98,8 +110,13 @@ public class BorrowBookController{
     	//if the book exist in the system
     	else 
     	{
+    	   if( resultBook.getwantedLevel().equals("wanted"))
+    		   bookStatusLabel.setFill(Color.RED);
+    	   if( resultBook.getwantedLevel().equals("not wanted"))
+    		   bookStatusLabel.setFill(Color.GREEN);
     	bookStatusLabel.setText(resultBook.getwantedLevel());
     	bookIDLabel.setText(resultBook.getbookSerialNumber());
+
     	}
     }
    // 
