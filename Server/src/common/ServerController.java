@@ -149,6 +149,7 @@ public class ServerController {
 
 				
 				System.out.println("11111111");
+				
 				query = "INSERT INTO borrowedbook VALUES ('";
 				query += message.getBorrowedBook().getSubscriptionNumber();
 				query += "','";
@@ -161,9 +162,21 @@ public class ServerController {
 				query += message.getBorrowedBook().getLostBook();
 				query += "');";
 				x=stmt.executeUpdate(query);
-				
-				
-				System.out.println("hai");
+				/////
+				query = "SELECT * FROM book WHERE bookId= \"" + message.getBorrowedBook().getBookId()  + "\";";
+				rset=stmt.executeQuery(query);
+				if(rset.next() == true)
+				{
+				query = "UPDATE book SET ";
+				query += "currentQuantity" + "=" + "'";
+				query += rset.getInt("currentQuantity")-2;
+				query += "'";
+				query += " WHERE ";
+				query += "bookId" + "=" + "'";
+				query += rset.getString("bookId");
+				query += "';";
+				stmt.executeUpdate(query);
+				}
 				break;
 				
 			default:
