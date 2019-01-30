@@ -73,14 +73,13 @@ public class BorrowBookController{
 			return;
     	}
 		
-      
+     	//if the subscriber exist
        if( resultSubscriber.getSubscriberStatus().equals("Locked"))
     	   subscriberStatusLabel.setFill(Color.RED);
        if( resultSubscriber.getSubscriberStatus().equals("Frozen"))
     	   subscriberStatusLabel.setFill(Color.BLUE);
        if( resultSubscriber.getSubscriberStatus().equals("Active"))
     	   subscriberStatusLabel.setFill(Color.GREEN);
-    	//if the subscriber exist
     	subscriberStatusLabel.setText(resultSubscriber.getSubscriberStatus());
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
     }
@@ -137,6 +136,7 @@ public class BorrowBookController{
     	else
     	{
         	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
+        	System.out.println(checkCurrentBookQuanity);
         	checkSubscriberStatus=resultSubscriber.getSubscriberStatus();
         	LocalDate BorrowDate = borrowDate.getValue();
         	LocalDate ReturnDate = returnDate.getValue();
@@ -151,7 +151,7 @@ public class BorrowBookController{
         		return;
         	}
         	//check if the wanted book quantity isn't available
-        	if(checkCurrentBookQuanity<0)
+        	if(checkCurrentBookQuanity<=0)
         	{
         		alert4.setTitle("Current Book Quanity");
         		alert4.setContentText("The wanted book quantity isn't available!");
@@ -200,6 +200,7 @@ public class BorrowBookController{
         	alert5.setTitle("Borrowed book");
         	alert5.setContentText("Book successfully borrowed");
     		alert5.showAndWait();
+    		resultBook.setCurrentBookQuanity(resultBook.getCurrentBookQuanity()-1);
     		return;
     	}
 

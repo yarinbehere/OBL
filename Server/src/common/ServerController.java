@@ -159,13 +159,16 @@ public class ServerController {
 				{
 				query = "UPDATE book SET ";
 				query += "currentQuantity" + "=" + "'";
-				query += rset.getInt("currentQuantity")-2;
+				query += rset.getInt("currentQuantity")-1;
 				query += "'";
 				query += " WHERE ";
 				query += "bookId" + "=" + "'";
 				query += rset.getString("bookId");
 				query += "';";
 				stmt.executeUpdate(query);
+				/////
+				
+				/////
 				}
 				break;
 				
