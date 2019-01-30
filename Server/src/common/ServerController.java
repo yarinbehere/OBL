@@ -83,9 +83,9 @@ public class ServerController {
 				break;
 			case SEARCH_SUBSCRIBER:
 				Subscriber subscriber = null; 
-				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = '"+ 
-						message.getSubscriber().getSubscriberDetails() + "' OR r.email = '" + message.getSubscriber().getSubscriberDetails() + 
-						"' OR r.subscriberID = '" + message.getSubscriber().getSubscriberDetails() + "');";
+				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
+						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
+						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
 				rset=stmt.executeQuery(query);
 				message.getSubscriber().setSubscriberDetails(message.getSubscriber().getSubscriberDetails());
 				//if the subscriber does not exist in the system
@@ -104,7 +104,7 @@ public class ServerController {
 			case SEARCH_BOOK_FOR_BORROW:
 				Book book = null;
 				System.out.println();
-				query = "SELECT * FROM book WHERE title= '" + message.getBook().getbookDetails() + "' OR bookId = '" + message.getBook().getbookDetails() + "';";
+				query = "SELECT * FROM book WHERE bookId= \"" + message.getBook().getbookDetails()  + "\";";
 				rset=stmt.executeQuery(query);
 				//if the book does not exist in the system
 				if(rset.next() == false)
@@ -121,14 +121,14 @@ public class ServerController {
 				break;
 
 			case BORROW:
-				
+				int x;
 				System.out.println(message.getBorrowedBook().getSubscriptionNumber());
 				System.out.println(message.getBorrowedBook().getBookId());
 				System.out.println(message.getBorrowedBook().getReturnDate());
 				System.out.println(message.getBorrowedBook().getBorrowDate());
 				System.out.println(message.getBorrowedBook().getLostBook());
 				
-				int x;
+
 				query = "INSERT INTO borrowedbook VALUES ('";
 				query += message.getBorrowedBook().getSubscriptionNumber();
 				query += "','";
