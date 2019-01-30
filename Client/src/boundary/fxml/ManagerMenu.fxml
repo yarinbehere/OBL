@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="638.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerMenuController">
+<VBox prefHeight="638.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerMenuController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -119,7 +119,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="createSubscriberButton" alignment="CENTER" layoutX="160.0" layoutY="280.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="192.0" text="Create Subscriber">
+                  <Button fx:id="createSubscriberButton" alignment="CENTER" layoutX="160.0" layoutY="280.0" mnemonicParsing="false" onAction="#createSubscriber" prefHeight="29.0" prefWidth="192.0" text="Create Subscriber">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>

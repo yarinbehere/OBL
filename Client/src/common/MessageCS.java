@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entity.Book;
 import entity.FileTransfer;
+import entity.BorrowedBook;
 import entity.Subscriber;
 import entity.User;
 
@@ -17,7 +18,7 @@ public class MessageCS implements Serializable {
 	 */
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
-		REVIEW_SUBSCRIBER_UPDATE;
+		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1;
 	}
 
 	MessageType messageType;
@@ -27,7 +28,8 @@ public class MessageCS implements Serializable {
 	private Book book;
 	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
-	Subscriber subscriber;
+	private BorrowedBook borrowedbook;
+	private Subscriber subscriber;
 	String textMessage;
 
 
@@ -68,6 +70,18 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setBooks(books);
 	}
+	
+	/**
+	 * subscriber wants to borrow a book
+	 * @param messageType - messageType will be borrow book
+	 * @param subscriber 
+	 * @author Hai
+	 */
+	public MessageCS(MessageType messageType, Subscriber subscriber)
+	{
+		this.messageType = messageType;
+		this.setSubscriber(subscriber);
+	}
 
 	/**constructor for the table of content that we would like to open
 	 * @param tableOfContent saving the file we want to open
@@ -79,6 +93,19 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setTableOfContent(tableOfContent);
 	}
+	
+	/**
+	 * subscriber wants to borrow a book
+	 * @param messageType - messageType will be borrow book
+	 * @param subscriber 
+	 * @author Hai
+	 */
+	public MessageCS(MessageType messageType, BorrowedBook borrowedbook)
+	{
+		this.messageType = messageType;
+		this.setBorrowedbook(borrowedbook);
+	}
+	
 	public User getUser() {
 		return user;
 	}
@@ -103,19 +130,24 @@ public class MessageCS implements Serializable {
 	public void setTableOfContent(FileTransfer tableOfContent) {
 		this.tableOfContent = tableOfContent;
 	}
-	/**
-	 * @param subscriber
-	 */
-	public MessageCS(MessageType messageType, Subscriber subscriber) {
-		this.messageType = messageType;
-		this.subscriber = subscriber;
-	}
-
+	
 	/**
 	 * @param textMessage
 	 */
 	public MessageCS(MessageType messageType, String textMessage) {
 		this.messageType = messageType;
 		this.textMessage = textMessage;
+	}
+	public Subscriber getSubscriber() {
+		return subscriber;
+	}
+	public void setSubscriber(Subscriber subscriber) {
+		this.subscriber = subscriber;
+	}
+	public BorrowedBook getBorrowedbook() {
+		return borrowedbook;
+	}
+	public void setBorrowedbook(BorrowedBook borrowedbook) {
+		this.borrowedbook = borrowedbook;
 	}
 }

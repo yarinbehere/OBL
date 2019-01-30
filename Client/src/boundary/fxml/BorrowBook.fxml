@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowBookController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -83,10 +83,10 @@
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Subscriber's details:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Borrow for:" />
                   <TextField fx:id="subscriberEditLabel" layoutX="125.0" layoutY="45.0" prefHeight="27.0" prefWidth="267.0" text="Username, email, ID" />
-                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
+                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchSubscriber" text="Search Subscriber" />
                   <Text layoutX="28.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Name:" />
                   <TextField fx:id="bookLabel" layoutX="125.0" layoutY="162.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
-                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="162.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
+                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="162.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="125.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subscriber Status:">
                      <font>
                         <Font name="System Italic" size="13.0" />
@@ -134,7 +134,7 @@
                   <DatePicker fx:id="borrowDate" layoutX="121.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
                   <Text layoutX="262.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date:" wrappingWidth="87.4072265625" />
                   <DatePicker fx:id="returnDate" layoutX="351.0" layoutY="252.0" prefHeight="27.0" prefWidth="123.0" />
-                  <Button fx:id="borrowButton" layoutX="239.0" layoutY="300.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Borrow" />
+                  <Button fx:id="borrowButton" layoutX="239.0" layoutY="300.0" mnemonicParsing="false" onAction="#borrowBook" prefHeight="27.0" prefWidth="106.0" text="Borrow" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Borrow a Book">

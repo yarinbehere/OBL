@@ -135,19 +135,107 @@ public class ServerController {
 					System.out.println("no such a book");
 				break;
 			case CREATE_SUBSCRIBER:
-				insertSubscriber(message.subscriber);
+				insertSubscriber(message.getSubscriber());
 				// sending the new subscriber to the client
 				client.sendToClient(message);
 				break;
 			case REVIEW_SUBSCRIBER_SEARCH:
 				String subscribersId = message.textMessage;
-				message.subscriber = selectSubscriber(subscribersId);
+				message.setSubscriber(selectSubscriber(subscribersId));
 				client.sendToClient(message);
 				break;
 			case REVIEW_SUBSCRIBER_UPDATE:
-				updateSubscriber(message.subscriber);
+				updateSubscriber(message.getSubscriber());
 				// sending confirmation message to the client
 				client.sendToClient(message);
+				break;
+				case SEARCH_SUBSCRIBER:
+				Subscriber subscriber = null; 
+				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
+						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
+						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
+				rset=stmt.executeQuery(query);
+				message.getSubscriber().setSubscriberDetails(message.getSubscriber().getSubscriberDetails());
+				//if the subscriber does not exist in the system
+				if(rset.next() == false)
+				{
+					subscriber = new Subscriber("null");
+				}
+				//if the subscriber exist in the system
+				else
+				{
+					subscriber = new Subscriber(rset.getString("subscriberID"),rset.getString("userName"),rset.getString("firstName"),rset.getString("lastName"),rset.getString("phoneNumber"),rset.getString("email"),rset.getString("subscriberStatus"),message.getSubscriber().getSubscriberDetails());
+				} 
+				MessageCS resultSearchSubscriber = new MessageCS(MessageType.SEARCH_SUBSCRIBER, subscriber);
+				client.sendToClient(resultSearchSubscriber);
+				break;
+			case SEARCH_BOOK_FOR_BORROW:
+			    book = null;
+				System.out.println();
+				query = "SELECT * FROM book WHERE bookId= \"" + message.getBook().getBookDetails()  + "\";";
+				rset=stmt.executeQuery(query);
+				//if the book does not exist in the system
+				if(rset.next() == false)
+				{
+					book = new Book("null");
+				}
+				//if the book exist in the system
+				else
+				{
+					book = new Book(rset.getString("bookId"),rset.getString("wanted"),rset.getInt("currentQuantity"),rset.getInt("originalQuantity"),message.getBook().getBookDetails());
+				}
+				MessageCS resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
+				client.sendToClient(resultBook);
+				break;
+			case BORROW:
+				boolean flag=true;
+				query = "SELECT * FROM borrowedbook WHERE bookId= \"" + message.getBorrowedbook().getBookId()  + "\";";
+				rset=stmt.executeQuery(query);
+				Book book2 = null;
+				while(flag)
+				{
+					if(rset.next() == true)
+					{
+						if(rset.getString("subscriptionNumber").equals(message.getBorrowedbook().getSubscriptionNumber()))
+						{
+							flag=false;
+							book2=new Book("subscriber already borrowed this book");
+							MessageCS cancel_borrow = new MessageCS(MessageType.BORROW1,book2);
+							client.sendToClient(cancel_borrow);
+							return;
+						}
+					}
+					else
+						flag=false;
+				}
+				query = "INSERT INTO borrowedbook VALUES ('";
+				query += message.getBorrowedbook().getSubscriptionNumber();
+				query += "','";
+				query += message.getBorrowedbook().getBookId(); 
+				query += "','";
+				query += message.getBorrowedbook().getReturnDate();
+				query += "','";
+				query += message.getBorrowedbook().getBorrowDate();
+				query += "','";
+				query += message.getBorrowedbook().getLostBook();
+				query += "');";
+				stmt.executeUpdate(query);
+				query = "SELECT * FROM book WHERE bookId= \"" + message.getBorrowedbook().getBookId()  + "\";";
+				rset=stmt.executeQuery(query);
+				if(rset.next() == true)
+				{
+				query = "UPDATE book SET ";
+				query += "currentQuantity" + "=" + "'";
+				query += rset.getInt("currentQuantity")-1;
+				query += "'";
+				query += " WHERE ";
+				query += "bookId" + "=" + "'";
+				query += rset.getString("bookId");
+				query += "';";
+				stmt.executeUpdate(query);
+				}
+				break;
+			default:
 				break;
 			}
 

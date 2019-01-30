@@ -3,6 +3,7 @@ package common;
 import controller.LoginController;
 import controller.SearchBookController;
 import controller.ReviewSubscriberController;
+import controller.BorrowBookController;
 import controller.CreateController;
 import entity.Subscriber;
 import entity.User;
@@ -45,20 +46,32 @@ public class ClientController {
 			SearchBookController.tableOfContent = message.getTableOfContent();
 			break;
 			case CREATE_SUBSCRIBER:
-				if (message.subscriber == null) {
+				if (message.getSubscriber() == null) {
 					CreateController.foundSubscriber = null;
 				} else {
-					CreateController.foundSubscriber = message.subscriber;
+					CreateController.foundSubscriber = message.getSubscriber();
 				}
 				break;
 			case REVIEW_SUBSCRIBER_SEARCH:
 			case REVIEW_SUBSCRIBER_UPDATE:
-				if (message.subscriber == null) {
+				if (message.getSubscriber() == null) {
 					ReviewSubscriberController.foundSubscriber = null;
 				} else {
-					ReviewSubscriberController.foundSubscriber = message.subscriber;
+					ReviewSubscriberController.foundSubscriber = message.getSubscriber();
 				}
 				break;
+				case SEARCH_SUBSCRIBER:
+				BorrowBookController.resultSubscriber = message.getSubscriber();
+				break;
+			case SEARCH_BOOK_FOR_BORROW:
+				BorrowBookController.resultBook = message.getBook();
+				break;
+			case BORROW:
+				BorrowBookController.resultBorrowedBook = message.getBorrowedbook();
+			case BORROW1:
+				BorrowBookController.cancel_borrow=message.getBook();
+				break;
+				
 		default:
 			break;
 			

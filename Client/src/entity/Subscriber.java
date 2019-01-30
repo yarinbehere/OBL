@@ -1,23 +1,19 @@
-/**
- * 
- */
+
 package entity;
 
-/**
- * @author shalev
- *
- */
-public class Subscriber extends User {
-	/** a field for serializable */
-	private static final long serialVersionUID = 1L;
-	String userName;
-	String password;
-	String firstName;
-	String lastName;
-	String id;
-	String email;
-	String phone;
-	String subscriberStatus;
+import java.io.Serializable;
+
+public class Subscriber implements Serializable  {
+	
+	private String userName;
+	private String password;
+	private String mobileNumber;
+	private String email;
+	private String subscriberStatus;
+	private String subscriberDetails;
+	private String subscriberID;
+	private String firstName;
+	private String lastName;
 
 	/**
 	 * @param userName
@@ -30,13 +26,45 @@ public class Subscriber extends User {
 	 * @param email
 	 * @param phone
 	 */
-	public Subscriber(String id, String userName, String firstName, String lastName, String phone, String email, String password) {
-		super(userName, password);
+	public Subscriber(String subscriberID, String userName, String firstName, String lastName, String mobileNumber, String email, String password) {
+		this.setUserName(userName);
+		this.setPassword(password);
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.id = id;
+		this.subscriberID = subscriberID;
 		this.email = email;
-		this.phone = phone;
+		this.mobileNumber = mobileNumber;
+	}
+	
+	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
+	{
+		this.setSubscriberID(subscriberNumber);
+		this.setUserName(userName);
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.setMobileNumber(mobileNumber);
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+		this.setSubscriberDetails(subscriberDetails);
+	}
+	public Subscriber(String subscriberNumber,String mobileNumber,String email,String subscriberStatus)
+	{
+		
+		this.setSubscriberID(subscriberNumber);
+		this.setMobileNumber(mobileNumber);
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+	}
+
+	public Subscriber(String subscriberDetails)
+	{
+		this.setSubscriberDetails(subscriberDetails);
+	}
+	
+	public Subscriber(String subscriberID, String subscriberStatus) 
+	{ 
+		this.setSubscriberID(subscriberID);
+		this.subscriberStatus = subscriberStatus;
 	}
 
 	/**
@@ -71,14 +99,14 @@ public class Subscriber extends User {
 	 * @return the id
 	 */
 	public String getId() {
-		return id;
+		return subscriberID;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String subscriberID) {
+		this.subscriberID = subscriberID;
 	}
 
 	/**
@@ -99,14 +127,14 @@ public class Subscriber extends User {
 	 * @return the phone
 	 */
 	public String getPhone() {
-		return phone;
+		return mobileNumber;
 	}
 
 	/**
 	 * @param phone the phone to set
 	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhone(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
 	/**
@@ -121,6 +149,46 @@ public class Subscriber extends User {
 	 */
 	public void setSubscriberStatus(String subscriberStatus) {
 		this.subscriberStatus = subscriberStatus;
+	}
+
+	public String getSubscriberDetails() {
+		return subscriberDetails;
+	}
+
+	public void setSubscriberDetails(String subscriberDetails) {
+		this.subscriberDetails = subscriberDetails;
+	}
+
+	public String getSubscriberID() {
+		return subscriberID;
+	}
+
+	public void setSubscriberID(String subscriberID) {
+		this.subscriberID = subscriberID;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

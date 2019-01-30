@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Book implements Serializable{
 	private String bookTitle;
@@ -14,10 +15,13 @@ public class Book implements Serializable{
 	private String datePurchase;
 	private String shelfLocation;
 	private String bookID;
-	int amountOfBooks;
-	int quanity;
+	private int OriginalBookQuanity;
+	private int CurrentBookQuanity;
 	private String available;
-	private Date soonestReturn; 
+	private Date soonestReturn;
+	private String bookDetails;
+	private String bookSerialNumber;
+	private String wantedLevel; 
 	
 
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
@@ -26,6 +30,15 @@ public class Book implements Serializable{
 		this.authorName = authorName;
 		this.bookGenre = bookGenre;
 		this.bookDescription = bookDescription;
+	}
+
+	public Book(String bookSerialNumber, String wantedLevel,int CurrentBookQuanity,int OriginalBookQuanity,String bookDetails ) 
+	{
+		this.setBookSerialNumber(bookSerialNumber);
+		this.setWantedLevel(wantedLevel);
+		this.setCurrentBookQuanity(CurrentBookQuanity);
+		this.setOriginalBookQuanity(OriginalBookQuanity);
+		this.setBookDetails(bookDetails);
 	}
 	
 	public Book(String bookID, String bookTitle, String shelfLocation, String available, Date soonestReturn)
@@ -36,7 +49,10 @@ public class Book implements Serializable{
 		this.available = available;
 		this.setSoonestReturn(soonestReturn);
 	}
-	
+	public Book(String bookDetails) 
+	{
+		this.setBookDetails(bookDetails);
+	}
 	public String getBookTitle() {
 		return bookTitle;
 	}
@@ -99,6 +115,46 @@ public class Book implements Serializable{
 
 	public void setSoonestReturn(Date soonestReturn) {
 		this.soonestReturn = soonestReturn;
+	}
+
+	public String getWantedLevel() {
+		return wantedLevel;
+	}
+
+	public void setWantedLevel(String wantedLevel) {
+		this.wantedLevel = wantedLevel;
+	}
+
+	public String getBookSerialNumber() {
+		return bookSerialNumber;
+	}
+
+	public void setBookSerialNumber(String bookSerialNumber) {
+		this.bookSerialNumber = bookSerialNumber;
+	}
+
+	public int getCurrentBookQuanity() {
+		return CurrentBookQuanity;
+	}
+
+	public void setCurrentBookQuanity(int currentBookQuanity) {
+		CurrentBookQuanity = currentBookQuanity;
+	}
+
+	public int getOriginalBookQuanity() {
+		return OriginalBookQuanity;
+	}
+
+	public void setOriginalBookQuanity(int originalBookQuanity) {
+		OriginalBookQuanity = originalBookQuanity;
+	}
+
+	public String getBookDetails() {
+		return bookDetails;
+	}
+
+	public void setBookDetails(String bookDetails) {
+		this.bookDetails = bookDetails;
 	}
 	
 	
