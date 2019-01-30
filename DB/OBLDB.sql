@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `bookorder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `bookorder` (
-  `bookOrderNum` varchar(45) NOT NULL,
+  `bookOrderNum` int(11) NOT NULL AUTO_INCREMENT,
   `orderDate` date NOT NULL,
   `subscriptionNumber` varchar(45) NOT NULL,
   `bookId` varchar(45) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE `bookorder` (
   KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
   CONSTRAINT `fk_BookOrder_books1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
   CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `bookorder` (
 
 LOCK TABLES `bookorder` WRITE;
 /*!40000 ALTER TABLE `bookorder` DISABLE KEYS */;
-INSERT INTO `bookorder` VALUES ('1','2019-01-15','207','6','wanted','12:55:03'),('2','2019-01-10','208','8','not wanted','16:20:00');
+INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03'),(2,'2019-01-10','208','8','not wanted','16:20:00');
 /*!40000 ALTER TABLE `bookorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +256,7 @@ CREATE TABLE `subscriber` (
 
 LOCK TABLES `subscriber` WRITE;
 /*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
-INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','peretz','0502712993','moshe@gmail.com','Frozen');
+INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active');
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,7 +281,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('100','aA123456','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber'),('208','tk9468','Subscriber');
+INSERT INTO `user` VALUES ('100','12','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -294,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-27 19:45:03
+-- Dump completed on 2019-01-30 12:16:04
