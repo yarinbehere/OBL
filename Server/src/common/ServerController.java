@@ -129,13 +129,6 @@ public class ServerController {
 				System.out.println(message.getBorrowedBook().getLostBook());
 				
 				int x;
-				//query = "INSERT INTO borrowedbook VALUES(' " +
-				//message.getBorrowedBook().getSubscriptionNumber()+ " ',' "+
-				//message.getBorrowedBook().getBookId()+
-				//		" ','"+message.getBorrowedBook().getReturnDate()+"','"+message.getBorrowedBook().getBorrowDate()+"','"+message.getBorrowedBook().getLostBook() + "')";
-				
-				//query = "INSERT INTO `borrowedbook` (`subscriptionNumber`, `bookId`, `returnDate`, `borrowDate`, `lostBook`) VALUES ('207', '3', '2019-01-02', '2019-01-20', '0');";
-				//query = "INSERT INTO `borrowedbook` (`subscriptionNumber`, `bookId`, `returnDate`, `borrowDate`, `lostBook`) VALUES'" (message.getBorrowedBook().getSubscriptionNumber(), message.getBorrowedBook().getBookId(), message.getBorrowedBook().getReturnDate(), message.getBorrowedBook().getBorrowDate(), '0');";
 				query = "INSERT INTO borrowedbook VALUES ('";
 				query += message.getBorrowedBook().getSubscriptionNumber();
 				query += "','";

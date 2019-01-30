@@ -109,7 +109,7 @@ public class BorrowBookController{
      	String checkSubscriberStatus;
     	int checkCurrentBookQuanity;
     	Alert alert4=new Alert(Alert.AlertType.ERROR);
-    	Alert alert5=new Alert(Alert.AlertType.CONFIRMATION);
+    	Alert alert5=new Alert(Alert.AlertType.INFORMATION);
     	
     	if(borrowDate.getValue() == null||returnDate.getValue()==null||bookLabel.getText().equals("Serial number, name")||subscriberEditLabel.getText().equals("")||subscriberEditLabel.getText().equals("Username, email, ID") || subscriberEditLabel.getText().equals(""))
     	{
@@ -118,7 +118,6 @@ public class BorrowBookController{
   			alert4.showAndWait();
   			return;
     	}
-   //	if(!((borrowDate.getValue() == null)&&(returnDate.getValue()==null))&&(bookLabel.getText().equals("Serial number, name")||subscriberEditLabel.getText().equals(""))&&(subscriberEditLabel.getText().equals("Username, email, ID")) || subscriberEditLabel.getText().equals(""))
     	else
     	{
         	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
