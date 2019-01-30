@@ -96,7 +96,6 @@ public class SearchBookController implements Initializable{
     	listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
     	searchResultTable.setItems(listOfBooks);
     	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
-    	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     }
     /**
