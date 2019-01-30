@@ -78,7 +78,8 @@ public class ServerController {
 	}
 
 	/** given a subscribers id, retrieves the subscriber from the database */
-	private Subscriber selectSubscriber(String subscribersId) {
+	public Subscriber selectSubscriber(String subscribersId)
+	{
 		// building query. example: SELECT * FROM subscriber WHERE '207'=subscriberId;
 		String query = "";
 		query += "SELECT";
@@ -112,7 +113,7 @@ public class ServerController {
 	}
 
 	/** given a subscriber, updates the subscribers record in the database */
-	private void updateSubscriber(Subscriber subscriber) {
+	public void updateSubscriber(Subscriber subscriber) {
 		String query;
 		// building query. example: UPDATE subscriber SET
 		// subscriberId='208',firstName='moshe',lastName='peretz',phoneNumber='0502712993',email='moshe@gmail.com',subscriberStatus='Active'
@@ -143,7 +144,8 @@ public class ServerController {
 	/**
 	 * given a subscriber, inserts the subscriber as a new record in the database
 	 */
-	private void insertSubscriber(Subscriber subscriber) {
+	public void insertSubscriber(Subscriber subscriber) 
+	{
 		String query;
 		// creates a new user such as: INSERT INTO user VALUES
 		// ('208','Aa1234','Subscriber');
