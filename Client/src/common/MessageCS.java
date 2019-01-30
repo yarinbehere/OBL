@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entity.Book;
 import entity.FileTransfer;
+import entity.Subscriber;
 import entity.User;
 
 public class MessageCS implements Serializable {
@@ -15,28 +16,32 @@ public class MessageCS implements Serializable {
 	 * @author Roman
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT;
+		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
+		REVIEW_SUBSCRIBER_UPDATE;
 	}
-	
-	
-	MessageType messageType; 
-	
+
+	MessageType messageType;
+
 	/* Entities */
 	private User user;
 	private Book book;
 	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
+	Subscriber subscriber;
+	String textMessage;
+
 
 	/**
 	 * user wants to login to the system
+	 * 
 	 * @param messageType - messageType will be login
-	 * @param user 
+	 * @param user
 	 * @author Roman
 	 */
 	public MessageCS(MessageType messageType, User user)
 	{
+		this.user = user;
 		this.messageType = messageType;
-		this.setUser(user);
 	}
 	/**
 	 * user wants to search for a book, a specification of the book he desired to search for
@@ -98,5 +103,19 @@ public class MessageCS implements Serializable {
 	public void setTableOfContent(FileTransfer tableOfContent) {
 		this.tableOfContent = tableOfContent;
 	}
+	/**
+	 * @param subscriber
+	 */
+	public MessageCS(MessageType messageType, Subscriber subscriber) {
+		this.messageType = messageType;
+		this.subscriber = subscriber;
+	}
 
+	/**
+	 * @param textMessage
+	 */
+	public MessageCS(MessageType messageType, String textMessage) {
+		this.messageType = messageType;
+		this.textMessage = textMessage;
+	}
 }

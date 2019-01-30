@@ -33,7 +33,7 @@ public class DataBaseManager {
         return conn;
    	}
 	
-	public ResultSet runQuery(Connection conn, String query) {
+	public ResultSet runQuery(String query) {
 		Statement stmt;
 		ResultSet rs = null;
 		try {
@@ -44,7 +44,7 @@ public class DataBaseManager {
 		}
 		return rs;
 	}
-	public void runUpdateQuery(Connection conn, String query)
+	public void runUpdateQuery(String query)
 	{
 		Statement stmt;
 		try 
@@ -58,7 +58,4 @@ public class DataBaseManager {
 		}
 	}
 
-	public Connection getConnection() {
-		return conn;
-	}
 }

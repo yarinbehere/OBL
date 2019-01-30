@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -65,4 +66,5 @@ public class ManagerMenuController {
     void reviewSubscriber(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("ReviewSubscriber.fxml", reviewSubscriberButton);
     }
+
 }

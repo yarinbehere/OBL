@@ -2,6 +2,9 @@ package common;
 
 import controller.LoginController;
 import controller.SearchBookController;
+import controller.ReviewSubscriberController;
+import controller.CreateController;
+import entity.Subscriber;
 import entity.User;
 
 public class ClientController {
@@ -40,8 +43,25 @@ public class ClientController {
 			break;
 		case TABLE_OF_CONTENT:
 			SearchBookController.tableOfContent = message.getTableOfContent();
+			break;
+			case CREATE_SUBSCRIBER:
+				if (message.subscriber == null) {
+					CreateController.foundSubscriber = null;
+				} else {
+					CreateController.foundSubscriber = message.subscriber;
+				}
+				break;
+			case REVIEW_SUBSCRIBER_SEARCH:
+			case REVIEW_SUBSCRIBER_UPDATE:
+				if (message.subscriber == null) {
+					ReviewSubscriberController.foundSubscriber = null;
+				} else {
+					ReviewSubscriberController.foundSubscriber = message.subscriber;
+				}
+				break;
 		default:
 			break;
+			
 		}	
 		
 	}

@@ -22,9 +22,7 @@ import javafx.scene.text.Text;
 		@FXML private TextField usernameTextField;
 		@FXML private PasswordField passwordTextField;
 		@FXML private Text pathLabel;
-	    
 		@FXML private Hyperlink forgotLink;
-	    
 		@FXML private Button loginButton;
 	    @FXML private Button helpButton;
 	    @FXML private Button returnButton;
@@ -39,7 +37,7 @@ import javafx.scene.text.Text;
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
 	    	MainClient.client.accept(message);
 	    //	new ThreadTest.ThreadTest2(message).run();
-	    	Thread.sleep(100);
+	    	Thread.sleep(400);
 	    	//load the page for the specific user
 	    	if(userRole == Role.SUBSCRIBER)
 	    	{
