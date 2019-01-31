@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `obldb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `obldb`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: obldb
@@ -91,7 +93,7 @@ CREATE TABLE `bookorder` (
   KEY `fk_BookOrder_books1_idx` (`bookId`),
   KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
   CONSTRAINT `fk_BookOrder_books1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
-  CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberid`)
+  CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,7 +153,7 @@ CREATE TABLE `borrowedbook` (
   KEY `fk_borrowedbook_subscriber_idx` (`subscriptionNumber`) /*!80000 INVISIBLE */,
   KEY `returnDate_idx` (`returnDate`),
   CONSTRAINT `fk_borrowedbook_book` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
-  CONSTRAINT `fk_borrowedbook_subscriber` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberid`)
+  CONSTRAINT `fk_borrowedbook_subscriber` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,8 +198,8 @@ CREATE TABLE `librarian` (
   `lastName` varchar(15) NOT NULL,
   `email` varchar(45) NOT NULL,
   `role` varchar(200) NOT NULL,
-  `organizationalAffiliation` varchar(100) DEFAULT NULL,
-  `phoneNumber` varchar(45) DEFAULT NULL,
+  `organizationalAffiliation` varchar(100) NOT NULL,
+  `phone` varchar(45) NOT NULL,
   PRIMARY KEY (`workerNumber`),
   KEY `fk_librarians_users1_idx` (`userName`),
   CONSTRAINT `fk_librarians_users1` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -210,7 +212,7 @@ CREATE TABLE `librarian` (
 
 LOCK TABLES `librarian` WRITE;
 /*!40000 ALTER TABLE `librarian` DISABLE KEYS */;
-INSERT INTO `librarian` VALUES ('1','101','Dalia','Zeerman','dzeierman@braude.ac.il','Library Director','management','0547552266'),('3','100','Yarden ','Greenberg','yarden12@braude.ac.il','Responsible for the connection with the Department of Systems Engineering and Mathematics',' Department of Industrial and Management Engineering','0502155960'),('4','103','Sharon ','Sofer','sharonh@braude.ac.il','Responsible for the connection with the Department of Industrial and Management Engineering',' Department of Industrial and Management Engineering','0528400142'),('5','107','Erika ','Varsescu','erika@braude.ac.il','Responsible for the connection with the Department of Biotechnology Engineering and the Unit for Teaching and General Studies','Department of Biotechnology Engineering and the Unit for Teaching and General Studies','0509998765'),('6','105','Mazor','Israela','israela@braude.ac.il','Responsible for databases','Library','0545678125'),('7','104','Natalia','Kokuyev','natash@braude.ac.il','Responsible for the connection with the Department of Optical Engineering and Physics and Department of Mechanical Engineering (MA)','Department of Optical Engineering and Physics and Department of Mechanical Engineering (MA)','0521368043'),('8','106','Jana','Rosenstock','yanna70@braude.ac.il','Responsible for the connection with software and information systems engineering departments','software and information systems engineering departments','0528795421');
+INSERT INTO `librarian` VALUES ('1','101','Dalia','Zeerman','dzeierman@braude.ac.il','Library Director','management',''),('3','100','Yarden ','Greenberg','yarden12@braude.ac.il','Responsible for the connection with the Department of Systems Engineering and Mathematics',' Department of Industrial and Management Engineering',''),('4','103','Sharon ','Sofer','sharonh@braude.ac.il','Responsible for the connection with the Department of Industrial and Management Engineering',' Department of Industrial and Management Engineering',''),('5','107','Erika ','Varsescu','erika@braude.ac.il','Responsible for the connection with the Department of Biotechnology Engineering and the Unit for Teaching and General Studies','Department of Biotechnology Engineering and the Unit for Teaching and General Studies',''),('6','105','Mazor','Israela','israela@braude.ac.il','Responsible for databases','Library',''),('7','104','Natalia','Kokuyev','natash@braude.ac.il','Responsible for the connection with the Department of Optical Engineering and Physics and Department of Mechanical Engineering (MA)','Department of Optical Engineering and Physics and Department of Mechanical Engineering (MA)',''),('8','106','Jana','Rosenstock','yanna70@braude.ac.il','Responsible for the connection with software and information systems engineering departments','software and information systems engineering departments','');
 /*!40000 ALTER TABLE `librarian` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +232,7 @@ CREATE TABLE `manualextension` (
   KEY `fk_extensions_librarians1_idx` (`workerNumber`),
   KEY `fk_extension_borrowed book1_idx` (`bookId`,`subscriptionNumber`),
   CONSTRAINT `fk_extension_borrowed book1` FOREIGN KEY (`bookId`, `subscriptionNumber`) REFERENCES `borrowedbook` (`bookid`, `subscriptionnumber`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_extensions_librarians` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workernumber`) ON UPDATE RESTRICT
+  CONSTRAINT `fk_extensions_librarians` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workerNumber`) ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -255,7 +257,7 @@ CREATE TABLE `reporthistory` (
   `reportName` varchar(45) NOT NULL,
   `workerNumber` varchar(45) NOT NULL,
   KEY `fk_Report history_librarians1_idx` (`workerNumber`),
-  CONSTRAINT `fk_Report history_librarians1` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workernumber`)
+  CONSTRAINT `fk_Report history_librarians1` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workerNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -283,6 +285,7 @@ CREATE TABLE `subscriber` (
   `phoneNumber` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `subscriberStatus` varchar(15) NOT NULL,
+  `graduationDate` date DEFAULT NULL,
   PRIMARY KEY (`subscriberId`),
   KEY `fk_subscriber_user_idx` (`userName`),
   CONSTRAINT `fk_subscriber_user` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -295,7 +298,7 @@ CREATE TABLE `subscriber` (
 
 LOCK TABLES `subscriber` WRITE;
 /*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
-INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active'),('208','208','moshe','perets','0502712993','moshe@gmail.com','Frozen');
+INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked',NULL),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen',NULL),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active',NULL),('203','203','omri','braymok','0502474234','omri@gmail.com','Active',NULL),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen',NULL),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked',NULL),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen',NULL),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active',NULL),('208','208','moshe','perets','0502712993','moshe@gmail.com','Frozen',NULL);
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,10 +328,6 @@ INSERT INTO `user` VALUES ('100','12','Librarian'),('101','skre544','Manager'),(
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'obldb'
---
-
---
 -- Final view structure for view `borrowedbook_extended`
 --
 
@@ -355,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-31 18:04:52
+-- Dump completed on 2019-01-31 18:08:03
