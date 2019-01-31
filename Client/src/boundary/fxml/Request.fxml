@@ -2,12 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -80,8 +81,13 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="341.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Borrowed Book:" />
                   <Separator layoutX="184.0" layoutY="21.0" prefHeight="3.0" prefWidth="430.0" />
-                  <ListView fx:id="borrowdBooks" layoutX="14.0" layoutY="40.0" prefHeight="237.0" prefWidth="592.0" />
                   <Button fx:id="requestExtensionButton" layoutX="244.0" layoutY="290.0" mnemonicParsing="false" text="Request Extension" />
+                  <TableView fx:id="borrowedBooks" layoutX="16.0" layoutY="45.0" prefHeight="236.0" prefWidth="589.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Extension Request">
