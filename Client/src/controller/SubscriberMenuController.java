@@ -26,5 +26,9 @@ public class SubscriberMenuController {
     void openOrderBookPage(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("OrderBook.fxml", orderBookButton);
     }
-
+    
+    @FXML
+    void viewActvityLog(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ActivityLog.FXML", actvityLogButton);
+    }
 }

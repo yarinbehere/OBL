@@ -35,7 +35,7 @@ public class ServerController {
 				if(rset.next() == true)
 				{
 					// If password is match
-					if(rset.getString("Password").equals(message.getUser().getPassword())) 
+					if(rset.getString("Password").equals(message.getUser().getPassword()))
 					{ 
 						// Go to relevant main menu 
 						switch(rset.getString("Role"))
@@ -43,7 +43,7 @@ public class ServerController {
 						case "Subscriber":
 							message.getUser().setRole(Role.SUBSCRIBER);
 							break;
-						case "Librarian":
+						case "Librarian": 
 							message.getUser().setRole(Role.LIBRARIAN);
 							break;
 						case "Manager":

@@ -19,23 +19,10 @@ public class ClientController {
 			MessageCS message = (MessageCS)msg;
 			switch(message.messageType) {
 			case LOGIN:
-				//go to main menu of subscriber
-				if(message.getUser().getRole() == User.Role.SUBSCRIBER)
-				{
-					LoginController.userRole = User.Role.SUBSCRIBER;
-				}
-				//go to main menu of librarian
-				else if(message.getUser().getRole() == User.Role.LIBRARIAN)
-				{
-					LoginController.userRole = User.Role.LIBRARIAN;
-				}
-				//go to main menu of manager
-				else if(message.getUser().getRole() == User.Role.LIBRARIAN) 
-				{
-					LoginController.userRole = User.Role.MANAGER;
-				}
+				LoginController.userResult = message.getUser();
 				break;
 			case SEARCH_SUBSCRIBER:
+				LoginController.subscriberResult = message.getSubscriber();
 				BorrowBookController.resultSubscriber = message.getSubscriber();
 				break;
 			case SEARCH_BOOK_FOR_BORROW:
