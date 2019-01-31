@@ -64,7 +64,7 @@ public class BorrowBookController{
     	Subscriber subscriber = new Subscriber(subscriberEditLabel.getText());
     	MessageCS message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
     	MainClient.client.accept(message);
-    	Thread.sleep(100);
+    	Thread.sleep(1000);
     	//if the subscriber does not exist
     	if(resultSubscriber.getSubscriberDetails().equals("null"))
     	{
@@ -98,7 +98,7 @@ public class BorrowBookController{
     	Book book = new Book(bookLabel.getText());
     	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
     	MainClient.client.accept(message);
-    	Thread.sleep(100);
+    	Thread.sleep(1000);
     	//if the book does not exist in the system
     	if(resultBook.getBookDetails().equals("null"))
     	{
@@ -144,7 +144,6 @@ public class BorrowBookController{
     	else
     	{
         	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
-        	System.out.println(checkCurrentBookQuanity);
         	checkSubscriberStatus=resultSubscriber.getSubscriberStatus();
         	LocalDate BorrowDate = borrowDate.getValue();
         	LocalDate ReturnDate = returnDate.getValue();
@@ -194,7 +193,7 @@ public class BorrowBookController{
         	BorrowedBook borrowedbook = new BorrowedBook(resultSubscriber.getSubscriberID(),resultBook.getBookSerialNumber(),ReturnDate,BorrowDate,0);
         	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
         	MainClient.client.accept(message); 
-        	Thread.sleep(100);
+        	Thread.sleep(1500);
         	 
         	if(cancel_borrow.getBookDetails().equals("subscriber already borrowed this book"))
         	{
