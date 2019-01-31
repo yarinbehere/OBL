@@ -69,7 +69,7 @@ public class SearchBookController implements Initializable{
 		tableColumnSoonestReturn.setCellValueFactory(new PropertyValueFactory<>("SoonestReturn"));
 
 	}
-    /**
+    /** 
      * clears all data inserted by the user from the fields when button is pressed
      * @param event
      */

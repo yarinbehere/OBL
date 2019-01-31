@@ -15,6 +15,7 @@ import common.ocsf.server.ConnectionToClient;
 import entity.Book;
 import entity.FileTransfer;
 import entity.Subscriber;
+import entity.User;
 import entity.User.Role;
 
 public class ServerController {
@@ -25,7 +26,9 @@ public class ServerController {
 		String query;
 		Statement stmt;
 		ResultSet rset;
-
+		Book book = null;
+		User user = null;
+		Subscriber subscriber = null;
 		try {
 			stmt = conn.createStatement();
 			switch (message.messageType) {
@@ -65,7 +68,7 @@ public class ServerController {
 				break;
 			case SEARCH_BOOK:
 				ArrayList<Book> bookList = new ArrayList<>();
-				Book book = null;
+				book = null;
 				// query to find title (substring), author(substring), category and
 				// description(substring) in the database
 				query = "SELECT * FROM book WHERE title LIKE '%" + message.getBook().getBookTitle() + "%' "
@@ -150,7 +153,7 @@ public class ServerController {
 				client.sendToClient(message);
 				break;
 				case SEARCH_SUBSCRIBER:
-				Subscriber subscriber = null; 
+				subscriber = null; 
 				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
 						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
 						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
@@ -224,16 +227,91 @@ public class ServerController {
 				rset=stmt.executeQuery(query);
 				if(rset.next() == true)
 				{
-				query = "UPDATE book SET ";
-				query += "currentQuantity" + "=" + "'";
-				query += rset.getInt("currentQuantity")-1;
-				query += "'";
-				query += " WHERE ";
-				query += "bookId" + "=" + "'";
-				query += rset.getString("bookId");
-				query += "';";
-				stmt.executeUpdate(query);
+					query = "UPDATE book SET ";
+					query += "currentQuantity" + "=" + "'";
+					query += rset.getInt("currentQuantity")-1;
+					query += "'";
+					query += " WHERE ";
+					query += "bookId" + "=" + "'";
+					query += rset.getString("bookId");
+					query += "';";
+					stmt.executeUpdate(query);
 				}
+				break;
+				case SEARCH_BOOK_FOR_UPDATE_BOOK:
+				//Query to find book in DB by bookID
+				query = "SELECT * FROM book WHERE bookID= '"+message.getBook().getBookID()+ "';";
+				//result of the query
+				rset = stmt.executeQuery(query);
+				//if book fund 
+				if(rset.next())
+				{
+					//check if the book is available according to current Quantity
+					String available;
+					if(rset.getInt("currentQuantity")>0)
+							available = "available";
+					else 
+						available = "Not available";
+					//get book's details from the result
+					book = new Book(rset.getString("bookId"),available, rset.getString("title"), rset.getString("author"),
+							rset.getString("category"),rset.getString("description"),rset.getInt("originalQuantity"),
+							rset.getString("location"),rset.getString("wanted"),rset.getString("pdf")); 
+				}
+				else
+					book = null;
+				//create a new message of messageCS type with the result of the search of books (going to the wanted constructor)
+				MessageCS resultReturn = new MessageCS(MessageType.SEARCH_BOOK_FOR_UPDATE_BOOK,book);
+				client.sendToClient(resultReturn);
+				break;
+			case UPDATE_BOOK:
+				//Query to update book's details in DB 
+				query = "UPDATE book SET title= '"+message.getBook().getBookTitle()+
+				"',author='"+message.getBook().getAuthorName()+
+				"',category='"+message.getBook().getBookGenre()+
+				"',description='"+message.getBook().getBookDescription()+
+				"',originalQuantity="+message.getBook().getOriginalBookQuantity()+
+				",location='"+message.getBook().getShelfLocation()+
+				"',wanted='"+message.getBook().getWantedLevel()+
+				"'WHERE bookID= '"+message.getBook().getBookID()+ "';";
+				//send Query to DB
+				stmt.executeUpdate(query);
+				break;
+			case PERSONAL_INFORMATION:
+				//Query to find user in DB
+				query = "SELECT * FROM user WHERE userName = '" +  message.getUser().getUserName() + "'" + ";";
+				rset = stmt.executeQuery(query);
+				// If user is exists in DB 
+				if(rset.next() == true)
+					user = new User (message.getUser().getUserName(),rset.getString("Password"));
+				else 
+					user = null;
+				//Query to find user in DB ,table subscriber by userName
+				query = "SELECT * FROM subscriber WHERE userName = '" +  message.getUser().getUserName() + "'" + ";";
+				rset = stmt.executeQuery(query);
+				// If user is exists in DB 
+				if(rset.next() == true)
+					subscriber = new Subscriber(rset.getString("subscriberId"), rset.getString("firstName"),
+							rset.getString("lastName"), rset.getString("phoneNumber"),
+							rset.getString("email"), rset.getString("subscriberStatus"));
+				else 
+					subscriber = null;
+				MessageCS informationReturn = new MessageCS(MessageType.PERSONAL_INFORMATION_RESULT,user,subscriber);
+				client.sendToClient(informationReturn);
+				break;
+			case UPDATE_PERSONAL_INFORMATION:
+				//Query to update user's details in DB 
+				query = "UPDATE user SET password= '"+message.getUser().getPassword()+
+				"'WHERE userName= '"+message.getUser().getUserName()+ "';";
+				//send Query to DB
+				stmt.executeUpdate(query);
+				//Query to update subscriber's details in DB 
+				query = "UPDATE subscriber SET firstName= '"+message.getSubscriber().getFirstName()+
+						"',lastName='"+message.getSubscriber().getLastName()+
+						"',phoneNumber='"+message.getSubscriber().getMobileNumber()+
+						"',email='"+message.getSubscriber().getEmail()+
+						"'WHERE userName= '"+message.getUser().getUserName()+"';";
+				//send Query to DB
+				stmt.executeUpdate(query);
 				break;
 			default:
 				break;
@@ -343,5 +421,6 @@ public class ServerController {
 		query += subscriber.getSubscriberStatus();
 		query += "');";
 		dbmanager.runUpdateQuery(query);
+		
 	}
 }

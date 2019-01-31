@@ -66,6 +66,25 @@ public class Subscriber implements Serializable  {
 		this.setSubscriberID(subscriberID);
 		this.subscriberStatus = subscriberStatus;
 	}
+	
+	/**find and update the user and subscriber details
+	 * @author Omri Braymok
+	 * @param subscriberID
+	 * @param firstName
+	 * @param lastName
+	 * @param mobileNumber
+	 * @param email
+	 * @param subscriberStatus
+	 */
+	public Subscriber(String subscriberID, String firstName, String lastName, String mobileNumber,
+			String email, String subscriberStatus) {
+		this.subscriberID=subscriberID;
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.mobileNumber=mobileNumber;
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+	}
 
 	/**
 	 * @return the firstName

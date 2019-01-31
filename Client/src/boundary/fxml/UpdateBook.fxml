@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="568.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="568.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateBookController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -79,19 +79,19 @@
             </ImageView>
             <Pane layoutX="11.0" layoutY="66.0" prefHeight="176.0" prefWidth="619.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" layoutX="-3.0" layoutY="7.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Book:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Book:" />
-                  <TextField fx:id="subscriberEditLabel" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Serial number" />
-                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Book" />
+                  <TextField fx:id="serialNumberTextField" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Serial number" />
+                  <Button fx:id="searchBookButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchBookButtonAction" text="Search Book" />
                   <Separator layoutX="119.0" layoutY="22.0" prefHeight="6.0" prefWidth="491.0" />
-                  <Button fx:id="updateBookButton" layoutX="256.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Update Book" />
+                  <Button fx:id="updateBookButton" layoutX="254.0" layoutY="149.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Update Book" />
                   <Text layoutX="136.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Status:">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="bookStatusLabel" fill="#40c900" layoutX="249.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" textAlignment="RIGHT" wrappingWidth="57.4287109375">
+                  <Text fx:id="bookStatusLabel" fill="#40c900" layoutX="208.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" textAlignment="RIGHT" wrappingWidth="57.4287109375">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -106,12 +106,12 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Hyperlink>
-                  <Text layoutX="135.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:">
+                  <Text layoutX="136.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="pdfLink" layoutX="260.0" layoutY="104.0" prefHeight="27.0" prefWidth="76.0" text="[View PDF]" textAlignment="RIGHT">
+                  <Hyperlink fx:id="pdfLink" layoutX="264.0" layoutY="117.0" prefHeight="27.0" prefWidth="76.0" text="[View PDF]" textAlignment="RIGHT">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
@@ -159,11 +159,11 @@
                </font></Text>
             <Pane layoutX="11.0" layoutY="251.0" prefHeight="239.0" prefWidth="619.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="243.0" layoutY="-1.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="243.0" layoutX="-7.0" layoutY="7.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="13.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book's details:" />
                   <Separator layoutX="153.0" layoutY="24.0" prefHeight="4.0" prefWidth="454.0" />
-                  <Button fx:id="changeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
-                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Reset" />
+                  <Button fx:id="saveChangeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" onAction="#saveChangeButtonAction" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
+                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" onAction="#resetButtonAction" prefHeight="27.0" prefWidth="70.0" text="Reset" />
                   <Text layoutX="26.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
                   <TextField fx:id="titleTextField" layoutX="103.0" layoutY="40.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="302.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
@@ -177,7 +177,7 @@
                   <Text layoutX="212.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="62.41991329193115" />
                   <TextField fx:id="locationTextField" layoutX="280.0" layoutY="153.0" prefHeight="27.0" prefWidth="85.0" />
                   <Text layoutX="390.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demand:" wrappingWidth="62.41991329193115" />
-                  <ChoiceBox fx:id="demandChoiceBok" accessibleText="dsfsdf" layoutX="450.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" />
+                  <ChoiceBox fx:id="demandChoiceBox" accessibleText="dsfsdf" layoutX="450.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" />
                </children>
             </Pane>
       </children>

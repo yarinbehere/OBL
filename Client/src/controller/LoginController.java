@@ -6,6 +6,7 @@ import common.MessageCS;
 import common.MessageCS.MessageType;
 import common.ThreadTest;
 import common.ThreadTest.ThreadTest2;
+import entity.Subscriber;
 import entity.User;
 import entity.User.Role;
 import javafx.event.ActionEvent;
@@ -22,28 +23,36 @@ import javafx.scene.text.Text;
 		@FXML private TextField usernameTextField;
 		@FXML private PasswordField passwordTextField;
 		@FXML private Text pathLabel;
+	    
 		@FXML private Hyperlink forgotLink;
+	    
 		@FXML private Button loginButton;
 	    @FXML private Button helpButton;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
 	    
-	    public static Role userRole = null;
+	    public static User userResult = null;
+	    public static Subscriber subscriberResult;
+		public static Role userRole;
 	    
 	    @FXML
 	    void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
 	    	User user = new User(usernameTextField.getText(),passwordTextField.getText());
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
-	    	MainClient.client.accept(message);
+	    	MainClient.client.accept(message);  
 	    //	new ThreadTest.ThreadTest2(message).run();
 	    	Thread.sleep(400);
-	    	//load the page for the specific user
-	    	if(userRole == Role.SUBSCRIBER)
+	    	//load the page for the specific user 
+	    	if(userResult.getRole() == Role.SUBSCRIBER)
 	    	{
+	    		Subscriber subscriber = new Subscriber(userResult.getUserName());
+	    		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
+	    		MainClient.client.accept(message);
+	    		Thread.sleep(100);
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}
-	    	else if(userRole == Role.LIBRARIAN)
+	    	else if(userResult.getRole() == Role.LIBRARIAN)
 	    	{
 	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton); 
 	    	}

@@ -15,13 +15,14 @@ public class Book implements Serializable{
 	private String datePurchase;
 	private String shelfLocation;
 	private String bookID;
-	private int OriginalBookQuanity;
-	private int CurrentBookQuanity;
+	private int currentBookQuanity;
 	private String available;
 	private Date soonestReturn;
 	private String bookDetails;
 	private String bookSerialNumber;
-	private String wantedLevel; 
+	private String wantedLevel;
+	private int originalBookQuantity;
+	private String bookTableOfContents; 
 	
 
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
@@ -49,6 +50,35 @@ public class Book implements Serializable{
 		this.available = available;
 		this.setSoonestReturn(soonestReturn);
 	}
+	
+	/**find and update the books for update book's details
+	 * @author Omri Braymok
+	 * @param ID
+	 * @param available
+	 * @param Title
+	 * @param authorName
+	 * @param Genre
+	 * @param bookDescription
+	 * @param originalBookQuantity
+	 * @param shelfLocation
+	 * @param wantedLevel
+	 * @param bookTableOfContents
+	 */
+	public Book(String bookID,String available, String bookTitle,String authorName,String bookGenre,String bookDescription,
+			int originalBookQuantity,String shelfLocation,String wantedLevel,String bookTableOfContents) {
+		this.bookID=bookID;
+		this.available=available;
+		this.bookTitle=bookTitle;
+		this.authorName=authorName;
+		this.bookGenre=bookGenre;
+		this.bookDescription=bookDescription;
+		this.setOriginalBookQuantity(originalBookQuantity);
+		this.shelfLocation=shelfLocation;
+		this.wantedLevel=wantedLevel;
+		this.setBookTableOfContents(bookTableOfContents);
+		
+	}
+	
 	public Book(String bookDetails) 
 	{
 		this.setBookDetails(bookDetails);
@@ -134,19 +164,19 @@ public class Book implements Serializable{
 	}
 
 	public int getCurrentBookQuanity() {
-		return CurrentBookQuanity;
+		return currentBookQuanity;
 	}
 
 	public void setCurrentBookQuanity(int currentBookQuanity) {
-		CurrentBookQuanity = currentBookQuanity;
+		this.currentBookQuanity = currentBookQuanity;
 	}
 
 	public int getOriginalBookQuanity() {
-		return OriginalBookQuanity;
+		return originalBookQuantity;
 	}
 
 	public void setOriginalBookQuanity(int originalBookQuanity) {
-		OriginalBookQuanity = originalBookQuanity;
+		this.originalBookQuantity = originalBookQuanity;
 	}
 
 	public String getBookDetails() {
@@ -155,6 +185,34 @@ public class Book implements Serializable{
 
 	public void setBookDetails(String bookDetails) {
 		this.bookDetails = bookDetails;
+	}
+
+	/**
+	 * @return the originalBookQuantity
+	 */
+	public int getOriginalBookQuantity() {
+		return originalBookQuantity;
+	}
+
+	/**
+	 * @param originalBookQuantity the originalBookQuantity to set
+	 */
+	public void setOriginalBookQuantity(int originalBookQuantity) {
+		this.originalBookQuantity = originalBookQuantity;
+	}
+
+	/**
+	 * @return the bookTableOfContents
+	 */
+	public String getBookTableOfContents() {
+		return bookTableOfContents;
+	}
+
+	/**
+	 * @param bookTableOfContents the bookTableOfContents to set
+	 */
+	public void setBookTableOfContents(String bookTableOfContents) {
+		this.bookTableOfContents = bookTableOfContents;
 	}
 	
 	

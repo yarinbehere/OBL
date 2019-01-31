@@ -1,7 +1,9 @@
 package common;
 
 import controller.LoginController;
+import controller.PersonalInformationController;
 import controller.SearchBookController;
+import controller.UpdateBookController;
 import controller.ReviewSubscriberController;
 import controller.BorrowBookController;
 import controller.CreateController;
@@ -10,7 +12,7 @@ import entity.User;
 
 public class ClientController {
 	
-	
+
 	
 	/**
 	 * message send back to the client (from the server) and has analyze
@@ -23,21 +25,7 @@ public class ClientController {
 		switch(message.messageType) 
 		{
 		case LOGIN:
-			//go to main menu of subscriber
-			if(message.getUser().getRole() == User.Role.SUBSCRIBER)
-			{
-				LoginController.userRole = User.Role.SUBSCRIBER;
-			}
-			//go to main menu of librarian
-			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
-			{
-				LoginController.userRole = User.Role.LIBRARIAN;
-			}
-			//go to main menu of manager
-			else if(message.getUser().getRole() == User.Role.LIBRARIAN)
-			{
-				LoginController.userRole = User.Role.MANAGER;
-			}
+			LoginController.userResult = message.getUser();
 			break;
 		case SEARCH_BOOK:
 			SearchBookController.bookResult = message.getBooks();
@@ -71,7 +59,13 @@ public class ClientController {
 			case BORROW1:
 				BorrowBookController.cancel_borrow=message.getBook();
 				break;
-				
+			case SEARCH_BOOK_FOR_UPDATE_BOOK:
+				UpdateBookController.resultBook = message.getBook();
+				break;
+			case PERSONAL_INFORMATION_RESULT:
+				PersonalInformationController.user=message.getUser();
+				PersonalInformationController.subscriber=message.getSubscriber();
+				break;
 		default:
 			break;
 			
