@@ -1,5 +1,6 @@
 package common;
 
+import controller.BookReturnController;
 import controller.LoginController;
 import controller.OrderBookController;
 import controller.SearchBookController;
@@ -44,6 +45,10 @@ public class ClientController {
 			break;
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = message.getBooks();
+			break;
+		case SEARCH_SUBSCRIBER_FOR_OPTIONS:
+			BookReturnController.resultSubscriber = message.getSubscriber();
+			break;
 		default:
 			break; 
 		}	

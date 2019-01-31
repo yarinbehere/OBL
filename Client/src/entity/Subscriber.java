@@ -12,9 +12,20 @@ public class Subscriber implements Serializable
 	private String subscriberStatus;
 	private String subscriberDetails;
 	private String subscriberID;
-	//borrow history
-	//Late return
-	//Losing a book
+	private String firstName;
+	private String lastName;
+	
+	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
+	{
+		this.setSubscriberID(subscriberNumber);
+		this.setUserName(userName);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setMobileNumber(mobileNumber);
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+		this.setSubscriberDetails(subscriberDetails);
+	}
 	
 	public Subscriber(String subscriberNumber,String mobileNumber,String email,String subscriberStatus)
 	{
@@ -66,6 +77,15 @@ public class Subscriber implements Serializable
 		this.subscriberStatus = subscriberStatus;
 	}
 	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	
 	//get function 
 	
 	public String getSubscriberNumber() 
@@ -108,6 +128,13 @@ public class Subscriber implements Serializable
 
 	public void setSubscriberID(String subscriberID) {
 		this.subscriberID = subscriberID;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+	public String getFirstName() {
+		return firstName;
 	}
 	
 }

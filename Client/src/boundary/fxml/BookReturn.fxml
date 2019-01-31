@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -83,7 +83,7 @@
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Subscriber's details:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return for:" />
                   <TextField fx:id="subscriberTextField" layoutX="125.0" layoutY="45.0" prefHeight="27.0" prefWidth="267.0" text="Username, email, ID" />
-                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Subscriber" />
+                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchSubscriber" text="Search Subscriber" />
                   <Text layoutX="28.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Number:" />
                   <TextField fx:id="bookTextField" layoutX="125.0" layoutY="150.0" prefHeight="27.0" prefWidth="267.0" text="Serial number, name" />
                   <Button fx:id="searchBookButton" layoutX="409.0" layoutY="150.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
@@ -105,11 +105,6 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink fx:id="subscriberIDLabel" layoutX="493.0" layoutY="79.0" prefHeight="25.0" prefWidth="57.0" text="[0000]" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Hyperlink>
                   <Text layoutX="28.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Borrow Date:" wrappingWidth="87.4072265625" />
                   <DatePicker fx:id="borrowDate" layoutX="125.0" layoutY="207.0" prefHeight="27.0" prefWidth="113.0" />
                   <Text layoutX="257.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Date:" wrappingWidth="87.4072265625" />
@@ -122,6 +117,7 @@
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </Text>
+                  <Label fx:id="subscriberID" layoutX="490.0" layoutY="82.0" text="ID number" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Return a Book">

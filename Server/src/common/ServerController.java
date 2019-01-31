@@ -91,6 +91,27 @@ public class ServerController {
 				MessageCS subscriberLoggedIn = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 				client.sendToClient(subscriberLoggedIn);
 				break;
+				//לשנות ל- SEARCH_SUBSCRIBER_FOR_OPTIONS אצל חי
+			case SEARCH_SUBSCRIBER_FOR_OPTIONS:
+				subscriber = null; 
+				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
+						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
+						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
+				rset=stmt.executeQuery(query);
+				message.getSubscriber().setSubscriberDetails(message.getSubscriber().getSubscriberDetails());
+				//if the subscriber does not exist in the system
+				if(rset.next() == false)
+				{
+					subscriber = new Subscriber("null");
+				}
+				//if the subscriber exist in the system
+				else
+				{
+					subscriber = new Subscriber(rset.getString("subscriberID"),rset.getString("userName"),rset.getString("firstName"),rset.getString("lastName"),rset.getString("phoneNumber"),rset.getString("email"),rset.getString("subscriberStatus"),message.getSubscriber().getSubscriberDetails());
+				} 
+				MessageCS resultSearchSubscriber = new MessageCS(MessageType.SEARCH_SUBSCRIBER_FOR_OPTIONS, subscriber);
+				client.sendToClient(resultSearchSubscriber);
+				break;
 			case SEARCH_BOOK:
 				ArrayList<Book> bookList = new ArrayList<>();
 			    book = null;
