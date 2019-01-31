@@ -1,3 +1,4 @@
+
 package controller;
 import java.io.IOException;
 import boundary.LoadGUI;
@@ -42,14 +43,14 @@ import javafx.scene.text.Text;
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
 	    	MainClient.client.accept(message);
 	    //	new ThreadTest.ThreadTest2(message).run();
-	    	Thread.sleep(400);
+	    	Thread.sleep(3000);
 	    	//load the page for the specific user
 	    	if(userResult.getRole() == Role.SUBSCRIBER)
 	    	{
 	    		Subscriber subscriber = new Subscriber(userResult.getUserName());
 	    		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 	    		MainClient.client.accept(message);
-	    		Thread.sleep(100);
+	    		Thread.sleep(3000);
 	    		System.out.println(subscriberResult.getSubscriberDetails());
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}
@@ -76,6 +77,5 @@ import javafx.scene.text.Text;
 	   		LoadGUI.loadFXML("ReaderMenu.fxml", mainMenuButton);
 	   	}
 	}
-
 
 

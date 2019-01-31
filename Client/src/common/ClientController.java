@@ -1,7 +1,11 @@
 package common;
 
+import java.util.ArrayList;
+
+import controller.ActivityLogController;
 import controller.BorrowBookController;
 import controller.LoginController;
+import entity.ActivityLog;
 import entity.User;
 
 public class ClientController {
@@ -31,10 +35,13 @@ public class ClientController {
 				BorrowBookController.resultBorrowedBook = message.getBorrowedBook();
 			case BORROW1:
 				BorrowBookController.cancel_borrow=message.getBook();
-				break;
+				break;	
+			case ACTIVITY_LOG:
+				 	ActivityLogController.finalSubscriberActivity= (ArrayList<ActivityLog>) message.getActivityLog();
+				 	break;
 			default:
 				break;
-				
+				//aA123456
 			}	
 		}
 		

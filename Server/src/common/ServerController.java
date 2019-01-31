@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
 import controller.BorrowBookController;
+import entity.ActivityLog;
 import entity.Book;
 import entity.Subscriber;
 import entity.User.Role;
@@ -121,6 +122,10 @@ public class ServerController {
 				break;
 			case BORROW:
 				int x;
+				//////////////////////////////////////////////////////////////////////////
+				String borrowingDescription="Borrowed a book";
+				//////////////////////////////////////////////////////////////////////////
+
 				boolean flag=true;
 				query = "SELECT * FROM borrowedbook WHERE bookId= \"" + message.getBorrowedBook().getBookId()  + "\";";
 				rset=stmt.executeQuery(query);
@@ -166,12 +171,53 @@ public class ServerController {
 				query += rset.getString("bookId");
 				query += "';";
 				stmt.executeUpdate(query);
-				/////
-				
-				/////
+				///// the new table\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+				query = "INSERT INTO activitylog VALUES ('";
+				query += message.getBorrowedBook().getBorrowDate();
+				query += "','";
+				query += borrowingDescription; 
+				query += "','";
+				query += message.getBorrowedBook().getSubscriptionNumber();
+				query += "');";
+				stmt.executeUpdate(query);
+				/////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 				}
 				break;
-				
+			case ACTIVITY_LOG:
+				ArrayList<ActivityLog> subscriberActivity = new ArrayList<>();
+				ActivityLog subscriberActivity2;
+				String subscriberNumberA="null";
+				Boolean flag2=false;
+				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
+						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
+						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
+				rset=stmt.executeQuery(query);
+				///to take care if user doesn't exist
+				while(rset.next() == true)
+				{
+					subscriberNumberA=rset.getString("subscriberId");
+				}
+				query="SELECT * FROM activitylog WHERE subscriberNumber= \"" + subscriberNumberA + "\";";
+				rset=stmt.executeQuery(query);
+				while(rset.next() == true)
+				{
+					subscriberActivity2=new ActivityLog(rset.getString("actionDescription"),rset.getString("actionDate"));
+					subscriberActivity.add(subscriberActivity2);
+					flag2=true;
+				}
+				///if the user dont exist
+				if(flag2==false)
+				{
+				}
+		    	for(int i = 0; i < subscriberActivity.size(); i++)
+		    	{   
+		    	    System.out.print(subscriberActivity.get(i).getDate());
+		    	    System.out.println("/n");
+		    	    System.out.print(subscriberActivity.get(i).getActivity());
+		    	    System.out.println("/n");
+		    	}
+				client.sendToClient(subscriberActivity);
+				break;
 			default:
 				break;
 			}

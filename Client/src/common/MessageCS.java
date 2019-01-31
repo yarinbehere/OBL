@@ -1,12 +1,13 @@
 package common;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 
 import entity.Book;
 import entity.BorrowedBook;
 import entity.Subscriber;
 import entity.User;
+import entity.ActivityLog;
 
 public class MessageCS implements Serializable {
 
@@ -16,7 +17,7 @@ public class MessageCS implements Serializable {
 	 * @author rami
 	 */
 	public enum MessageType {
-		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1;
+		LOGIN,SEARCH_BOOK,SEARCH_SUBSCRIBER,ORDER_BOOK,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,ACTIVITY_LOG;
 	}
 	
 	
@@ -28,7 +29,14 @@ public class MessageCS implements Serializable {
 	private Subscriber subscriber;
 	private BorrowedBook borrowedbook;
 
+	private ArrayList<?> activityLog;
 
+	public MessageCS(MessageType messageType, ArrayList<?> activityLog)
+	{
+		this.messageType = messageType;
+		this.setActivityLog(activityLog);
+	}
+	
 	/**
 	 * user wants to login to the system
 	 * @param messageType - messageType will be login
@@ -104,5 +112,14 @@ public class MessageCS implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public ArrayList<?> getActivityLog() {
+		return activityLog;
+	}
+
+	public void setActivityLog(ArrayList<?> activityLog) {
+		this.activityLog = activityLog;
+	}
+
+
 }
