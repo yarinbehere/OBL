@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class Subscriber implements Serializable 
 {
 	private String userName;
+	private String firstName;
+	private String lastName;
 	private String password;
 	private String subscriberNumber;
 	private String mobileNumber;
@@ -36,10 +38,26 @@ public class Subscriber implements Serializable
 		this.subscriberStatus = subscriberStatus;
 	}
 	
-	//set function
-
+	/**find and update the user and subscriber details
+	 * @author Omri Braymok
+	 * @param subscriberID
+	 * @param firstName
+	 * @param lastName
+	 * @param mobileNumber
+	 * @param email
+	 * @param subscriberStatus
+	 */
+	public Subscriber(String subscriberID, String firstName, String lastName, String mobileNumber,
+			String email, String subscriberStatus) {
+		this.subscriberID=subscriberID;
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.mobileNumber=mobileNumber;
+		this.email=email;
+		this.subscriberStatus=subscriberStatus;
+	}
 	
-
+	//set function
 	public void setSubscriberNumber(String subscriberNumber) 
 	{
 		
@@ -108,6 +126,34 @@ public class Subscriber implements Serializable
 
 	public void setSubscriberID(String subscriberID) {
 		this.subscriberID = subscriberID;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
 }

@@ -15,7 +15,7 @@ public class Book implements Serializable{
 	private String shelfLocation;
 	private String bookID;
 	private int amountOfBooks;
-	private int quanity;
+	private int originalBookQuantity;
 	private String available;
 	private Date soonestReturn;
 	private String bookDetails;
@@ -23,6 +23,7 @@ public class Book implements Serializable{
 	private int CurrentBookQuanity;
 	private Date dateOrder;
 	private int queue;
+	private String bookTableOfContents;
 	
 	/**constructor when a message to server has been sent, to look for the book with these parameters
 	 * @author Roman
@@ -96,7 +97,7 @@ public class Book implements Serializable{
 		this.bookDetails = bookDetails;
 	}
 	
-	/**find the books for update book's details
+	/**find and update the books for update book's details
 	 * @author Omri Braymok
 	 * @param ID
 	 * @param available
@@ -104,21 +105,23 @@ public class Book implements Serializable{
 	 * @param authorName
 	 * @param Genre
 	 * @param bookDescription
-	 * @param CurrentBookQuanity
+	 * @param originalBookQuantity
 	 * @param shelfLocation
 	 * @param wantedLevel
+	 * @param bookTableOfContents
 	 */
 	public Book(String bookID,String available, String bookTitle,String authorName,String bookGenre,String bookDescription,
-			int CurrentBookQuanity,String shelfLocation,String wantedLevel) {
+			int originalBookQuantity,String shelfLocation,String wantedLevel,String bookTableOfContents) {
 		this.bookID=bookID;
 		this.available=available;
 		this.bookTitle=bookTitle;
 		this.authorName=authorName;
 		this.bookGenre=bookGenre;
 		this.bookDescription=bookDescription;
-		this.CurrentBookQuanity=CurrentBookQuanity;
+		this.originalBookQuantity=originalBookQuantity;
 		this.shelfLocation=shelfLocation;
 		this.wantedLevel=wantedLevel;
+		this.setBookTableOfContents(bookTableOfContents);
 		
 	}
 	
@@ -217,6 +220,30 @@ public class Book implements Serializable{
 	}
 	public void setQueue(int queue) {
 		this.queue = queue;
+	}
+	/**
+	 * @return the bookTableOfContents
+	 */
+	public String getBookTableOfContents() {
+		return bookTableOfContents;
+	}
+	/**
+	 * @param bookTableOfContents the bookTableOfContents to set
+	 */
+	public void setBookTableOfContents(String bookTableOfContents) {
+		this.bookTableOfContents = bookTableOfContents;
+	}
+	/**
+	 * @return the originalBookQuantity
+	 */
+	public int getOriginalBookQuantity() {
+		return originalBookQuantity;
+	}
+	/**
+	 * @param originalBookQuantity the originalBookQuantity to set
+	 */
+	public void setOriginalBookQuantity(int originalBookQuantity) {
+		this.originalBookQuantity = originalBookQuantity;
 	}
 	 
 	

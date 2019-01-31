@@ -2,6 +2,7 @@ package common;
 
 import controller.LoginController;
 import controller.OrderBookController;
+import controller.PersonalInformationController;
 import controller.SearchBookController;
 import controller.UpdateBookController;
 import entity.User;
@@ -37,8 +38,14 @@ public class ClientController {
 			break;
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = message.getBooks();
+			break;
 		case SEARCH_BOOK_FOR_UPDATE_BOOK:
 			UpdateBookController.resultBook = message.getBook();
+			break;
+		case PERSONAL_INFORMATION_RESULT:
+			PersonalInformationController.user=message.getUser();
+			PersonalInformationController.subscriber=message.getSubscriber();
+			break;
 		default:
 			break; 
 		}	

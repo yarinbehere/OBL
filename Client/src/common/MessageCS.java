@@ -17,7 +17,8 @@ public class MessageCS implements Serializable {
 	 */
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ORDER, SEARCH_BOOK_FOR_BORROW,
-		SEARCH_SUBSCRIBER,LIST_OF_ORDERS, SEARCH_BOOK_FOR_UPDATE_BOOK; 
+		SEARCH_SUBSCRIBER,LIST_OF_ORDERS, SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
+		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION; 
 	}
 	
 	
@@ -82,7 +83,18 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setSubscriber(subscriber);	
 	}
-
+	
+	/**constructor for the update Personal Information
+	 * @param messageType
+	 * @param user
+	 * @param subscriber
+	 * @author Omri Braymok
+	 */
+	public MessageCS(MessageType messageType, User user, Subscriber subscriber) {
+		this.messageType = messageType;
+		this.setUser(user);
+		this.setSubscriber(subscriber);	
+	}
 	public User getUser() {
 		return user;
 	}

@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="379.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="379.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonalInformationController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -120,13 +120,11 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="254.0" layoutY="-1.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="13.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Details:" />
                   <Separator layoutX="153.0" layoutY="24.0" prefHeight="4.0" prefWidth="454.0" />
-                  <Button fx:id="changeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
+                  <Button fx:id="saveChangeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" onAction="#saveChangeButtonAction" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
                   <Text layoutX="27.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" />
-                  <TextField fx:id="usernameTextField" layoutX="104.0" layoutY="42.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="302.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
                   <TextField fx:id="emailTextField" layoutX="379.0" layoutY="80.0" prefHeight="27.0" prefWidth="212.0" />
                   <Text layoutX="27.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
-                  <TextField fx:id="idTextField" layoutX="104.0" layoutY="81.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="27.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname:" />
                   <TextField fx:id="firstnameTextField" layoutX="104.0" layoutY="117.0" prefHeight="27.0" prefWidth="188.0" />
                   <Text layoutX="302.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:" />
@@ -134,15 +132,26 @@
                   <Text layoutX="302.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone:" />
                   <TextField fx:id="phoneTextField" layoutX="456.0" layoutY="153.0" prefHeight="27.0" prefWidth="135.0" />
                   <ChoiceBox fx:id="phoneChoiceBox" layoutX="379.0" layoutY="154.0" prefHeight="27.0" prefWidth="70.0" />
-                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Reset" />
+                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" onAction="#resetButtonAction" prefHeight="27.0" prefWidth="70.0" text="Reset" />
                   <Text layoutX="27.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status:" />
-                  <Text fx:id="statusLabel" fill="#40c900" layoutX="104.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" wrappingWidth="57.4287109375">
+                  <Text fx:id="statusLabel" fill="#55ff00" layoutX="106.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" wrappingWidth="57.4287109375">
                      <font>
-                        <Font name="System Italic" size="13.0" />
+                        <Font size="14.0" />
                      </font>
                   </Text>
                   <Text layoutX="302.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-                  <TextField fx:id="usernameTextField1" layoutX="379.0" layoutY="42.0" prefHeight="27.0" prefWidth="213.0" />
+                  <TextField fx:id="userPasswordTextField" layoutX="379.0" layoutY="42.0" prefHeight="27.0" prefWidth="213.0" />
+                  <Text layoutY="-8.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text fx:id="userNameLabe" fill="#44ff00" layoutX="110.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[userName]" wrappingWidth="75.20001006126404">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="idLabel" fill="#09ff00" layoutX="110.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[UserID]">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
       </children>
