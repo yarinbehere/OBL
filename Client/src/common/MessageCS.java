@@ -32,10 +32,12 @@ public class MessageCS implements Serializable {
 
 	
 	/**
-	 * subscriber wants to watch in his activity log
+	 * 1st scenario: subscriber wants to watch in his activity log
+	 * 2nd scenario: user wants to search for books
 	 * @param messageType - messageType will be activityLog
 	 * @param subscriber 
 	 * @author Hai
+	 * @author Roman
 	 */
 	public MessageCS(MessageType messageType, ArrayList<?> activityLog)
 	{
