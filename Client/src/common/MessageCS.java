@@ -28,13 +28,19 @@ public class MessageCS implements Serializable {
 	private Book book;
 	private Subscriber subscriber;
 	private BorrowedBook borrowedbook;
+	private ArrayList<?> activityLog;
 
-	private ArrayList<ActivityLog> activityLog;
-
-	public MessageCS(MessageType messageType, ArrayList<ActivityLog> activityLog)
+	
+	/**
+	 * subscriber wants to watch in his activity log
+	 * @param messageType - messageType will be activityLog
+	 * @param subscriber 
+	 * @author Hai
+	 */
+	public MessageCS(MessageType messageType, ArrayList<?> activityLog)
 	{
 		this.messageType = messageType;
-		this.setActivityLog(activityLog);
+		this.activityLog = activityLog;
 	}
 	
 	/**
@@ -113,11 +119,11 @@ public class MessageCS implements Serializable {
 		this.user = user;
 	}
 
-	public ArrayList<ActivityLog> getActivityLog() {
+	public ArrayList<?> getActivityLog() {
 		return activityLog;
 	}
 
-	public void setActivityLog(ArrayList<ActivityLog> activityLog) {
+	public void setActivityLog(ArrayList<?> activityLog) {
 		this.activityLog = activityLog;
 	}
 

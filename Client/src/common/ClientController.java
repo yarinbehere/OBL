@@ -17,6 +17,7 @@ public class ClientController {
 	 * what sort of message has been returned
 	 * @param msg
 	 */
+	@SuppressWarnings("unchecked")
 	public static void messageAnalyze(Object msg) 
 	{
 		{
@@ -37,7 +38,7 @@ public class ClientController {
 				BorrowBookController.cancel_borrow=message.getBook();
 				break;	
 			case ACTIVITY_LOG:
-				 	ActivityLogController.finalSubscriberActivity=  message.getActivityLog();
+				 	ActivityLogController.finalSubscriberActivity=  (ArrayList<ActivityLog>) message.getActivityLog();
 				 	break;
 			default:
 				break;
