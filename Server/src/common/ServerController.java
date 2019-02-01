@@ -321,7 +321,6 @@ public class ServerController {
 						DateTimeFormatter.ofPattern("YYYY/MM/DD")+"', 'update personal information'"+","+
 						message.getSubscriber().getSubscriberID()+"');";
 				//send Query to DB
-				System.out.println(query);
 				stmt.executeUpdate(query);
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				break;
