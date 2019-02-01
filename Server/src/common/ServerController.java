@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
@@ -316,9 +319,12 @@ public class ServerController {
 				//send Query to DB
 				stmt.executeUpdate(query);
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		        //get date
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		        Date date = new Date();  
 				//Query to for registration action in activitylog
 				query = "INSERT INTO activitylog (actionDate, actionDescription, subscriberNumber) VALUES ('"+
-						DateTimeFormatter.ofPattern("YYYY/MM/DD")+"', 'update personal information'"+","+
+						dateFormat.format(date)+"', 'update personal information','"+
 						message.getSubscriber().getSubscriberID()+"');";
 				//send Query to DB
 				stmt.executeUpdate(query);
