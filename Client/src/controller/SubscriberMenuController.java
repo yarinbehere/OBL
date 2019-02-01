@@ -28,7 +28,7 @@ public class SubscriberMenuController {
     @FXML
     void orderBook(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("OrderBook.fxml", orderBookButton);
-    }
+    } 
     
     @FXML
     void extensionRequest(ActionEvent event) throws IOException {

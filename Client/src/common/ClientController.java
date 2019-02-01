@@ -1,5 +1,7 @@
 package common;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import controller.BookReturnController;
 import controller.LoginController;
 import controller.OrderBookController;
@@ -49,6 +51,8 @@ public class ClientController {
 		case SEARCH_SUBSCRIBER_FOR_OPTIONS:
 			BookReturnController.resultSubscriber = message.getSubscriber();
 			break;
+		case SEARCH_BOOK_FOR_RETURN:
+			BookReturnController.resultBook = message.getBook();
 		default:
 			break; 
 		}	

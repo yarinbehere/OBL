@@ -19,12 +19,12 @@ public class MessageCS implements Serializable {
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ORDER, SEARCH_BOOK_FOR_BORROW,
 		SEARCH_SUBSCRIBER,LIST_OF_ORDERS,CHECK_AVAILABLE_ORDER,ORDER_A_BOOK, 
-		ERROR_MESSAGE, SEARCH_SUBSCRIBER_FOR_OPTIONS; 
+		ERROR_MESSAGE, SEARCH_SUBSCRIBER_FOR_OPTIONS, SEARCH_BOOK_FOR_RETURN, RETURN_BOOK, PRINT_MESSAGE; 
 	}
-	
-	
+
+
 	private MessageType messageType; 
-	
+
 	/* Entities */
 	private User user;
 	private Book book;
@@ -33,7 +33,7 @@ public class MessageCS implements Serializable {
 	private Subscriber subscriber;
 	private String Error;
 	private BookOrder bookOrder;
-	
+
 
 	/**
 	 * user wants to login to the system
@@ -52,20 +52,20 @@ public class MessageCS implements Serializable {
 	 * @param book the book wishing to look for
 	 * @author Roman
 	 */
-	
+
 	public MessageCS(MessageType messageType, Book book)
 	{
 		this.setMessageType(messageType);
 		this.setBook(book);
 	}
-	
+
 	/**
 	 * returning search result.. a list of books that have been searched
 	 * @param messageType
 	 * @param books 
 	 * @author Roman
 	 */
-	
+
 	public MessageCS(MessageType messageType, ArrayList<Book> books)
 	{
 		this.setMessageType(messageType);
@@ -76,14 +76,14 @@ public class MessageCS implements Serializable {
 	 * @param tableOfContent saving the file we want to open
 	 * @author Roman
 	 */
-	
+
 	public MessageCS(MessageType messageType, FileTransfer tableOfContent)
 	{
 		this.setMessageType(messageType);
 		this.setTableOfContent(tableOfContent);
 	}
-	
-	
+
+
 	public MessageCS(MessageType messageType, Subscriber subscriber) {
 		this.setMessageType(messageType);
 		this.setSubscriber(subscriber);	
@@ -100,6 +100,11 @@ public class MessageCS implements Serializable {
 	public MessageCS(MessageType messageType, BookOrder bookOrder) {
 		this.setMessageType(messageType);
 		this.setBookOrder(bookOrder);
+	}
+	public MessageCS(MessageType messageType, Subscriber subscriber, Book book) {
+		this.messageType = messageType;
+		this.subscriber = subscriber;
+		this.book = book;
 	}
 	public User getUser() {
 		return user;

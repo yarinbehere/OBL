@@ -27,6 +27,8 @@ public class Book implements Serializable{
 	private int queue;
 	private String subscriptionNumber;
 	private LocalDate localDate;
+	private Date borrowDate;
+	private Date returnDate;
 	
 	/**constructor when a message to server has been sent, to look for the book with these parameters
 	 * @author Roman
@@ -103,7 +105,7 @@ public class Book implements Serializable{
 	
 	public Book(String bookID, String subscriptionNumber) {
 		this.bookID = bookID;
-		this.setSubscriptionNumber(subscriptionNumber);
+		this.subscriptionNumber = subscriptionNumber;
 	}
 	
 	public Book(String bookTitle, Date dateOrder, int queue) {
@@ -119,6 +121,10 @@ public class Book implements Serializable{
 		this.queue = queue;
 	}
 
+	public Book(Date borrowDate, Date returnDate) {
+		this.setBorrowDate(borrowDate);
+		this.setReturnDate(returnDate);
+	}
 	public String getBookTitle() {
 		return bookTitle;
 	}
@@ -226,6 +232,18 @@ public class Book implements Serializable{
 	}
 	public void setLocalDate(LocalDate localDate) {
 		this.localDate = localDate;
+	}
+	public Date getBorrowDate() {
+		return borrowDate;
+	}
+	public void setBorrowDate(Date borrowDate) {
+		this.borrowDate = borrowDate;
+	}
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
 	 
 	

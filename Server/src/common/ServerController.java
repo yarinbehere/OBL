@@ -9,12 +9,15 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
@@ -267,6 +270,76 @@ public class ServerController {
 				break;
 			case ORDER_A_BOOK:
 				query = "";
+			case SEARCH_BOOK_FOR_RETURN:
+				book = null;
+				query = "SELECT * FROM BorrowedBook bor, Subscriber s WHERE bor.bookId= \"" + message.getBook().getBookID()  + "\" "
+						+ "AND bor.subscriptionNumber = s.subscriberID AND s.subscriberID = \"" 
+						+ message.getBook().getSubscriptionNumber() + "\";";
+				System.out.println(query);
+				rset=stmt.executeQuery(query);
+				//if the book does not exist in the system
+				if(rset.next() == false)
+				{
+					book = null;
+				}
+				//if the book exist in the system
+				else
+				{
+					book = new Book(rset.getDate("borrowDate"),rset.getDate("returnDate"));
+				}
+				resultBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_RETURN,book);
+				client.sendToClient(resultBook);
+				break;
+			case RETURN_BOOK:
+				//delete the book that returned to the library from borrowed book table
+				query = "DELETE FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookDetails()
+				+ "\" AND subscriptionNumber = \"" + message.getSubscriber().getSubscriberID() + "\";";
+				stmt.executeUpdate(query);
+				//update the book table and increase the amount by 1
+				query = "UPDATE Book SET currentQuantity = currentQuantity + 1 WHERE bookID = \""
+				+ message.getBook().getBookDetails()+ "\";";
+				stmt.executeUpdate(query);
+				//find if the subscriber has books left in the list
+				query = "SELECT * FROM borrowedBook bor, Subscriber s WHERE subscriptionNumber = \"" 
+				+message.getSubscriber().getSubscriberID() + "\" AND bor.subscriptionNumber = subscriberID;";
+				System.out.println(query);
+				rset = stmt.executeQuery(query);
+				if(rset.next() == false)
+				{
+					query = "SELECT * FROM Subscriber WHERE subscriberID = \"" + 
+				message.getSubscriber().getSubscriberID()+ "\"; ";
+					rset = stmt.executeQuery(query);
+					//move to the next row of the wanted subscriber
+					rset.next();
+					//subscriber doesn't have books left and his status is frozen
+					if(message.getSubscriber().getSubscriberStatus().equals("Frozen"))
+					{
+						//convert from Date to LocalDate
+						Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+				    	String format = formatter.format(rset.getDate("graduationDate"));
+				    	//if date of today minus the graduated date is negative means he is graduated
+				    	if(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(format)) < 0)
+				    	{
+				    		//if the status is frozen and subscriber is already graduated
+				    		query = "UPDATE Subscriber SET subscriberStatus = \"Locked\" WHERE subscriberID = \""
+				    				+ message.getSubscriber().getSubscriberID()+ "\";";
+							stmt.executeUpdate(query);
+				    	}
+				    	else
+				    	{
+				    		//if the status is frozen and subscriber is not graduated yet return status back to active
+				    		query = "UPDATE Subscriber SET subscriberStatus = \"Active\" WHERE subscriberID = \""
+				    				+ message.getSubscriber().getSubscriberID()+ "\";";
+				    		stmt.executeUpdate(query);
+				    	}
+					}
+					query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
+					+"\", \"Returned a book\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
+					System.out.println(query);
+					stmt.executeUpdate(query);
+							
+				}
+				break;
 			default:
 				break;
 			}
