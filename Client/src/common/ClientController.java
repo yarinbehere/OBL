@@ -4,6 +4,7 @@ import controller.LoginController;
 import controller.PersonalInformationController;
 import controller.SearchBookController;
 import controller.UpdateBookController;
+import controller.ViewDatabaseController;
 import controller.ReviewSubscriberController;
 import controller.BorrowBookController;
 import controller.CreateController;
@@ -65,6 +66,10 @@ public class ClientController {
 			case PERSONAL_INFORMATION_RESULT:
 				PersonalInformationController.user=message.getUser();
 				PersonalInformationController.subscriber=message.getSubscriber();
+				break;
+			case SEARCH_ALL_FOR_VIEW_DATABASE:
+				ViewDatabaseController.subscriberResult=message.getSubscribers();
+				ViewDatabaseController.librarianResult=message.getLibrarians();
 				break;
 		default:
 			break;

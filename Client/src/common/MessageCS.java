@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entity.Book;
 import entity.FileTransfer;
+import entity.Librarian;
 import entity.BorrowedBook;
 import entity.Subscriber;
 import entity.User;
@@ -19,7 +20,8 @@ public class MessageCS implements Serializable {
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
 		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
-		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS; 
+		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS, 
+		SEARCH_ALL_FOR_VIEW_DATABASE;
 	}
 
 	MessageType messageType;
@@ -28,6 +30,8 @@ public class MessageCS implements Serializable {
 	private User user;
 	private Book book;
 	private ArrayList<Book> books;
+	private ArrayList<Subscriber> subscribers;
+	private ArrayList<Librarian>Librarians;
 	private FileTransfer tableOfContent;
 	private BorrowedBook borrowedbook;
 	private Subscriber subscriber;
@@ -70,6 +74,27 @@ public class MessageCS implements Serializable {
 	{
 		this.messageType = messageType;
 		this.setBooks(books);
+	}
+	
+	
+	/**Constructor for find result to ViewDatabase in DB 
+	 * @param textMessage
+	 * @param subscribers
+	 * @param librarians
+	 * @author Omri Braymok
+	 */
+	public MessageCS(MessageType messageType, ArrayList<Subscriber> subscribers,ArrayList<Librarian> librarians) {
+		this.messageType = messageType;
+		this.setSubscribers(subscribers);
+		this.setLibrarians(librarians);
+	}
+	
+	/**Constructor for find result to ViewDatabase in DB 
+	 * @param textMessage
+	 * @author Omri Braymok
+	 */
+	public MessageCS(MessageType messageType) {
+		this.messageType = messageType;
 	}
 	
 	/**
@@ -118,7 +143,7 @@ public class MessageCS implements Serializable {
 		this.setUser(user);
 		this.setSubscriber(subscriber);	
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -162,5 +187,26 @@ public class MessageCS implements Serializable {
 	}
 	public void setBorrowedbook(BorrowedBook borrowedbook) {
 		this.borrowedbook = borrowedbook;
+	}
+	/**
+	 * @param subscribers the subscribers to set
+	 */
+	public void setSubscribers(ArrayList<Subscriber> subscribers) {
+		this.subscribers = subscribers;
+	}
+	public ArrayList<Subscriber> getSubscribers() {
+		return subscribers;
+	}
+	/**
+	 * @return the librarians
+	 */
+	public ArrayList<Librarian> getLibrarians() {
+		return Librarians;
+	}
+	/**
+	 * @param librarians the librarians to set
+	 */
+	public void setLibrarians(ArrayList<Librarian> librarians) {
+		Librarians = librarians;
 	}
 }

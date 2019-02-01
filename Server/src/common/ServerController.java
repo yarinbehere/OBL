@@ -8,12 +8,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
 import entity.Book;
 import entity.FileTransfer;
+import entity.Librarian;
 import entity.Subscriber;
 import entity.User;
 import entity.User.Role;
@@ -29,6 +31,7 @@ public class ServerController {
 		Book book = null;
 		User user = null;
 		Subscriber subscriber = null;
+		Librarian librarian = null;
 		try {
 			stmt = conn.createStatement();
 			switch (message.messageType) {
@@ -312,6 +315,43 @@ public class ServerController {
 						"'WHERE userName= '"+message.getUser().getUserName()+"';";
 				//send Query to DB
 				stmt.executeUpdate(query);
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Query to for registration action in activitylog
+				query = "INSERT INTO activitylog (actionDate, actionDescription, subscriberNumber) VALUES ('"+
+						DateTimeFormatter.ofPattern("YYYY/MM/DD")+"', 'update personal information'"+","+
+						message.getSubscriber().getSubscriberID()+"');";
+				//send Query to DB
+				System.out.println(query);
+				stmt.executeUpdate(query);
+				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				break;
+			case SEARCH_ALL_FOR_VIEW_DATABASE:
+				ArrayList<Subscriber> subscribersList = new ArrayList<>();
+				ArrayList<Librarian> librariansList = new ArrayList<>();
+				//Query to find subscriber in DB
+				query = "SELECT * FROM subscriber;";
+				rset = stmt.executeQuery(query);
+				while(rset.next() == true) {
+							subscriber = new Subscriber(rset.getString("subscriberId"),
+							rset.getString("userName"), rset.getString("firstName"),
+							rset.getString("lastName"), rset.getString("phoneNumber"),
+							rset.getString("email"), rset.getString("subscriberStatus"),null);
+							
+							subscribersList.add(subscriber);
+				}
+				//Query to find Librarian in DB
+				query = "SELECT * FROM librarian;";
+				rset = stmt.executeQuery(query);
+				while(rset.next() == true) {
+							librarian = new Librarian(rset.getString("workerNumber"), 
+									rset.getString("userName"), rset.getString("firstName"),
+									rset.getString("lastName"), rset.getString("email"),
+									rset.getString("role"), rset.getString("phoneNumber"));
+							
+							librariansList.add(librarian);
+				}
+				MessageCS resultReturn1 = new MessageCS(MessageType.SEARCH_ALL_FOR_VIEW_DATABASE,subscribersList,librariansList);
+				client.sendToClient(resultReturn1);
 				break;
 			default:
 				break;
