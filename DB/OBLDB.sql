@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `book`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `book` (
   `bookId` varchar(45) NOT NULL,
-  `booktitle` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `author` varchar(45) NOT NULL,
   `edition` int(11) DEFAULT NULL,
   `printData` date DEFAULT NULL,
