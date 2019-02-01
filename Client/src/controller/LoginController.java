@@ -43,14 +43,14 @@ import javafx.scene.text.Text;
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
 	    	MainClient.client.accept(message);
 	    //	new ThreadTest.ThreadTest2(message).run();
-	    	Thread.sleep(3000);
+	    	Thread.sleep(400);
 	    	//load the page for the specific user
 	    	if(userResult.getRole() == Role.SUBSCRIBER)
 	    	{
 	    		Subscriber subscriber = new Subscriber(userResult.getUserName());
 	    		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 	    		MainClient.client.accept(message);
-	    		Thread.sleep(3000);
+	    		Thread.sleep(400);
 	    		System.out.println(subscriberResult.getSubscriberDetails());
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}

@@ -37,7 +37,8 @@ public class ClientController {
 				BorrowBookController.cancel_borrow=message.getBook();
 				break;	
 			case ACTIVITY_LOG:
-				 	ActivityLogController.finalSubscriberActivity= (ArrayList<ActivityLog>) message.getActivityLog();
+					System.out.println("hi");
+				 	ActivityLogController.finalSubscriberActivity=  message.getActivityLog();
 				 	break;
 			default:
 				break;

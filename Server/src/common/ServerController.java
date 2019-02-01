@@ -205,18 +205,12 @@ public class ServerController {
 					subscriberActivity.add(subscriberActivity2);
 					flag2=true;
 				}
-				///if the user dont exist
+				///if the user doesn't exist
 				if(flag2==false)
 				{
 				}
-		    	for(int i = 0; i < subscriberActivity.size(); i++)
-		    	{   
-		    	    System.out.print(subscriberActivity.get(i).getDate());
-		    	    System.out.println("/n");
-		    	    System.out.print(subscriberActivity.get(i).getActivity());
-		    	    System.out.println("/n");
-		    	}
-				client.sendToClient(subscriberActivity);
+		    	MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
+				client.sendToClient(activity);
 				break;
 			default:
 				break;
