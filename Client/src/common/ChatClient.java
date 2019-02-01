@@ -63,7 +63,6 @@ public class ChatClient extends AbstractClient
   {
     if(msg instanceof MessageCS)
     {
-    	System.out.println("my name is hai");
     	ClientController.messageAnalyze(msg);
     }
     if(msg instanceof ArrayList<?>)

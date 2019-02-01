@@ -13,9 +13,6 @@ public class Subscriber implements Serializable
 	private String subscriberID;
 	private String firstName;
 	private String lastName;
-	//borrow history
-	//Late return
-	//Losing a book
 	
 	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
 	{

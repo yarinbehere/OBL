@@ -51,7 +51,6 @@ import javafx.scene.text.Text;
 	    		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 	    		MainClient.client.accept(message);
 	    		Thread.sleep(400);
-	    		System.out.println(subscriberResult.getSubscriberDetails());
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}
 	    	else if(userResult.getRole() == Role.LIBRARIAN)

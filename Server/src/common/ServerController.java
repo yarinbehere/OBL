@@ -104,7 +104,6 @@ public class ServerController {
 				break;
 			case SEARCH_BOOK_FOR_BORROW:
 				Book book = null;
-				System.out.println();
 				query = "SELECT * FROM book WHERE bookId= \"" + message.getBook().getbookDetails()  + "\";";
 				rset=stmt.executeQuery(query);
 				//if the book does not exist in the system
@@ -186,28 +185,22 @@ public class ServerController {
 			case ACTIVITY_LOG:
 				ArrayList<ActivityLog> subscriberActivity = new ArrayList<>();
 				ActivityLog subscriberActivity2;
-				String subscriberNumberA="null";
-				Boolean flag2=false;
+				String subscriberNumberA="";
 				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
 						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
 						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
 				rset=stmt.executeQuery(query);
-				///to take care if user doesn't exist
 				while(rset.next() == true)
 				{
 					subscriberNumberA=rset.getString("subscriberId");
 				}
 				query="SELECT * FROM activitylog WHERE subscriberNumber= \"" + subscriberNumberA + "\";";
 				rset=stmt.executeQuery(query);
+				///if the subscriber exist
 				while(rset.next() == true)
 				{
-					subscriberActivity2=new ActivityLog(rset.getString("actionDescription"),rset.getString("actionDate"));
+					subscriberActivity2=new ActivityLog(rset.getString("actionDate"),rset.getString("actionDescription"));
 					subscriberActivity.add(subscriberActivity2);
-					flag2=true;
-				}
-				///if the user doesn't exist
-				if(flag2==false)
-				{
 				}
 		    	MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
 				client.sendToClient(activity);

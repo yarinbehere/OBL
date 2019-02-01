@@ -144,7 +144,6 @@ public class BorrowBookController{
     	else
     	{
         	checkCurrentBookQuanity=resultBook.getCurrentBookQuanity();
-        	System.out.println(checkCurrentBookQuanity);
         	checkSubscriberStatus=resultSubscriber.getSubscriberStatus();
         	LocalDate BorrowDate = borrowDate.getValue();
         	LocalDate ReturnDate = returnDate.getValue();

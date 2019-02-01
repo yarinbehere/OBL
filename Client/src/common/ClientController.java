@@ -37,12 +37,10 @@ public class ClientController {
 				BorrowBookController.cancel_borrow=message.getBook();
 				break;	
 			case ACTIVITY_LOG:
-					System.out.println("hi");
 				 	ActivityLogController.finalSubscriberActivity=  message.getActivityLog();
 				 	break;
 			default:
 				break;
-				//aA123456
 			}	
 		}
 		
