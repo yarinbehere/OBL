@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `book`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `book` (
   `bookId` varchar(45) NOT NULL,
-  `title` varchar(100) NOT NULL,
+  `booktitle` varchar(100) NOT NULL,
   `author` varchar(45) NOT NULL,
   `edition` int(11) DEFAULT NULL,
   `printData` date DEFAULT NULL,
@@ -89,12 +89,13 @@ CREATE TABLE `bookorder` (
   `bookId` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `orderTime` time NOT NULL,
+  `queue` varchar(45) NOT NULL,
   PRIMARY KEY (`bookOrderNum`),
   KEY `fk_BookOrder_books1_idx` (`bookId`),
   KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
   CONSTRAINT `fk_BookOrder_books1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
   CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +104,7 @@ CREATE TABLE `bookorder` (
 
 LOCK TABLES `bookorder` WRITE;
 /*!40000 ALTER TABLE `bookorder` DISABLE KEYS */;
-INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03'),(2,'2019-01-10','208','8','not wanted','16:20:00');
+INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03','1'),(2,'2019-01-10','208','8','not wanted','16:20:00','2');
 /*!40000 ALTER TABLE `bookorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,23 +167,6 @@ LOCK TABLES `borrowedbook` WRITE;
 INSERT INTO `borrowedbook` VALUES ('201','1','2019-01-23','2019-01-15',0),('203','4','2019-01-10','2019-01-01',0),('207','6','2019-01-02','2019-01-01',0);
 /*!40000 ALTER TABLE `borrowedbook` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Temporary view structure for view `borrowedbook_extended`
---
-
-DROP TABLE IF EXISTS `borrowedbook_extended`;
-/*!50001 DROP VIEW IF EXISTS `borrowedbook_extended`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8mb4;
-/*!50001 CREATE VIEW `borrowedbook_extended` AS SELECT 
- 1 AS `subscriptionNumber`,
- 1 AS `firstName`,
- 1 AS `bookId`,
- 1 AS `title`,
- 1 AS `borrowDate`,
- 1 AS `returnDate`*/;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `librarian`
@@ -326,24 +310,6 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES ('100','12','Librarian'),('101','skre544','Manager'),('102','Aa123456','Librarian'),('103','1010abba','Librarian'),('104','5646bird','Librarian'),('105','lock55','Librarian'),('106','Aa123456','Librarian'),('107','beholy1','Librarian'),('200','12345','Subscriber'),('201','Aa1342','Subscriber'),('202','654re','Subscriber'),('203','hey123','Subscriber'),('204','204204','Subscriber'),('205','0','Subscriber'),('206','1111','Subscriber'),('207','5454aA','Subscriber'),('208','ny5147','Subscriber');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Final view structure for view `borrowedbook_extended`
---
-
-/*!50001 DROP VIEW IF EXISTS `borrowedbook_extended`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `borrowedbook_extended` AS select `bb`.`subscriptionNumber` AS `subscriptionNumber`,`s`.`firstName` AS `firstName`,`b`.`bookId` AS `bookId`,`b`.`title` AS `title`,`bb`.`borrowDate` AS `borrowDate`,`bb`.`returnDate` AS `returnDate` from ((`borrowedbook` `bb` join `book` `b`) join `subscriber` `s`) where ((`bb`.`bookId` = `b`.`bookId`) and (`bb`.`subscriptionNumber` = `s`.`subscriberId`)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -354,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-31 18:08:03
+-- Dump completed on 2019-02-01 19:32:09
