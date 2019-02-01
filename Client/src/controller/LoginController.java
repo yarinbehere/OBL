@@ -1,11 +1,10 @@
 package controller;
+
 import java.io.IOException;
 import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
-import common.ThreadTest;
-import common.ThreadTest.ThreadTest2;
 import entity.Subscriber;
 import entity.User;
 import entity.User.Role;
@@ -32,24 +31,24 @@ import javafx.scene.text.Text;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
 	    
-	    public static User userResult = null;
-	    public static Subscriber subscriberResult;
-		public static Role userRole;
+	    public static Role userRole = null;
+		public static User userResult;
+		public static Subscriber subscriberResult;
 	    
 	    @FXML
 	    void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
 	    	User user = new User(usernameTextField.getText(),passwordTextField.getText());
 	    	MessageCS message = new MessageCS(MessageType.LOGIN,user);
-	    	MainClient.client.accept(message);  
+	    	MainClient.client.accept(message);
 	    //	new ThreadTest.ThreadTest2(message).run();
 	    	Thread.sleep(400);
-	    	//load the page for the specific user 
+	    	//load the page for the specific user
 	    	if(userResult.getRole() == Role.SUBSCRIBER)
 	    	{
 	    		Subscriber subscriber = new Subscriber(userResult.getUserName());
 	    		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 	    		MainClient.client.accept(message);
-	    		Thread.sleep(100);
+	    		Thread.sleep(400);
 	    		LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 	    	}
 	    	else if(userResult.getRole() == Role.LIBRARIAN)
@@ -75,6 +74,5 @@ import javafx.scene.text.Text;
 	   		LoadGUI.loadFXML("ReaderMenu.fxml", mainMenuButton);
 	   	}
 	}
-
 
 

@@ -25,6 +25,7 @@ public class Subscriber implements Serializable  {
 	 * @param id
 	 * @param email
 	 * @param phone
+	 * @author Hai
 	 */
 	public Subscriber(String subscriberID, String userName, String firstName, String lastName, String mobileNumber, String email, String password) {
 		this.setUserName(userName);
@@ -35,6 +36,7 @@ public class Subscriber implements Serializable  {
 		this.email = email;
 		this.mobileNumber = mobileNumber;
 	}
+
 	
 	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
 	{

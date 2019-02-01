@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ActivityLogController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -79,10 +79,10 @@
             <Pane layoutX="11.0" layoutY="66.0" prefHeight="341.0" prefWidth="640.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="341.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="640.0" />
-                  <TableView layoutX="6.0" layoutY="4.0" prefHeight="333.0" prefWidth="627.0">
+                  <TableView fx:id="activityLogTable" layoutX="6.0" layoutY="4.0" prefHeight="333.0" prefWidth="627.0">
                     <columns>
-                      <TableColumn prefWidth="132.0" text="Time" />
-                        <TableColumn prefWidth="494.0" text="Action" />
+                      <TableColumn fx:id="columnDate" prefWidth="132.0" text="Date" />
+                        <TableColumn fx:id="columnAction" prefWidth="494.0" text="Action" />
                     </columns>
                   </TableView>
                </children>

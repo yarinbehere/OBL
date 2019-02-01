@@ -46,3 +46,4 @@ public class SubscriberMenuController {
 		LoadGUI.loadFXML("Request.fxml", extensionRequestButton);
     }
 }
+

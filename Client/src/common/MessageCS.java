@@ -19,7 +19,8 @@ public class MessageCS implements Serializable {
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
 		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
-		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS; 
+		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS,
+		ACTIVITY_LOG; 
 	}
 
 	MessageType messageType;
@@ -27,11 +28,11 @@ public class MessageCS implements Serializable {
 	/* Entities */
 	private User user;
 	private Book book;
-	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
 	private BorrowedBook borrowedbook;
 	private Subscriber subscriber;
 	String textMessage;
+	private ArrayList<?> arrayList;
 
 
 	/**
@@ -66,12 +67,20 @@ public class MessageCS implements Serializable {
 	 * @author Roman
 	 */
 	
-	public MessageCS(MessageType messageType, ArrayList<Book> books)
+	
+	/**
+	 * 1st scenario: subscriber wants to watch in his activity log
+	 * 2nd scenario: user wants to search for books
+	 * @param messageType - messageType will be activityLog
+	 * @param subscriber 
+	 * @author Hai
+	 * @author Roman
+	 */
+	public MessageCS(MessageType messageType, ArrayList<?> arrayList)
 	{
 		this.messageType = messageType;
-		this.setBooks(books);
+		this.setArrayList(arrayList);
 	}
-	
 	/**
 	 * subscriber wants to borrow a book
 	 * @param messageType - messageType will be borrow book
@@ -131,12 +140,7 @@ public class MessageCS implements Serializable {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	public ArrayList<Book> getBooks() {
-		return books;
-	}
-	public void setBooks(ArrayList<Book> books) {
-		this.books = books;
-	}
+	
 	public FileTransfer getTableOfContent() {
 		return tableOfContent;
 	}
@@ -162,5 +166,11 @@ public class MessageCS implements Serializable {
 	}
 	public void setBorrowedbook(BorrowedBook borrowedbook) {
 		this.borrowedbook = borrowedbook;
+	}
+	public ArrayList<?> getArrayList() {
+		return arrayList;
+	}
+	public void setArrayList(ArrayList<?> arrayList) {
+		this.arrayList = arrayList;
 	}
 }

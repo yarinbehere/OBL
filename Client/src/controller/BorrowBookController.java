@@ -27,7 +27,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class BorrowBookController{ 
+public class BorrowBookController implements Initializable{ 
 
     @FXML private TextField subscriberEditLabel;
     @FXML private Button searchSubscriberButton;
@@ -48,8 +48,9 @@ public class BorrowBookController{
     public static Book resultBook;
     public static BorrowedBook resultBorrowedBook;
     public static Book cancel_borrow;
-    
+   String checkSubscriberStatus;
 
+    
     @FXML
     void searchSubscriber(ActionEvent event) throws InterruptedException
     {
@@ -82,6 +83,7 @@ public class BorrowBookController{
     	   subscriberStatusLabel.setFill(Color.GREEN);
     	subscriberStatusLabel.setText(resultSubscriber.getSubscriberStatus());
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
+    	searchBookButton.setDisable(false);
     }
 
     @FXML
@@ -117,6 +119,7 @@ public class BorrowBookController{
     	bookIDLabel.setText(resultBook.getBookSerialNumber());
 
     	}
+    	borrowButton.setDisable(false);
     }
     
     /**
@@ -129,7 +132,7 @@ public class BorrowBookController{
     @FXML
     void borrowBook(ActionEvent event) throws InterruptedException
     {
-     	String checkSubscriberStatus;
+     	
     	int checkCurrentBookQuanity;
     	Alert alert4=new Alert(Alert.AlertType.ERROR);
     	Alert alert5=new Alert(Alert.AlertType.INFORMATION);
@@ -211,8 +214,14 @@ public class BorrowBookController{
     		return;
     	}
 
-
     }
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		searchBookButton.setDisable(true);
+		borrowButton.setDisable(true);
+		
+	}
 
 	
 

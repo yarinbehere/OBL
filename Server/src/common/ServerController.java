@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
+import entity.ActivityLog;
 import entity.Book;
 import entity.FileTransfer;
 import entity.Subscriber;
@@ -174,7 +175,6 @@ public class ServerController {
 				break;
 			case SEARCH_BOOK_FOR_BORROW:
 			    book = null;
-				System.out.println();
 				query = "SELECT * FROM book WHERE bookId= \"" + message.getBook().getBookDetails()  + "\";";
 				rset=stmt.executeQuery(query);
 				//if the book does not exist in the system
@@ -194,7 +194,8 @@ public class ServerController {
 				boolean flag=true;
 				query = "SELECT * FROM borrowedbook WHERE bookId= \"" + message.getBorrowedbook().getBookId()  + "\";";
 				rset=stmt.executeQuery(query);
-				Book book2 = null;
+				String borrowingDescription="Borrowed a book";
+				book = null;
 				while(flag)
 				{
 					if(rset.next() == true)
@@ -202,8 +203,8 @@ public class ServerController {
 						if(rset.getString("subscriptionNumber").equals(message.getBorrowedbook().getSubscriptionNumber()))
 						{
 							flag=false;
-							book2=new Book("subscriber already borrowed this book");
-							MessageCS cancel_borrow = new MessageCS(MessageType.BORROW1,book2);
+							book=new Book("subscriber already borrowed this book");
+							MessageCS cancel_borrow = new MessageCS(MessageType.BORROW1,book);
 							client.sendToClient(cancel_borrow);
 							return;
 						}
@@ -236,6 +237,15 @@ public class ServerController {
 					query += rset.getString("bookId");
 					query += "';";
 					stmt.executeUpdate(query);
+					//insert to activity log
+					query = "INSERT INTO activitylog VALUES ('";
+					query += message.getBorrowedbook().getBorrowDate();
+					query += "','";
+					query += borrowingDescription; 
+					query += "','";
+				query += message.getBorrowedbook().getSubscriptionNumber();
+				query += "');";
+				stmt.executeUpdate(query);
 				}
 				break;
 				case SEARCH_BOOK_FOR_UPDATE_BOOK:
@@ -312,6 +322,29 @@ public class ServerController {
 						"'WHERE userName= '"+message.getUser().getUserName()+"';";
 				//send Query to DB
 				stmt.executeUpdate(query);
+				break;
+				case ACTIVITY_LOG:
+				ArrayList<ActivityLog> subscriberActivity = new ArrayList<>();
+				ActivityLog subscriberActivity2;
+				String subscriberNumberA="";
+				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
+						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
+						"\" OR r.subscriberID = \"" + message.getSubscriber().getSubscriberDetails() + "\");";
+				rset=stmt.executeQuery(query);
+				while(rset.next() == true)
+				{
+					subscriberNumberA=rset.getString("subscriberId");
+				}
+				query="SELECT * FROM activitylog WHERE subscriberNumber= \"" + subscriberNumberA + "\";";
+				rset=stmt.executeQuery(query);
+				///if the subscriber exist
+				while(rset.next() == true)
+				{
+					subscriberActivity2=new ActivityLog(rset.getString("actionDate"),rset.getString("actionDescription"));
+					subscriberActivity.add(subscriberActivity2);
+				}
+		    	MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
+				client.sendToClient(activity);
 				break;
 			default:
 				break;
