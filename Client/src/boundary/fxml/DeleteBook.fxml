@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -20,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="568.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="568.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeleteBookController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -61,7 +59,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="543.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="566.0" prefWidth="663.0" VBox.vgrow="ALWAYS">
       <children>
             <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
@@ -77,45 +75,14 @@
                   <Glow />
                </effect>
             </ImageView>
-            <Pane layoutX="11.0" layoutY="66.0" prefHeight="176.0" prefWidth="619.0">
+            <Pane layoutX="11.0" layoutY="66.0" prefHeight="100.0" prefWidth="619.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="99.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Book:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Book:" />
-                  <TextField fx:id="subscriberEditLabel" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Serial number" />
-                  <Button fx:id="searchSubscriberButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" text="Search Book" />
+                  <TextField fx:id="serialNumberTextField1" layoutX="111.0" layoutY="45.0" prefHeight="27.0" prefWidth="295.0" promptText="Serial number" />
+                  <Button fx:id="searchBookButton" layoutX="420.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="27.0" prefWidth="175.0" text="Search Book" />
                   <Separator layoutX="119.0" layoutY="22.0" prefHeight="6.0" prefWidth="491.0" />
-                  <Button fx:id="updateBookButton" layoutX="256.0" layoutY="140.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Delete Book" />
-                  <Text layoutX="136.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Status:">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="bookStatusLabel" fill="#40c900" layoutX="249.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" textAlignment="RIGHT" wrappingWidth="57.4287109375">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="353.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Serial number:">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Text>
-                  <Hyperlink fx:id="bookIDLabel" layoutX="503.0" layoutY="81.0" prefHeight="25.0" prefWidth="57.0" text="[num]" textAlignment="RIGHT">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Hyperlink>
-                  <Text layoutX="135.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Text>
-                  <Hyperlink fx:id="pdfLink" layoutX="260.0" layoutY="104.0" prefHeight="27.0" prefWidth="76.0" text="[View PDF]" textAlignment="RIGHT">
-                     <font>
-                        <Font name="System Italic" size="13.0" />
-                     </font>
-                  </Hyperlink>
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Delete Book">
@@ -157,27 +124,34 @@
                <font>
                   <Font size="11.0" />
                </font></Text>
-            <Pane layoutX="11.0" layoutY="251.0" prefHeight="239.0" prefWidth="619.0">
+            <Pane layoutX="11.0" layoutY="175.0" prefHeight="315.0" prefWidth="619.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="243.0" layoutY="-1.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="316.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="13.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book's details:" />
                   <Separator layoutX="153.0" layoutY="24.0" prefHeight="4.0" prefWidth="454.0" />
-                  <Button fx:id="changeButton" layoutX="206.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
-                  <Button fx:id="resetButton" layoutX="319.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Reset" />
-                  <Text layoutX="26.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
-                  <TextField fx:id="titleTextField" layoutX="103.0" layoutY="40.0" prefHeight="27.0" prefWidth="188.0" />
-                  <Text layoutX="302.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
-                  <TextField fx:id="authorTextField" layoutX="379.0" layoutY="40.0" prefHeight="27.0" prefWidth="212.0" />
-                  <Text layoutX="26.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject:" />
-                  <Text layoutX="26.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
-                  <ChoiceBox fx:id="subjectChoiceBox" accessibleText="dsfsdf" layoutX="103.0" layoutY="79.0" prefHeight="27.0" prefWidth="188.0" />
-                  <TextField fx:id="freeTextField" layoutX="103.0" layoutY="115.0" prefHeight="27.0" prefWidth="490.0" />
-                  <Text layoutX="26.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" wrappingWidth="62.41991329193115" />
-                  <TextField fx:id="quantityTextField" layoutX="102.0" layoutY="153.0" prefHeight="27.0" prefWidth="85.0" />
-                  <Text layoutX="212.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="62.41991329193115" />
-                  <TextField fx:id="locationTextField" layoutX="280.0" layoutY="153.0" prefHeight="27.0" prefWidth="85.0" />
-                  <Text layoutX="390.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demand:" wrappingWidth="62.41991329193115" />
-                  <ChoiceBox fx:id="demandChoiceBok" accessibleText="dsfsdf" layoutX="450.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" />
+                  <Text layoutX="29.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
+                  <TextField fx:id="titleTextField" editable="false" layoutX="113.0" layoutY="47.0" prefHeight="27.0" prefWidth="224.0" />
+                  <Text layoutX="356.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
+                  <TextField fx:id="authorTextField" editable="false" layoutX="419.0" layoutY="47.0" prefHeight="27.0" prefWidth="175.0" />
+                  <Text layoutX="29.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serial Number:" />
+                  <TextField fx:id="serialNumberTextField2" editable="false" layoutX="113.0" layoutY="88.0" prefHeight="27.0" prefWidth="76.0" />
+                  <Text layoutX="197.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edition:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="editionTextField" editable="false" layoutX="251.0" layoutY="88.0" prefHeight="27.0" prefWidth="85.0" />
+                  <TextField fx:id="subjectsTextField" editable="false" layoutX="419.0" layoutY="88.0" prefHeight="27.0" prefWidth="175.0" promptText="saperated by commas" />
+                  <Text layoutX="29.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="quantityTextField" editable="false" layoutX="112.0" layoutY="130.0" prefHeight="27.0" prefWidth="76.0" promptText="0" />
+                  <Text layoutX="196.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="locationTextField" editable="false" layoutX="251.0" layoutY="131.0" prefHeight="27.0" prefWidth="85.0" />
+                  <Text layoutX="356.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demand:" wrappingWidth="62.41991329193115" />
+                  <Text layoutX="29.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
+                  <TextField fx:id="freeTextField" editable="false" layoutX="110.0" layoutY="170.0" prefHeight="27.0" prefWidth="483.0" />
+                  <Text layoutX="29.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:" wrappingWidth="75.91113951802254" />
+                  <TextField fx:id="pdfPathTextField" editable="false" layoutX="111.0" layoutY="215.0" prefHeight="27.0" prefWidth="295.0" />
+                  <Button fx:id="openPdfButton" layoutX="420.0" layoutY="215.0" mnemonicParsing="false" onAction="#openPDF" prefHeight="27.0" prefWidth="175.0" text="Open PDF" />
+                  <Button fx:id="deleteBookButton" layoutX="218.0" layoutY="264.0" mnemonicParsing="false" onAction="#deleteBook" prefHeight="27.0" prefWidth="106.0" text="Delete Book" />
+                  <Text layoutX="356.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject(s):" />
+                  <Button fx:id="clearButton" layoutX="339.0" layoutY="264.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="62.0" text="Clear" />
+                  <TextField fx:id="demandTextField" editable="false" layoutX="419.0" layoutY="130.0" prefHeight="27.0" prefWidth="175.0" />
                </children>
             </Pane>
       </children>

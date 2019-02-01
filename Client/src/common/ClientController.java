@@ -1,6 +1,7 @@
 package common;
 
 import controller.AddNewBookController;
+import controller.DeleteBookController;
 import controller.LoginController;
 import controller.SearchBookController;
 import entity.User;
@@ -40,8 +41,36 @@ public class ClientController {
 			SearchBookController.bookResult = message.getBooks();
 			break;
 			
+		/**
+		 * Search book for Add New Book
+		 * @author Yarin	
+		 */
 		case SEARCH_BOOK_FOR_ADDNEWBOOK:
 			AddNewBookController.resultBookForAddNewBook=message.getBook();
+			break;
+			
+		/**
+		 * Add New Book
+		 * @author Yarin	
+		 */
+		case ADD_NEW_BOOK:
+			AddNewBookController.resultBookForAddNewBook=message.getBook();
+			break;
+		
+		/**
+		 * Search book for Delete Book
+		 * @author Yarin
+		 */
+		case SEARCH_BOOK_FOR_DELETEBOOK:
+			DeleteBookController.resultBookForDeleteBook=message.getBook();
+			break;
+			
+		/**
+		 * Delete Book
+		 * @author Yarin
+		 */
+		case DELETE_BOOK:
+			DeleteBookController.resultBookForDeleteBook=message.getBook();
 			break;
 			
 		case TABLE_OF_CONTENT:

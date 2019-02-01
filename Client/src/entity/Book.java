@@ -7,7 +7,7 @@ public class Book implements Serializable{
 	private String bookID;
 	private String bookTitle;
 	private String authorName;
-	private String editionNumber;
+	private int editionNumber;
 	private String bookGenre;
 	private String bookDescription;
 	private int originalQuantity;
@@ -19,6 +19,7 @@ public class Book implements Serializable{
 	private int amountOfBooks; // Yarin: currentQuantity
 	private String available;
 	private Date soonestReturn; 
+	public String bookDemand;
 	
 
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
@@ -46,10 +47,65 @@ public class Book implements Serializable{
 		this.bookID=bookID;
 	}
 	
+	/**
+	 * Add new book with data for columns in DB
+	 * @author Yarin
+	 */
+	public Book(String bookID, String bookTitle, String authorName, int editionNumber, String publishedDate,
+			String bookGenre, String bookDescription, int originalQuantity, String datePurchase, String shelfLocation,
+			String pdfPath, int amountOfBooks, String available) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.authorName = authorName;
+		this.editionNumber = editionNumber;
+		this.publishedDate = publishedDate;
+		this.bookGenre = bookGenre;
+		this.bookDescription = bookDescription;
+		this.originalQuantity = originalQuantity;
+		this.datePurchase = datePurchase;
+		this.shelfLocation = shelfLocation;
+		this.pdfPath = pdfPath;
+		this.amountOfBooks = amountOfBooks;
+		this.bookDemand = available;
+	}
+
+	
+	/***
+	 * Add completely new book with all attributes of Book
+	 * @author Yarin
+	 * @return
+	 */
+	public Book(String bookID, String bookTitle, String authorName, int editionNumber, String bookGenre,
+			String bookDescription, int originalQuantity, String publishedDate, String cataologNumber,
+			String datePurchase, String shelfLocation, String pdfPath, int amountOfBooks, String available,
+			Date soonestReturn,String bookDemand) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.authorName = authorName;
+		this.editionNumber = editionNumber;
+		this.bookGenre = bookGenre;
+		this.bookDescription = bookDescription;
+		this.originalQuantity = originalQuantity;
+		this.publishedDate = publishedDate;
+		this.cataologNumber = cataologNumber;
+		this.datePurchase = datePurchase;
+		this.shelfLocation = shelfLocation;
+		this.pdfPath = pdfPath;
+		this.amountOfBooks = amountOfBooks;
+		this.available = available;
+		this.soonestReturn = soonestReturn;
+		this.bookDemand=bookDemand;
+	}
+	
+	
+	
 	public String getBookTitle() {
 		return bookTitle;
 	} 
 	
+
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
 	} 
@@ -109,6 +165,71 @@ public class Book implements Serializable{
 	public void setSoonestReturn(Date soonestReturn) {
 		this.soonestReturn = soonestReturn;
 	}
+
+	public int getEditionNumber() {
+		return editionNumber;
+	}
+
+	public void setEditionNumber(int editionNumber) {
+		this.editionNumber = editionNumber;
+	}
+
+	public int getOriginalQuantity() {
+		return originalQuantity;
+	}
+
+	public void setOriginalQuantity(int originalQuantity) {
+		this.originalQuantity = originalQuantity;
+	}
+
+	public String getPublishedDate() {
+		return publishedDate;
+	}
+
+	public void setPublishedDate(String publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	public String getCataologNumber() {
+		return cataologNumber;
+	}
+
+	public void setCataologNumber(String cataologNumber) {
+		this.cataologNumber = cataologNumber;
+	}
+
+	public String getDatePurchase() {
+		return datePurchase;
+	}
+
+	public void setDatePurchase(String datePurchase) {
+		this.datePurchase = datePurchase;
+	}
+
+	public String getPdfPath() {
+		return pdfPath;
+	}
+
+	public void setPdfPath(String pdfPath) {
+		this.pdfPath = pdfPath;
+	}
+
+	public int getAmountOfBooks() {
+		return amountOfBooks;
+	}
+
+	public void setAmountOfBooks(int amountOfBooks) {
+		this.amountOfBooks = amountOfBooks;
+	}
+
+	public String getBookDemand() {
+		return bookDemand;
+	}
+
+	public void setBookDemand(String bookDemand) {
+		this.bookDemand = bookDemand;
+	}
+	
 	
 	
 }

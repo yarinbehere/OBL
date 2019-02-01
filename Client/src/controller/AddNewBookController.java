@@ -1,9 +1,13 @@
 package controller;
 
 import java.net.URL;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
+import java.io.File;
+import java.io.IOException;
+import java.awt.Desktop;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -18,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * Librarian or Manager can add books to the inventory of the library.
@@ -33,6 +38,7 @@ public class AddNewBookController implements Initializable{
 	@FXML private TextField titleTextField;
 	@FXML private TextField authorTextField;
 	@FXML private TextField serialNumberTextField;
+	@FXML private TextField editionTextField;
 	@FXML private TextField subjectsTextField;
 	@FXML private TextField freeTextField;
 	@FXML private TextField quantityTextField;
@@ -42,6 +48,7 @@ public class AddNewBookController implements Initializable{
 	@FXML private Button clearButton;
 	@FXML private Button returnButton;
 	@FXML private Button helpButton;
+	@FXML private Button openPdfButton;
 	@FXML private ChoiceBox<String> demandChoiceBox;
 
 	
@@ -62,12 +69,19 @@ public class AddNewBookController implements Initializable{
 	
 	}
 	
+	/*
+	 * Add new book to the inventory
+	 */
 	@FXML
 	void addNewBook(ActionEvent event) throws InterruptedException{
 		
 		// Vars init
 		ArrayList<String> errorsList=new ArrayList<>();
 		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
+		Alert successAlert=new Alert(AlertType.CONFIRMATION);
+		Book tempBook;
+		Date tempDate;
+		int quantity,edition;
 		
 		//Check fields (all are necessary)		
 		if(titleTextField.getText().isEmpty()) {
@@ -77,6 +91,9 @@ public class AddNewBookController implements Initializable{
 			errorsList.add("Author");
 		}
 		if(serialNumberTextField.getText().isEmpty()) {
+			errorsList.add("Serial number");
+		}
+		if(editionTextField.getText().isEmpty()) {
 			errorsList.add("Serial number");
 		}
 		if(subjectsTextField.getText().isEmpty()) {
@@ -99,30 +116,63 @@ public class AddNewBookController implements Initializable{
 		if(errorsList.size()>0) {
 			// Show error
 			errorAlert.setTitle("Failed");
-    		errorAlert.setContentText(errorsList.toString());
+    		errorAlert.setContentText("Please enter "+errorsList.toString()+", and try again.");
     		errorAlert.showAndWait();
 			return;
 		}
 		
-		//Date temp=new Date(0);
-		//Book book=new Book(serialNumberTextField.getText(), titleTextField.getText(), locationTextField.getText(), "Yes", temp);
-		Book tempBook=new Book(serialNumberTextField.getText());
+		// Check PDF file
+		File pdfFile;
+		Desktop desktop;
+		if(!pdfPathTextField.getText().isEmpty()) {
+			pdfFile=new File(pdfPathTextField.getText());
+			if(!pdfFile.exists()) {
+				// Show error
+				errorAlert.setTitle("Failed");
+				errorAlert.setContentText("Enter new PDF file and try again.");
+				errorAlert.showAndWait();
+				return;
+			}
+			if (!pdfPathTextField.getText().toLowerCase().endsWith(".pdf")) {
+				// Show error
+				errorAlert.setTitle("Failed");
+				errorAlert.setContentText("Please try to upload PDF file.");
+				errorAlert.showAndWait();
+				return;
+			}
+		}
 		
+		tempBook=new Book(serialNumberTextField.getText());
+		tempDate=new Date(0);
+		quantity=Integer.parseInt(quantityTextField.getText());
+		edition=Integer.parseInt(editionTextField.getText());
+		
+		// Search DB for a book with this serial number
 		MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ADDNEWBOOK,tempBook);
     	MainClient.client.accept(message);
     	Thread.sleep(100);
-    	System.out.println("This is working");
+    	
     	// Check if book already exists.
     	if (!(resultBookForAddNewBook == null)) {
     		errorAlert.setTitle("Failed");
-    		errorAlert.setContentText("Book already exists in inventory.");
+    		errorAlert.setContentText("Book already exists in inventory: "+resultBookForAddNewBook.getBookTitle());
     		errorAlert.showAndWait(); 
   			return;
     	}
-    	else {
-    	}
     	
-    	
+    	// Continue by creating a new Book object
+    	tempBook=new Book(serialNumberTextField.getText(), titleTextField.getText(), authorTextField.getText(), edition,
+    			subjectsTextField.getText(), freeTextField.getText(), quantity, tempDate.toString(), serialNumberTextField.getText(), "", locationTextField.getText(), pdfPathTextField.getText(),
+    			quantity, demandChoiceBox.getSelectionModel().getSelectedItem(), tempDate,demandChoiceBox.getSelectionModel().getSelectedItem());
+
+    	// Add this Book object to DB
+    	message = new MessageCS(MessageType.ADD_NEW_BOOK,tempBook);
+    	MainClient.client.accept(message); 
+    	Thread.sleep(100);
+    	successAlert.setTitle("Add New Book");
+    	successAlert.setContentText("Book "+tempBook.getBookID()+": "+tempBook.getBookTitle()+" successfully added to inventory.");
+    	successAlert.showAndWait();
+		
     	return;
     	//if(resultBook.g)
 		// TODO construct Book (after merge)
@@ -138,15 +188,40 @@ public class AddNewBookController implements Initializable{
 		titleTextField.setText("");
 		authorTextField.setText("");
 		serialNumberTextField.setText("");
+		editionTextField.setText("");
 		subjectsTextField.setText("");
 		freeTextField.setText("");
 		quantityTextField.setText("");
 		locationTextField.setText("");
 		pdfPathTextField.setText("");
 		demandChoiceBox.setValue("Normal");
-		
 	}
 
+	/*
+	 * Open PDF files that contains the book's Table of Contents.
+	 */
+	@FXML
+	void openPDF(ActionEvent event) {
+		
+		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
+		File pdfFile;
+		Desktop desktop;
+		if(!pdfPathTextField.getText().isEmpty()) {
+			pdfFile=new File(pdfPathTextField.getText());
+			if(pdfFile.exists()) {
+				desktop=Desktop.getDesktop();
+				try {
+					desktop.open(pdfFile);
+				} catch (IOException e) {
+					// Show error
+					errorAlert.setTitle("Failed");
+		    		errorAlert.setContentText("Couldn't open file.");
+		    		errorAlert.showAndWait();
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import common.MessageCS.MessageType;
@@ -68,6 +69,10 @@ public class ServerController {
 				}
 				break;
 				
+			/**
+			 * Search book for Add new book
+			 * @author Yarin	
+			 */
 			case SEARCH_BOOK_FOR_ADDNEWBOOK:
 				Book newBook = null;
 				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
@@ -78,6 +83,69 @@ public class ServerController {
 				}
 				MessageCS resultBookForAddNewBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_ADDNEWBOOK, newBook);
 				client.sendToClient(resultBookForAddNewBook);
+				break;
+				
+			
+			/**
+			 * Add new book (after searching it on DB and verify it's doesn't exists)
+			 * @author Yarin	
+			 */
+			case ADD_NEW_BOOK:
+			
+				int n;
+				query="INSERT INTO book VALUES ('";
+				query+=message.getBook().getBookID()+"','";
+				query+=message.getBook().getBookTitle()+"','";
+				query+=message.getBook().getAuthorName()+"','";
+				query+=message.getBook().getEditionNumber()+"','";
+				query+=message.getBook().getPublishedDate()+"','";
+				query+=message.getBook().getBookGenre()+"','";
+				query+=message.getBook().getBookDescription()+"','";
+				query+=message.getBook().getOriginalQuantity()+"','";
+				query+="2019-30-1"+"','"; 
+				query+=message.getBook().getShelfLocation()+"','";
+				query+=message.getBook().getPdfPath()+"','";
+				query+=message.getBook().getOriginalQuantity()+"','";
+				query+=message.getBook().getBookDemand();
+				query+="');";
+				n=stmt.executeUpdate(query);
+				
+				break;
+				
+				/**
+				 * Search book for Delete Book
+				 * @author Yarin	
+				 */
+			case SEARCH_BOOK_FOR_DELETEBOOK:
+				
+				Book tempBook=null;
+				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
+				rset=stmt.executeQuery(query);
+				Date tempDate=new Date(0);
+				
+				if(rset.next()==true) {
+					tempBook=new Book(rset.getString("bookID"),rset.getString("title"),rset.getString("author"),Integer.parseInt(rset.getString("edition")),
+							tempDate.toString() ,rset.getString("category"),rset.getString("description"),
+							Integer.parseInt(rset.getString("originalQuantity")),tempDate.toString(),rset.getString("location"),
+							rset.getString("pdf"),Integer.parseInt(rset.getString("currentQuantity")),rset.getString("wanted"));
+				}
+				
+				MessageCS resultBookForDeleteBook=new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK, tempBook);
+				client.sendToClient(resultBookForDeleteBook);
+				break;
+				
+			/**
+			 * Delete Book
+			 * @author Yarin
+			 */
+			case DELETE_BOOK:
+				
+				int deleteReturnValue;
+				query="DELETE FROM book WHERE bookID = '";
+				query+=message.getBook().getBookID()+"';";
+				//query+="');";
+				deleteReturnValue=stmt.executeUpdate(query);
+				
 				break;
 				
 			case SEARCH_BOOK: 
