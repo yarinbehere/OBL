@@ -89,7 +89,6 @@ CREATE TABLE `bookorder` (
   `bookId` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `orderTime` time NOT NULL,
-  `queue` varchar(45) NOT NULL,
   PRIMARY KEY (`bookOrderNum`),
   KEY `fk_BookOrder_books1_idx` (`bookId`),
   KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
@@ -104,7 +103,7 @@ CREATE TABLE `bookorder` (
 
 LOCK TABLES `bookorder` WRITE;
 /*!40000 ALTER TABLE `bookorder` DISABLE KEYS */;
-INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03','1'),(2,'2019-01-10','208','8','not wanted','16:20:00','2');
+INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03'),(2,'2019-01-10','208','8','not wanted','16:20:00');
 /*!40000 ALTER TABLE `bookorder` ENABLE KEYS */;
 UNLOCK TABLES;
 
