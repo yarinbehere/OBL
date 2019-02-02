@@ -26,7 +26,7 @@ public class MainClient extends Application{
     @FXML private Button exitButton;
 
 	
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 	   launch(args);
 	}
