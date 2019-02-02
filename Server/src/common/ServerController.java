@@ -42,7 +42,7 @@ public class ServerController {
 			switch (message.messageType) {
 			case LOGIN:
 				// Query to find user in DB
-				query = "SELECT * FROM user WHERE userName = '" + message.getUser().getUserName() + "'" + ";";
+				query = "SELECT * FROM user WHERE userName = \"" + message.getUser().getUserName() + "\"" + ";";
 				rset = stmt.executeQuery(query);
 				// If user is exists in DB
 				if (rset.next() == true) {
@@ -79,10 +79,10 @@ public class ServerController {
 				book = null;
 				// query to find title (substring), author(substring), category and
 				// description(substring) in the database
-				query = "SELECT * FROM book WHERE title LIKE '%" + message.getBook().getBookTitle() + "%' "
-						+ "AND author LIKE '%" + message.getBook().getAuthorName() + "%' " + "AND category LIKE '%"
-						+ message.getBook().getBookGenre() + "%'AND description LIKE '%"
-						+ message.getBook().getBookDescription() + "%';";
+				query = "SELECT * FROM book WHERE title LIKE \"%" + message.getBook().getBookTitle() + "%\" "
+						+ "AND author LIKE \"%" + message.getBook().getAuthorName() + "%\" " + "AND category LIKE \"%"
+						+ message.getBook().getBookGenre() + "%\"AND description LIKE \"%"
+						+ message.getBook().getBookDescription() + "%\";";
 				Statement stmtFindSoonestReturn = conn.createStatement();
 				rset = stmt.executeQuery(query);
 				// save the values of the book in ArrayList of type Book
@@ -92,8 +92,8 @@ public class ServerController {
 						// find the unavailable books and arrange them in ascended return dates so we
 						// know the first list will be the soonest return date
 						String tempQuery;
-						tempQuery = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = '"
-								+ rset.getString("bookID") + "' ORDER BY returnDate";
+						tempQuery = "SELECT * FROM BorrowedBook bor, Book b where bor.bookID = b.bookID and b.currentQuantity = 0 and b.bookID = \""
+								+ rset.getString("bookID") + "\" ORDER BY returnDate";
 						// must create new ResultSet for inner checking
 						ResultSet rsetFindSoonestReturn = stmtFindSoonestReturn.executeQuery(tempQuery);
 						// creating an entity with the first book in the list with soonest return date
@@ -219,45 +219,45 @@ public class ServerController {
 					else
 						flag=false;
 				}
-				query = "INSERT INTO borrowedbook VALUES ('";
+				query = "INSERT INTO borrowedbook VALUES (\"";
 				query += message.getBorrowedbook().getSubscriptionNumber();
-				query += "','";
+				query += "\",\"";
 				query += message.getBorrowedbook().getBookId(); 
-				query += "','";
+				query += "\",\"";
 				query += message.getBorrowedbook().getReturnDate();
-				query += "','";
+				query += "\",\"";
 				query += message.getBorrowedbook().getBorrowDate();
-				query += "','";
+				query += "\",\"";
 				query += message.getBorrowedbook().getLostBook();
-				query += "');";
+				query += "\");";
 				stmt.executeUpdate(query);
 				query = "SELECT * FROM book WHERE bookId= \"" + message.getBorrowedbook().getBookId()  + "\";";
 				rset=stmt.executeQuery(query);
 				if(rset.next() == true)
 				{
 					query = "UPDATE book SET ";
-					query += "currentQuantity" + "=" + "'";
+					query += "currentQuantity" + "=" + "\"";
 					query += rset.getInt("currentQuantity")-1;
-					query += "'";
+					query += "\"";
 					query += " WHERE ";
-					query += "bookId" + "=" + "'";
+					query += "bookId" + "=" + "\"";
 					query += rset.getString("bookId");
-					query += "';";
+					query += "\";";
 					stmt.executeUpdate(query);
 					//insert to activity log
-					query = "INSERT INTO activitylog VALUES ('";
+					query = "INSERT INTO activitylog VALUES (\"";
 					query += message.getBorrowedbook().getBorrowDate();
-					query += "','";
+					query += "\",\"";
 					query += borrowingDescription; 
-					query += "','";
+					query += "\",\"";
 				query += message.getBorrowedbook().getSubscriptionNumber();
-				query += "');";
+				query += "\");";
 				stmt.executeUpdate(query);
 				}
 				break;
 				case SEARCH_BOOK_FOR_UPDATE_BOOK:
 				//Query to find book in DB by bookID
-				query = "SELECT * FROM book WHERE bookID= '"+message.getBook().getBookID()+ "';";
+				query = "SELECT * FROM book WHERE bookID= \""+message.getBook().getBookID()+ "\";";
 				//result of the query
 				rset = stmt.executeQuery(query);
 				//if book fund 
@@ -282,20 +282,20 @@ public class ServerController {
 				break;
 			case UPDATE_BOOK:
 				//Query to update book's details in DB 
-				query = "UPDATE book SET title= '"+message.getBook().getBookTitle()+
-				"',author='"+message.getBook().getAuthorName()+
-				"',category='"+message.getBook().getBookGenre()+
-				"',description='"+message.getBook().getBookDescription()+
-				"',originalQuantity="+message.getBook().getOriginalBookQuantity()+
-				",location='"+message.getBook().getShelfLocation()+
-				"',wanted='"+message.getBook().getWantedLevel()+
-				"'WHERE bookID= '"+message.getBook().getBookID()+ "';";
+				query = "UPDATE book SET title= \""+message.getBook().getBookTitle()+
+				"\",author=\""+message.getBook().getAuthorName()+
+				"\",category=\""+message.getBook().getBookGenre()+
+				"\",description=\""+message.getBook().getBookDescription()+
+				"\",originalQuantity="+message.getBook().getOriginalBookQuantity()+
+				",location=\""+message.getBook().getShelfLocation()+
+				"\",wanted=\""+message.getBook().getWantedLevel()+
+				"\"WHERE bookID= \""+message.getBook().getBookID()+ "\";";
 				//send Query to DB
 				stmt.executeUpdate(query);
 				break;
 			case PERSONAL_INFORMATION:
 				//Query to find user in DB
-				query = "SELECT * FROM user WHERE userName = '" +  message.getUser().getUserName() + "'" + ";";
+				query = "SELECT * FROM user WHERE userName = \"" +  message.getUser().getUserName() + "\"" + ";";
 				rset = stmt.executeQuery(query);
 				// If user is exists in DB 
 				if(rset.next() == true)
@@ -303,7 +303,7 @@ public class ServerController {
 				else 
 					user = null;
 				//Query to find user in DB ,table subscriber by userName
-				query = "SELECT * FROM subscriber WHERE userName = '" +  message.getUser().getUserName() + "'" + ";";
+				query = "SELECT * FROM subscriber WHERE userName = \"" +  message.getUser().getUserName() + "\"" + ";";
 				rset = stmt.executeQuery(query);
 				// If user is exists in DB 
 				if(rset.next() == true)
@@ -317,25 +317,25 @@ public class ServerController {
 				break;
 			case UPDATE_PERSONAL_INFORMATION:
 				//Query to update user's details in DB 
-				query = "UPDATE user SET password= '"+message.getUser().getPassword()+
-				"'WHERE userName= '"+message.getUser().getUserName()+ "';";
+				query = "UPDATE user SET password= \""+message.getUser().getPassword()+
+				"\"WHERE userName= \""+message.getUser().getUserName()+ "\";";
 				//send Query to DB
 				stmt.executeUpdate(query);
 				//Query to update subscriber's details in DB 
-				query = "UPDATE subscriber SET firstName= '"+message.getSubscriber().getFirstName()+
-						"',lastName='"+message.getSubscriber().getLastName()+
-						"',phoneNumber='"+message.getSubscriber().getMobileNumber()+
-						"',email='"+message.getSubscriber().getEmail()+
-						"'WHERE userName= '"+message.getUser().getUserName()+"';";
+				query = "UPDATE subscriber SET firstName= \""+message.getSubscriber().getFirstName()+
+						"\",lastName=\""+message.getSubscriber().getLastName()+
+						"\",phoneNumber=\""+message.getSubscriber().getMobileNumber()+
+						"\",email=\""+message.getSubscriber().getEmail()+
+						"\"WHERE userName= \""+message.getUser().getUserName()+"\";";
 				//send Query to DB
 				stmt.executeUpdate(query);
 		        //get date
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		        Date date = new Date();  
 				//Query to for registration action in activitylog
-				query = "INSERT INTO activitylog (actionDate, actionDescription, subscriberNumber) VALUES ('"+
-						dateFormat.format(date)+"', 'update personal information','"+
-						message.getSubscriber().getSubscriberID()+"');";
+				query = "INSERT INTO activitylog (actionDate, actionDescription, subscriberNumber) VALUES (\""+
+						dateFormat.format(date)+"\", \"update personal information\",\""+
+						message.getSubscriber().getSubscriberID()+"\");";
 				//send Query to DB
 				stmt.executeUpdate(query);
 				break;
@@ -433,7 +433,7 @@ public class ServerController {
 		query += "FROM";
 		query += " " + "subscriber" + " ";
 		query += "WHERE";
-		query += " " + "'" + subscribersId + "'" + "=" + "subscriber" + "Id" + ";";
+		query += " " + "\"" + subscribersId + "\"" + "=" + "subscriber" + "Id" + ";";
 		ResultSet rset = dbmanager.runQuery(query);
 		try {
 			// entity/s found
@@ -465,25 +465,25 @@ public class ServerController {
 		// subscriberId='208',firstName='moshe',lastName='peretz',phoneNumber='0502712993',email='moshe@gmail.com',subscriberStatus='Active'
 		// WHERE subscriberId='208';
 		query = "UPDATE subscriber SET ";
-		query += "firstName" + "=" + "'";
+		query += "firstName" + "=" + "\"";
 		query += subscriber.getFirstName();
-		query += "',";
-		query += "lastName" + "=" + "'";
+		query += "\",";
+		query += "lastName" + "=" + "\"";
 		query += subscriber.getLastName();
-		query += "',";
-		query += "phoneNumber" + "=" + "'";
+		query += "\",";
+		query += "phoneNumber" + "=" + "\"";
 		query += subscriber.getPhone();
-		query += "',";
-		query += "email" + "=" + "'";
+		query += "\",";
+		query += "email" + "=" + "\"";
 		query += subscriber.getEmail();
-		query += "',";
-		query += "subscriberStatus" + "=" + "'";
+		query += "\",";
+		query += "subscriberStatus" + "=" + "\"";
 		query += subscriber.getSubscriberStatus();
-		query += "'";
+		query += "\"";
 		query += " WHERE ";
-		query += "subscriberId" + "=" + "'";
+		query += "subscriberId" + "=" + "\"";
 		query += subscriber.getId();
-		query += "';";
+		query += "\";";
 		dbmanager.runUpdateQuery(query);
 	}
 
@@ -494,32 +494,32 @@ public class ServerController {
 		String query;
 		// creates a new user such as: INSERT INTO user VALUES
 		// ('208','Aa1234','Subscriber');
-		query = "INSERT INTO user VALUES ('";
+		query = "INSERT INTO user VALUES (\"";
 		query += subscriber.getUserName(); // gets from parent
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getPassword(); // gets from parent
-		query += "','";
+		query += "\",\"";
 		query += "Subscriber";
-		query += "');";
+		query += "\");";
 		dbmanager.runUpdateQuery(query);
 		// building query. example: INSERT INTO subscriber VALUES
 		// ('208','208','moshe','peretz','0502979234','moshe@gmail.com','Active')
-		query = "INSERT INTO subscriber VALUES ('";
+		query = "INSERT INTO subscriber VALUES (\"";
 		query += subscriber.getId();
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getUserName(); // gets from parent
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getFirstName();
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getLastName();
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getPhone();
-		query += "','";
+		query += "\",\"";
 		query += subscriber.getEmail();
-		query += "','";
+		query += "\",\"";
 		subscriber.setSubscriberStatus("Active"); // status = Active
 		query += subscriber.getSubscriberStatus();
-		query += "');";
+		query += "\");";
 		dbmanager.runUpdateQuery(query);
 		
 	}
@@ -538,7 +538,7 @@ public class ServerController {
 		 * (bb.subscriptionNumber = s.subscriberId);
 		 */
 		String query = "SELECT bb.subscriptionNumber, s.firstName, bb.bookId, b.title, bb.borrowDate, bb.returnDate, u.userName FROM borrowedbook bb, book b, subscriber s, user u WHERE  u.userName= ";
-		query += "'" + userName + "' ";
+		query += "\"" + userName + "\" ";
 		query += "AND (u.userName = s.userName) AND (bb.bookId = b.bookId) AND (bb.subscriptionNumber = s.subscriberId);";
 		ResultSet rset = dbmanager.runQuery(query);
 		try {
@@ -576,7 +576,7 @@ public class ServerController {
 	private int countBookOrders(String bookId) {
 		// building query. example: SELECT * FROM subscriber WHERE '207'=subscriberId;
 		String query = "SELECT count(bookId) FROM bookorder WHERE bookId=";
-		query += "'" + bookId + "';";
+		query += "\"" + bookId + "\";";
 		ResultSet rset = dbmanager.runQuery(query);
 
 		try {
@@ -595,13 +595,13 @@ public class ServerController {
 		// building query. example: UPDATE borrowedbook SET returnDate = '2019-02-22'
 		// WHERE bookId = '2' AND subscriptionNumber = '201';
 
-		String query = "UPDATE borrowedbook SET returnDate = '";
+		String query = "UPDATE borrowedbook SET returnDate = \"";
 		query += returnDate.plusDays(7);
-		query += "' WHERE bookId = '";
+		query += "\" WHERE bookId = \"";
 		query += bookId;
-		query += "' AND subscriptionNumber = '";
+		query += "\" AND subscriptionNumber = \"";
 		query += subscriptionNumber;
-		query += "';";
+		query += "\";";
 		dbmanager.runUpdateQuery(query);
 	}
 
@@ -609,13 +609,13 @@ public class ServerController {
 		// building query. example: INSERT INTO activitylog VALUES
 		// ('2019-02-02','Request to extend the borrow period', '201');
 		
-		String query="INSERT INTO activitylog VALUES ('";
+		String query="INSERT INTO activitylog VALUES (\"";
 		query+=LocalDate.now();
-		query+="','";
+		query+="\",\"";
 		query+=actionDescription;
-		query+="','";
+		query+="\",\"";
 		query+=subscriptionNumber;
-		query+="');";
+		query+="\");";
 		dbmanager.runUpdateQuery(query);
 	}
 }
