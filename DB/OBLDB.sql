@@ -242,7 +242,7 @@ CREATE TABLE `subscriber` (
   `email` varchar(45) NOT NULL,
   `subscriberStatus` varchar(15) NOT NULL,
   `graduationDate` date DEFAULT NULL,
-  `lateReturn` enum('0','1','2','3') DEFAULT NULL,
+  `lateReturn` int(11) DEFAULT NULL,
   PRIMARY KEY (`subscriberId`),
   KEY `fk_subscriber_user_idx` (`userName`),
   CONSTRAINT `fk_subscriber_user` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -255,7 +255,7 @@ CREATE TABLE `subscriber` (
 
 LOCK TABLES `subscriber` WRITE;
 /*!40000 ALTER TABLE `subscriber` DISABLE KEYS */;
-INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked',NULL,'0'),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen',NULL,'0'),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active',NULL,'0'),('203','203','omri','braymok','0502474234','omri@gmail.com','Active',NULL,'0'),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen',NULL,'0'),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked',NULL,'0'),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen',NULL,'0'),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active',NULL,'0'),('208','208','moshe','perets','0502712993','moshe@gmail.com','Frozen',NULL,'0');
+INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked',NULL,0),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen',NULL,0),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active',NULL,0),('203','203','omri','braymok','0502474234','omri@gmail.com','Active',NULL,0),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen',NULL,0),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked',NULL,0),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen',NULL,0),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active',NULL,0),('208','208','moshe','perets','0502712993','moshe@gmail.com','Frozen',NULL,0);
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-02 19:23:12
+-- Dump completed on 2019-02-02 19:58:33
