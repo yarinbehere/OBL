@@ -68,7 +68,7 @@ public class ManagerMenuController {
     	LoadGUI.loadFXML("ReviewSubscriber.fxml", reviewSubscriberButton);
     }
     @FXML
-    void viewDatabase(ActionEvent event) throws IOException {
+    void viewDataBase(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("ViewDatabase.fxml", viewDatabaseButton);
     }
 

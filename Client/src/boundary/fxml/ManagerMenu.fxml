@@ -157,7 +157,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="viewDatabaseButton" alignment="CENTER" layoutX="160.0" layoutY="410.0" mnemonicParsing="false" onAction="#viewDatabase" prefHeight="29.0" prefWidth="192.0" text="View Database">
+                  <Button fx:id="viewDatabaseButton" alignment="CENTER" layoutX="160.0" layoutY="410.0" mnemonicParsing="false" onAction="#viewDataBase" prefHeight="29.0" prefWidth="192.0" text="View Database">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
