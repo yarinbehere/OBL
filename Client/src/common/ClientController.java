@@ -4,6 +4,7 @@ import controller.LoginController;
 import controller.PersonalInformationController;
 import controller.SearchBookController;
 import controller.UpdateBookController;
+import controller.ViewDatabaseController;
 import controller.ReviewSubscriberController;
 
 import java.util.ArrayList;
@@ -78,6 +79,10 @@ public class ClientController {
 			break;
 		case ACTIVITY_LOG:
 			ActivityLogController.finalSubscriberActivity=  (ArrayList<ActivityLog>) message.getArrayList();
+			break;
+		case SEARCH_ALL_FOR_VIEW_DATABASE:
+			ViewDatabaseController.subscriberResult=message.getSubscribers();
+			ViewDatabaseController.librarianResult=message.getLibrarians();
 			break;
 		default:
 			break;
