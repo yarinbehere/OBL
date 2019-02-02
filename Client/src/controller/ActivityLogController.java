@@ -35,9 +35,9 @@ public class ActivityLogController implements Initializable
 		MessageCS message = new MessageCS(MessageType.ACTIVITY_LOG,subscriberA);
 		MainClient.client.accept(message);
 		try {
+			// TODO Auto-generated catch block
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//if the subscriber has no activities at all

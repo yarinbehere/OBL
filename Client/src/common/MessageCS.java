@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import entity.Book;
+import entity.BorrowedBook;
+import entity.BorrowsExt;
 import entity.FileTransfer;
 import entity.Librarian;
-import entity.BorrowedBook;
 import entity.Subscriber;
 import entity.User;
 
@@ -21,7 +22,7 @@ public class MessageCS implements Serializable {
 		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
 		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
 		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS,
-		ACTIVITY_LOG,SEARCH_ALL_FOR_VIEW_DATABASE; 
+		ACTIVITY_LOG,SEARCH_ALL_FOR_VIEW_DATABASE, REQUEST_EXTENSION_CHECK, REQUEST_EXTENSION_INIT; 
 	}
 
 	MessageType messageType;
@@ -34,7 +35,8 @@ public class MessageCS implements Serializable {
 	private Subscriber subscriber;
 	private ArrayList<Subscriber> subscribers;
 	private ArrayList<Librarian>Librarians;
-	String textMessage;
+	private String textMessage;
+	private ArrayList<BorrowsExt> usersBorrows;
 	private ArrayList<?> arrayList;
 
 
@@ -176,7 +178,7 @@ public class MessageCS implements Serializable {
 	 */
 	public MessageCS(MessageType messageType, String textMessage) {
 		this.messageType = messageType;
-		this.textMessage = textMessage;
+		this.setTextMessage(textMessage);
 	}
 	public Subscriber getSubscriber() {
 		return subscriber;
@@ -219,5 +221,23 @@ public class MessageCS implements Serializable {
 	 */
 	public void setSubscribers(ArrayList<Subscriber> subscribers) {
 		this.subscribers = subscribers;
+	}
+	public String getTextMessage() {
+		return textMessage;
+	}
+	public void setTextMessage(String textMessage) {
+		this.textMessage = textMessage;
+	}
+	/**
+	 * @return the usersBorrows
+	 */
+	public ArrayList<BorrowsExt> getUsersBorrows() {
+		return usersBorrows;
+	}
+	/**
+	 * @param usersBorrows the usersBorrows to set
+	 */
+	public void setUsersBorrows(ArrayList<BorrowsExt> usersBorrows) {
+		this.usersBorrows = usersBorrows;
 	}
 }

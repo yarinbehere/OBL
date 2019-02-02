@@ -2,6 +2,7 @@ package common;
 
 import controller.LoginController;
 import controller.PersonalInformationController;
+import controller.RequestController;
 import controller.SearchBookController;
 import controller.UpdateBookController;
 import controller.ViewDatabaseController;
@@ -83,6 +84,12 @@ public class ClientController {
 		case SEARCH_ALL_FOR_VIEW_DATABASE:
 			ViewDatabaseController.subscriberResult=message.getSubscribers();
 			ViewDatabaseController.librarianResult=message.getLibrarians();
+			break;
+		case REQUEST_EXTENSION_INIT:
+			RequestController.bookBorrowResults = message.getUsersBorrows();
+			break;
+		case REQUEST_EXTENSION_CHECK:
+			RequestController.requestAnswer = message.getTextMessage();
 			break;
 		default:
 			break;

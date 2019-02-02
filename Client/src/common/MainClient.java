@@ -2,6 +2,10 @@ package common;
 
 import java.io.IOException;
 import java.util.List;
+
+import controller.LoginController;
+import controller.RequestController;
+import entity.User;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,12 +67,13 @@ public class MainClient extends Application{
 	 */
 	public void showLoginForm() throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClient.class.getResource("/boundary/fxml/ReaderMenu.fxml")); 
-		mainLayout = loader.load();
-		Scene scene = new Scene(mainLayout);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainClient.class.getResource("/boundary/fxml/ReaderMenu.fxml"));
+			
+			mainLayout = loader.load();
+			Scene scene = new Scene(mainLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
 	}
 
 
