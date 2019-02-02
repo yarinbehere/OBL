@@ -20,13 +20,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -59,8 +62,8 @@ public class SearchBookController implements Initializable{
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<String> subjectList = FXCollections.observableArrayList
-				("Action","Fantasy","Comedy","Software","Horror");
-		subjectChoiceBox.setValue("Action");//make the first value chosen as "Action"
+				("","Action","Fantasy","Comedy","Software","Horror");
+		subjectChoiceBox.setValue("");
 		subjectChoiceBox.setItems(subjectList);
 		//initialize the TableView
 		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("BookTitle"));
@@ -79,12 +82,20 @@ public class SearchBookController implements Initializable{
     	titleTextField.setText("");
     	authorTextField.setText("");
     	freeTextField.setText("");
+    	subjectChoiceBox.setValue("");
     	searchResultTable.getItems().clear();
     	selectBookButton.setDisable(true); 
     }
 
     @FXML
     void searchBook(ActionEvent event) throws InterruptedException {
+    	if((titleTextField.getText().equals(""))&&(authorTextField.getText().equals(""))&&
+    			((subjectChoiceBox.getValue()).equals(""))&&(freeTextField.getText().equals(""))) {
+    		//Alert java
+    		Alert alert = new Alert(AlertType.ERROR, "empty fields", ButtonType.CANCEL);
+    		alert.showAndWait();
+    	}
+    	else {
     	selectBookButton.setDisable(true);//if user pressed search again, disable the button
     	Book book = new Book //build an entity of type book with parameters inserted from user
     			(titleTextField.getText(), authorTextField.getText(), 
@@ -92,11 +103,18 @@ public class SearchBookController implements Initializable{
     	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK, book); //build the type of message we want the server to perfrom
     	MainClient.client.accept(message);//send message to the client
     	Thread.sleep(400);//need to fix this with real threads instead of making main thread sleep
+    	if(bookResult.isEmpty()) {
+    		//Alert java
+    		Alert alert = new Alert(AlertType.ERROR, "No book found", ButtonType.CANCEL);
+    		alert.showAndWait();
+    	}
+    	else {
     	//set the items in the table list
     	listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
     	searchResultTable.setItems(listOfBooks);
     	searchResultTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
-
+    	}
+    	}
     }
     /**
      * a row in TableView has been clicked
