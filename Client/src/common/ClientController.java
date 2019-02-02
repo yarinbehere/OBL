@@ -2,6 +2,7 @@ package common;
 
 import controller.AddNewBookController;
 import controller.DeleteBookController;
+import controller.GenerateReportController;
 import controller.LoginController;
 import controller.SearchBookController;
 import entity.User;
@@ -72,6 +73,15 @@ public class ClientController {
 		case DELETE_BOOK:
 			DeleteBookController.resultBookForDeleteBook=message.getBook();
 			break;
+			
+		/**
+		 * Generate Activity Report
+		 * @author Yarin
+		 */
+		case GENERATE_ACTIVITY_REPORT:
+			GenerateReportController.resultActivityReport=message.getReport();
+			break;
+			
 			
 		case TABLE_OF_CONTENT:
 			SearchBookController.tableOfContent = message.getTableOfContent();

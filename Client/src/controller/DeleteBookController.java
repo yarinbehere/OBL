@@ -107,7 +107,7 @@ public class DeleteBookController {
 	 * Delete book
 	 */
 	@FXML
-	void deleteBook(ActionEvent action) throws InterruptedException {
+	void deleteBook(ActionEvent action) {
 		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
 		Alert successAlert=new Alert(AlertType.CONFIRMATION);
 		Alert confirmAlert = new Alert(AlertType.CONFIRMATION);
@@ -123,9 +123,8 @@ public class DeleteBookController {
 			try {
 				MainClient.client.accept(message);
 				Thread.sleep(100);
-				successAlert.setTitle("Succcess");
-				successAlert.setContentText("Book successfully deleted.");
-				successAlert.showAndWait(); 
+				// deletes Table of Content
+				boolean pdfFileDelete = new File(pdfPathTextField.getText()).delete();
 			}
 			catch (Exception e) {
 				errorAlert.setTitle("Failed");
@@ -133,6 +132,9 @@ public class DeleteBookController {
 				errorAlert.showAndWait(); 
 				return;
 			}
+			successAlert.setTitle("Succcess");
+			successAlert.setContentText("Book successfully deleted.");
+			successAlert.showAndWait(); 
 			
 		} else {
 		    // ... user chose CANCEL or closed the dialog

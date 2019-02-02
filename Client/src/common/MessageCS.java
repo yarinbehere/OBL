@@ -15,7 +15,7 @@ public class MessageCS implements Serializable {
 	 * @author Roman
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ADDNEWBOOK,ADD_NEW_BOOK,SEARCH_BOOK_FOR_DELETEBOOK,DELETE_BOOK;
+		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ADDNEWBOOK,ADD_NEW_BOOK,SEARCH_BOOK_FOR_DELETEBOOK,DELETE_BOOK,GENERATE_ACTIVITY_REPORT, UPLOAD_NEW_PDF;
 	}
 	
 	
@@ -27,6 +27,8 @@ public class MessageCS implements Serializable {
 	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
 
+	private String report;
+	
 	/**
 	 * user wants to login to the system
 	 * @param messageType - messageType will be login
@@ -74,6 +76,15 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setTableOfContent(tableOfContent);
 	}
+	
+	/**
+	 * @author Yarin
+	 */
+	public MessageCS(MessageType messageType,String report) {
+		this.messageType=messageType;
+		this.report=report;
+	}
+	
 	public User getUser() {
 		return user;
 	}
@@ -97,6 +108,10 @@ public class MessageCS implements Serializable {
 	}
 	public void setTableOfContent(FileTransfer tableOfContent) {
 		this.tableOfContent = tableOfContent;
+	}
+	
+	public String getReport() {
+		return report;
 	}
 
 }

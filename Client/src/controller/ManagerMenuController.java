@@ -19,6 +19,7 @@ public class ManagerMenuController {
 	@FXML private Button updateBookButton;
 	@FXML private Button deleteBookButton;
 	@FXML private Button generateReportButton;
+	//@FXML private Button viewDatabaseButton;
 	@FXML private Text pathLabel;
 	@FXML private Button helpButton;
 	@FXML private Button logoutButton;
@@ -65,4 +66,14 @@ public class ManagerMenuController {
     void reviewSubscriber(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("ReviewSubscriber.fxml", reviewSubscriberButton);
     }
+    
+    /**
+     * @author Yarin
+     */
+    @FXML
+    void generateReport(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("GenerateReports.fxml", generateReportButton);
+    }
+    
+    
 }

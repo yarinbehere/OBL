@@ -5,7 +5,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.awt.Desktop;
 import common.MainClient;
@@ -48,9 +50,10 @@ public class AddNewBookController implements Initializable{
 	@FXML private Button clearButton;
 	@FXML private Button returnButton;
 	@FXML private Button helpButton;
-	@FXML private Button openPdfButton;
+	@FXML private Button uploadPdfButton;
 	@FXML private ChoiceBox<String> demandChoiceBox;
 
+	private boolean pdfUploadedFlag;
 	
 	public static Book resultBookForAddNewBook;
 	//public static ArrayList<Book> bookResult;
@@ -83,7 +86,8 @@ public class AddNewBookController implements Initializable{
 		Date tempDate;
 		int quantity,edition;
 		
-		//Check fields (all are necessary)		
+		/* Check all field are neccesery */
+	
 		if(titleTextField.getText().isEmpty()) {
 			errorsList.add("Title");
 		}
@@ -121,7 +125,7 @@ public class AddNewBookController implements Initializable{
 			return;
 		}
 		
-		// Check PDF file
+		// Check PDF file path
 		File pdfFile;
 		Desktop desktop;
 		if(!pdfPathTextField.getText().isEmpty()) {
@@ -141,6 +145,16 @@ public class AddNewBookController implements Initializable{
 				return;
 			}
 		}
+		// Check if it's avaliable to open the PDF file & check the Flag
+		if ((!openPDF())||(pdfUploadedFlag==false)) {
+			// Show error
+			errorAlert.setTitle("Failed");
+			errorAlert.setContentText("Couldn't use this PDF file. Please try another one and try again.");
+			errorAlert.showAndWait();
+			return;
+		}
+		
+		/* Continue by creating temporary book Object and validate it in the DB */
 		
 		tempBook=new Book(serialNumberTextField.getText());
 		tempDate=new Date(0);
@@ -195,13 +209,13 @@ public class AddNewBookController implements Initializable{
 		locationTextField.setText("");
 		pdfPathTextField.setText("");
 		demandChoiceBox.setValue("Normal");
+		pdfUploadedFlag=false;
 	}
 
 	/*
 	 * Open PDF files that contains the book's Table of Contents.
 	 */
-	@FXML
-	void openPDF(ActionEvent event) {
+	public boolean openPDF() {
 		
 		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
 		File pdfFile;
@@ -218,10 +232,33 @@ public class AddNewBookController implements Initializable{
 		    		errorAlert.setContentText("Couldn't open file.");
 		    		errorAlert.showAndWait();
 					e.printStackTrace();
+					return false;
 				}
 			}
 		}
+		return true;
 	}
+	
+	/* Click on Upload PDF */
+	@FXML
+    void uploadPDF(ActionEvent event) throws IOException {
+		FileTransfer tableOfContent = new FileTransfer(pdfPathTextField.getText());//initialize the entity FileTransfer with the title book
+//		String path =  "/common/" + rset.getString("pdf");//temporary (need to change it)
+		File newFile = new File (pdfPathTextField.getText() + ".pdf");//get the file and it's location
+		byte [] mybytearray  = new byte [(int)newFile.length()];
+		FileInputStream fis = new FileInputStream(newFile);
+		BufferedInputStream bis = new BufferedInputStream(fis);			 
+		tableOfContent.initArray(mybytearray.length);
+		tableOfContent.setSize(mybytearray.length);
+		bis.read(tableOfContent.getMybytearray(),0,mybytearray.length);
+		MessageCS file = new MessageCS(MessageType.UPLOAD_NEW_PDF,tableOfContent);
+		MainClient.client.accept(file);
+		bis.close();
+		
+		// Turn flag ON
+		this.pdfUploadedFlag=true;
+    }
+
 
 
 }

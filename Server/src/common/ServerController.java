@@ -1,8 +1,10 @@
 package common;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -85,7 +87,20 @@ public class ServerController {
 				client.sendToClient(resultBookForAddNewBook);
 				break;
 				
-			
+			/**
+			 * Upload PDF file to OBL DB
+			 * @author Yarin
+			 */
+			case UPLOAD_NEW_PDF:
+				File newFile = new File ("C:\\Users\\rami\\Desktop\\eclipse-jee-photon-R-win32-x86_64\\eclipse\\harry2" + "1.pdf");//write the file to location and added "1" to differ from main file
+			    FileOutputStream fos = new FileOutputStream(newFile);
+			    BufferedOutputStream bos = new BufferedOutputStream(fos);			  
+			    bos.write(message.getTableOfContent().getMybytearray(),0,message.getTableOfContent().getSize());
+			    bos.flush();
+		    	bos.close();
+		    	break;
+				
+				
 			/**
 			 * Add new book (after searching it on DB and verify it's doesn't exists)
 			 * @author Yarin	
@@ -145,6 +160,44 @@ public class ServerController {
 				query+=message.getBook().getBookID()+"';";
 				//query+="');";
 				deleteReturnValue=stmt.executeUpdate(query);
+				
+				break;
+				
+			/**
+			 * Generate Activity Report
+			 * @author Yarin
+			 */
+			case GENERATE_ACTIVITY_REPORT:
+				ArrayList<String> report=new ArrayList<>();
+				int tempCount=0;
+				
+				/* Subscriber */
+				query="SELECT COUNT(*) FROM subscriber';";
+				rset=stmt.executeQuery(query);
+				report.add("Total subscribers: "+rset.getString(1));
+				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Active';";
+				rset=stmt.executeQuery(query);
+				report.add("Active subscribers: "+rset.getString(1));
+				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Frozen';";
+				rset=stmt.executeQuery(query);
+				report.add("Frozen subscribers: "+rset.getString(1));
+				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Locked';";
+				rset=stmt.executeQuery(query);
+				report.add("Locked subscribers: "+rset.getString(1));
+				/* Books */
+				query="SELECT COUNT(*) FROM book';";
+				rset=stmt.executeQuery(query);
+				report.add("Total books: "+rset.getString(1));
+				query="SELECT SUM(originalQuantity) FROM book';";
+				rset=stmt.executeQuery(query);
+				report.add("Total books quantity (copies): "+rset.getString(1));
+				/* Borrows */
+				query="SELECT COUNT(*) FROM borrowedbook';";
+				rset=stmt.executeQuery(query);
+				report.add("Total borrowed books: "+rset.getString(1));
+				System.out.println(report);
+				MessageCS returnedData=new MessageCS(MessageType.GENERATE_ACTIVITY_REPORT, report.toString());
+				client.sendToClient(returnedData.toString());
 				
 				break;
 				

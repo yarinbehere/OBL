@@ -140,8 +140,8 @@
                   <Text layoutX="26.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
                   <TextField fx:id="freeTextField" layoutX="107.0" layoutY="163.0" prefHeight="27.0" prefWidth="483.0" />
                   <Text layoutX="26.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:" wrappingWidth="75.91113951802254" />
-                  <TextField fx:id="pdfPathTextField" layoutX="108.0" layoutY="208.0" prefHeight="27.0" prefWidth="295.0" />
-                  <Button fx:id="openPdfButton" layoutX="417.0" layoutY="208.0" mnemonicParsing="false" onAction="#openPDF" prefHeight="27.0" prefWidth="175.0" text="Open PDF" />
+                  <TextField fx:id="pdfPathTextField" layoutX="108.0" layoutY="208.0" prefHeight="27.0" prefWidth="361.0" />
+                  <Button fx:id="uploadPdfButton" layoutX="479.0" layoutY="208.0" mnemonicParsing="false" onAction="#uploadPDF" prefHeight="27.0" prefWidth="113.0" text="Upload PDF" />
                   <Button fx:id="addNewBookButton" layoutX="206.0" layoutY="260.0" mnemonicParsing="false" onAction="#addNewBook" prefHeight="27.0" prefWidth="106.0" text="Add Book" />
                   <Button fx:id="clearButton" layoutX="319.0" layoutY="260.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="70.0" text="Clear" />
                </children>
