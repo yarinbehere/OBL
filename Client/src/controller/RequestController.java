@@ -100,18 +100,9 @@ public class RequestController {
 				requestFeedback.setText("There are orders on this book, can't let you extend");
 				requestExtensionButton.setDisable(false);
 			} else {
-				for (int i = 0; i < bookBorrowResults.size(); i++) {
-					if (bookBorrowResults.get(i).equals(borrowsExtCurrent)) {
-						bookBorrowResults.get(i)
-								.setReturnDate(LocalDate.from(borrowsExtCurrent.getReturnDate().plusDays(7)));
-					}
-				}
-
-				data = FXCollections.observableArrayList(bookBorrowResults);
-				borrowedBooksTable.setItems(data);
-				// refresh the data
+				borrowsExtCurrent.setReturnDate(LocalDate.from(borrowsExtCurrent.getReturnDate().plusDays(7)));
+				borrowedBooksTable.refresh();
 				requestFeedback.setText("extension granted");
-
 			}
 		}
 	}
