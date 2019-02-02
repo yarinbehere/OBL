@@ -4,8 +4,6 @@ import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
-import common.ThreadTest;
-import common.ThreadTest.ThreadTest2;
 import entity.User;
 import entity.User.Role;
 import javafx.event.ActionEvent;
@@ -30,6 +28,7 @@ import javafx.scene.text.Text;
 	    @FXML private Button searchBookButton;
 	    
 	    public static Role userRole = null;
+	    public static User userResult;
 	    
 	    @FXML
 	    void loginToOBL(ActionEvent event) throws IOException, InterruptedException {

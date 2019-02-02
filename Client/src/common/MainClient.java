@@ -2,6 +2,9 @@ package common;
 
 import java.io.IOException;
 import java.util.List;
+
+import controller.LoginController;
+import entity.User; // TODO: delete this row
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,12 +66,13 @@ public class MainClient extends Application{
 	 */
 	public void showLoginForm() throws IOException
 	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClient.class.getResource("/boundary/fxml/ReaderMenu.fxml")); 
-		mainLayout = loader.load();
-		Scene scene = new Scene(mainLayout);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainClient.class.getResource("/boundary/fxml/Request.fxml"));// TODO: change back to ReaderMenu.fxml  
+			LoginController.userResult=new User("201","skre544"); // TODO: delete this row.
+			mainLayout = loader.load();
+			Scene scene = new Scene(mainLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
 	}
 
 

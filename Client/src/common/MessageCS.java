@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import entity.Book;
 import entity.FileTransfer;
 import entity.BorrowedBook;
+import entity.BorrowsExt;
 import entity.Subscriber;
 import entity.User;
 
 public class MessageCS implements Serializable {
 
 	/**
-	 * MessageType
-	 * enum that differ between screens
+	 * MessageType enum that differ between screens
+	 * 
 	 * @author Roman
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
-		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1;
+	LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, REVIEW_SUBSCRIBER_UPDATE,
+	SEARCH_SUBSCRIBER, SEARCH_BOOK_FOR_BORROW, BORROW, BORROW1, REQUEST_EXTENSION_INIT, REQUEST_EXTENSION_CHECK;
 	}
 
 	MessageType messageType;
@@ -30,8 +31,8 @@ public class MessageCS implements Serializable {
 	private FileTransfer tableOfContent;
 	private BorrowedBook borrowedbook;
 	private Subscriber subscriber;
+	private ArrayList<BorrowsExt> usersBorrows;
 	String textMessage;
-
 
 	/**
 	 * user wants to login to the system
@@ -40,97 +41,73 @@ public class MessageCS implements Serializable {
 	 * @param user
 	 * @author Roman
 	 */
-	public MessageCS(MessageType messageType, User user)
-	{
+	public MessageCS(MessageType messageType, User user) {
 		this.user = user;
 		this.messageType = messageType;
 	}
+
 	/**
-	 * user wants to search for a book, a specification of the book he desired to search for
+	 * user wants to search for a book, a specification of the book he desired to
+	 * search for
+	 * 
 	 * @param messageType will be search book
-	 * @param book the book wishing to look for
+	 * @param book        the book wishing to look for
 	 * @author Roman
 	 */
-	
-	public MessageCS(MessageType messageType, Book book)
-	{
+
+	public MessageCS(MessageType messageType, Book book) {
 		this.messageType = messageType;
 		this.setBook(book);
 	}
-	
+
 	/**
 	 * returning search result.. a list of books that have been searched
+	 * 
 	 * @param messageType
-	 * @param books 
+	 * @param books
 	 * @author Roman
 	 */
-	
-	public MessageCS(MessageType messageType, ArrayList<Book> books)
-	{
+
+	public MessageCS(MessageType messageType, ArrayList<Book> books) {
 		this.messageType = messageType;
 		this.setBooks(books);
 	}
-	
+
 	/**
 	 * subscriber wants to borrow a book
+	 * 
 	 * @param messageType - messageType will be borrow book
-	 * @param subscriber 
+	 * @param subscriber
 	 * @author Hai
 	 */
-	public MessageCS(MessageType messageType, Subscriber subscriber)
-	{
+	public MessageCS(MessageType messageType, Subscriber subscriber) {
 		this.messageType = messageType;
 		this.setSubscriber(subscriber);
 	}
 
-	/**constructor for the table of content that we would like to open
+	/**
+	 * constructor for the table of content that we would like to open
+	 * 
 	 * @param tableOfContent saving the file we want to open
 	 * @author Roman
 	 */
-	
-	public MessageCS(MessageType messageType, FileTransfer tableOfContent)
-	{
+
+	public MessageCS(MessageType messageType, FileTransfer tableOfContent) {
 		this.messageType = messageType;
 		this.setTableOfContent(tableOfContent);
 	}
-	
+
 	/**
 	 * subscriber wants to borrow a book
+	 * 
 	 * @param messageType - messageType will be borrow book
-	 * @param subscriber 
+	 * @param subscriber
 	 * @author Hai
 	 */
-	public MessageCS(MessageType messageType, BorrowedBook borrowedbook)
-	{
+	public MessageCS(MessageType messageType, BorrowedBook borrowedbook) {
 		this.messageType = messageType;
 		this.setBorrowedbook(borrowedbook);
 	}
-	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Book getBook() {
-		return book;
-	}
-	public void setBook(Book book) {
-		this.book = book;
-	}
-	public ArrayList<Book> getBooks() {
-		return books;
-	}
-	public void setBooks(ArrayList<Book> books) {
-		this.books = books;
-	}
-	public FileTransfer getTableOfContent() {
-		return tableOfContent;
-	}
-	public void setTableOfContent(FileTransfer tableOfContent) {
-		this.tableOfContent = tableOfContent;
-	}
-	
 	/**
 	 * @param textMessage
 	 */
@@ -138,16 +115,80 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.textMessage = textMessage;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public ArrayList<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(ArrayList<Book> books) {
+		this.books = books;
+	}
+
+	public FileTransfer getTableOfContent() {
+		return tableOfContent;
+	}
+
+	public void setTableOfContent(FileTransfer tableOfContent) {
+		this.tableOfContent = tableOfContent;
+	}
+
 	public Subscriber getSubscriber() {
 		return subscriber;
 	}
+
 	public void setSubscriber(Subscriber subscriber) {
 		this.subscriber = subscriber;
 	}
+
 	public BorrowedBook getBorrowedbook() {
 		return borrowedbook;
 	}
+
 	public void setBorrowedbook(BorrowedBook borrowedbook) {
 		this.borrowedbook = borrowedbook;
+	}
+
+	/**
+	 * @return the usersBorrows
+	 */
+	public ArrayList<BorrowsExt> getUsersBorrows() {
+		return usersBorrows;
+	}
+
+	/**
+	 * @param usersBorrows the usersBorrows to set
+	 */
+	public void setUsersBorrows(ArrayList<BorrowsExt> usersBorrows) {
+		this.usersBorrows = usersBorrows;
+	}
+
+	/**
+	 * @return the textMessage
+	 */
+	public String getTextMessage() {
+		return textMessage;
+	}
+
+	/**
+	 * @param textMessage the textMessage to set
+	 */
+	public void setTextMessage(String textMessage) {
+		this.textMessage = textMessage;
 	}
 }

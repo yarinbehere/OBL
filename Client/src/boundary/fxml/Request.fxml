@@ -2,12 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestController">
+<VBox prefHeight="505.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -77,11 +79,21 @@
             </ImageView>
             <Pane layoutX="11.0" layoutY="66.0" prefHeight="341.0" prefWidth="619.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="341.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="341.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="750.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Borrowed Book:" />
-                  <Separator layoutX="184.0" layoutY="21.0" prefHeight="3.0" prefWidth="430.0" />
-                  <ListView fx:id="borrowdBooks" layoutX="14.0" layoutY="40.0" prefHeight="237.0" prefWidth="592.0" />
-                  <Button fx:id="requestExtensionButton" layoutX="244.0" layoutY="290.0" mnemonicParsing="false" text="Request Extension" />
+                  <Separator layoutX="184.0" layoutY="17.0" prefHeight="7.0" prefWidth="541.0" />
+                  <Button fx:id="requestExtensionButton" disable="true" layoutX="244.0" layoutY="290.0" mnemonicParsing="false" onAction="#requestExtension" text="Request Extension" />
+                  <TableView fx:id="borrowedBooksTable" layoutX="16.0" layoutY="45.0" onMouseClicked="#chooseUserBorrow" prefHeight="236.0" prefWidth="710.0">
+                    <columns>
+                      <TableColumn fx:id="subscriptionNumber" prefWidth="149.0" text="Subscription Number" />
+                        <TableColumn fx:id="firstName" prefWidth="100.0" text="First Name" />
+                        <TableColumn fx:id="bookId" prefWidth="58.0" text="Book Id" />
+                        <TableColumn fx:id="bookTitle" minWidth="40.0" prefWidth="235.0" text="Title" />
+                        <TableColumn fx:id="borrowDate" prefWidth="90.0" text="Borrow Date" />
+                        <TableColumn fx:id="returnDate" prefWidth="77.0" text="Return Date" />
+                    </columns>
+                  </TableView>
+                  <Label fx:id="requestFeedback" layoutX="385.0" layoutY="294.0" text="Press to request extension" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Extension Request">
