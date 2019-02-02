@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,6 +18,7 @@ import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
 import entity.ActivityLog;
 import entity.Book;
+import entity.BorrowsExt;
 import entity.FileTransfer;
 import entity.Librarian;
 import entity.Subscriber;
@@ -150,7 +151,7 @@ public class ServerController {
 				client.sendToClient(message);
 				break;
 			case REVIEW_SUBSCRIBER_SEARCH:
-				String subscribersId = message.textMessage;
+				String subscribersId = message.getTextMessage();
 				message.setSubscriber(selectSubscriber(subscribersId));
 				client.sendToClient(message);
 				break;
@@ -366,7 +367,7 @@ public class ServerController {
 				MessageCS resultReturn1 = new MessageCS(MessageType.SEARCH_ALL_FOR_VIEW_DATABASE,subscribersList,librariansList);
 				client.sendToClient(resultReturn1);
 				break;
-				case ACTIVITY_LOG:
+			case ACTIVITY_LOG:
 				ArrayList<ActivityLog> subscriberActivity = new ArrayList<>();
 				ActivityLog subscriberActivity2;
 				String subscriberNumberA="";
@@ -389,6 +390,29 @@ public class ServerController {
 		    	MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
 				client.sendToClient(activity);
 				break;
+				case REQUEST_EXTENSION_INIT:
+				MessageCS requestInitMessage = new MessageCS(MessageType.REQUEST_EXTENSION_INIT, message.getUser());
+				requestInitMessage.setUsersBorrows(selectBorrowsExt(requestInitMessage.getUser().getUserName()));
+				client.sendToClient(requestInitMessage);
+				break;
+			case REQUEST_EXTENSION_CHECK:
+				String bookId = message.getBorrowedbook().getBookId();
+				String subscriptionNumber = message.getBorrowedbook().getSubscriptionNumber();
+				MessageCS requestCheckMessage;
+				String actionDescription="Request to extend the borrow period";
+				updateActivityLog(actionDescription, subscriptionNumber);
+				
+				if (countBookOrders(bookId) > 0) {
+					requestCheckMessage = new MessageCS(MessageType.REQUEST_EXTENSION_CHECK, "orders exist");
+					client.sendToClient(requestCheckMessage);
+				} else {
+					// extend borrow return date by a week
+					LocalDate returnDate = message.getBorrowedbook().getReturnDate();
+					updateBorrowReturnDate(returnDate, bookId, subscriptionNumber);
+
+					requestCheckMessage = new MessageCS(MessageType.REQUEST_EXTENSION_CHECK, "no orders, updated");
+					client.sendToClient(requestCheckMessage);
+				}
 			default:
 				break;
 			}
@@ -498,5 +522,100 @@ public class ServerController {
 		query += "');";
 		dbmanager.runUpdateQuery(query);
 		
+	}
+	
+	/**
+	 * given a subscribers userName, retrieves the subscribers borrows extended from
+	 * the database
+	 */
+	private ArrayList<BorrowsExt> selectBorrowsExt(String userName) {
+		ArrayList<BorrowsExt> usersBorrows = new ArrayList<BorrowsExt>();
+		/*
+		 * building query. example: SELECT bb.subscriptionNumber, s.firstName,
+		 * bb.bookId, b.title, bb.borrowDate, bb.returnDate, u.userName FROM
+		 * borrowedbook bb, book b, subscriber s, user u WHERE u.userName='201' AND
+		 * (u.userName = s.userName) AND (bb.bookId = b.bookId) AND
+		 * (bb.subscriptionNumber = s.subscriberId);
+		 */
+		String query = "SELECT bb.subscriptionNumber, s.firstName, bb.bookId, b.title, bb.borrowDate, bb.returnDate, u.userName FROM borrowedbook bb, book b, subscriber s, user u WHERE  u.userName= ";
+		query += "'" + userName + "' ";
+		query += "AND (u.userName = s.userName) AND (bb.bookId = b.bookId) AND (bb.subscriptionNumber = s.subscriberId);";
+		ResultSet rset = dbmanager.runQuery(query);
+		try {
+			// entity/s found
+			while (rset.next() == true) {
+				// adding the borrow to the result
+				String subscriptionNumber = rset.getString("subscriptionNumber");
+				String firstName = rset.getString("firstName");
+				String bookID = rset.getString("bookId");
+				String bookTitle = rset.getString("title");
+				LocalDate borrowDate = null, returnDate = null;
+				// converting to localdate
+				try {
+					Date tempdate = rset.getDate("borrowDate");
+					borrowDate = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tempdate));
+					tempdate = rset.getDate("returnDate");
+					returnDate = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(tempdate));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				BorrowsExt borrowsExt = new BorrowsExt(subscriptionNumber, firstName, bookID, bookTitle, borrowDate,
+						returnDate);
+				usersBorrows.add(borrowsExt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (usersBorrows.isEmpty()) {
+			return null;
+		} else {
+			return usersBorrows;
+		}
+	}
+	/** given a book id, returns the number of orders referencing that book */
+	private int countBookOrders(String bookId) {
+		// building query. example: SELECT * FROM subscriber WHERE '207'=subscriberId;
+		String query = "SELECT count(bookId) FROM bookorder WHERE bookId=";
+		query += "'" + bookId + "';";
+		ResultSet rset = dbmanager.runQuery(query);
+
+		try {
+			if (rset.next() == true) {
+				return rset.getInt("count(bookId)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**
+	 * given a borrow details, extends it to another week
+	 */
+	private void updateBorrowReturnDate(LocalDate returnDate, String bookId, String subscriptionNumber) {
+		// building query. example: UPDATE borrowedbook SET returnDate = '2019-02-22'
+		// WHERE bookId = '2' AND subscriptionNumber = '201';
+
+		String query = "UPDATE borrowedbook SET returnDate = '";
+		query += returnDate.plusDays(7);
+		query += "' WHERE bookId = '";
+		query += bookId;
+		query += "' AND subscriptionNumber = '";
+		query += subscriptionNumber;
+		query += "';";
+		dbmanager.runUpdateQuery(query);
+	}
+
+	private void updateActivityLog(String actionDescription, String subscriptionNumber) {
+		// building query. example: INSERT INTO activitylog VALUES
+		// ('2019-02-02','Request to extend the borrow period', '201');
+		
+		String query="INSERT INTO activitylog VALUES ('";
+		query+=LocalDate.now();
+		query+="','";
+		query+=actionDescription;
+		query+="','";
+		query+=subscriptionNumber;
+		query+="');";
+		dbmanager.runUpdateQuery(query);
 	}
 }

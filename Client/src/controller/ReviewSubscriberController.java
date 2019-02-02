@@ -60,16 +60,12 @@ public class ReviewSubscriberController {
 
 	/** populates the labels with the requested users details from the database */
 	@FXML
-	void searchSubscriber(ActionEvent event) {
+	void searchSubscriber(ActionEvent event) throws InterruptedException {
 		String subscriberId = subscriberEdittxt.getText();
 		MessageCS message = new MessageCS(MessageType.REVIEW_SUBSCRIBER_SEARCH, subscriberId);
 		MainClient.client.accept(message);
 		// wait for server processing
-		try {
-			Thread.sleep(400);
-		} catch (InterruptedException e) {
-			System.out.println("interrupted while sleeping");
-		}
+		Thread.sleep(400);
 		if (foundSubscriber == null) {
 			subscriberEdittxt.setText("not valid, try again!");
 		} else {
@@ -118,7 +114,7 @@ public class ReviewSubscriberController {
 
 	/** resets all fields in the lower rectangle */
 	@FXML
-	void resetFields(ActionEvent event){
+	void resetFields(ActionEvent event) {
 		idTextField.setText("");
 		usernameTextField.setText("");
 		firstnameTextField.setText("");
