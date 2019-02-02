@@ -159,8 +159,10 @@ public class BookReturnController implements Initializable{
 			returnBookButton.setDisable(true);
 			return;
     	}
+    	//convert Date to String
     	Format formatter = new SimpleDateFormat("yyyy-MM-dd");
     	String format = formatter.format(resultBook.getBorrowDate());
+    	//insert the converted LocalDate value
     	borrowDate.setValue(LocalDate.parse(format));
     	
     	format = formatter.format(resultBook.getReturnDate());

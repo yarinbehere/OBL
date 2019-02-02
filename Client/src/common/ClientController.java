@@ -1,12 +1,9 @@
 package common;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import controller.BookReturnController;
 import controller.LoginController;
 import controller.OrderBookController;
 import controller.SearchBookController;
-import entity.User;
 
 public class ClientController {
 
@@ -37,10 +34,8 @@ public class ClientController {
 		case SEARCH_BOOK_FOR_ORDER:
 			OrderBookController.wantedBook = message.getBook();
 			break;
-		case CHECK_AVAILABLE_ORDER:
-			OrderBookController.bookResult.add(message.getBook());
-			System.out.println(message.getBook().getLocalDate());
-			System.out.println("2: " + OrderBookController.bookResult.get(1).getLocalDate());
+		case ORDER_BOOK:
+			OrderBookController.bookForOrder = message.getBook();
 			break;
 		case ERROR_MESSAGE:
 			OrderBookController.messageBookOrder = message.getError();

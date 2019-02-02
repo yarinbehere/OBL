@@ -1,7 +1,8 @@
 package controller;
 
-import java.net.URL;import java.time.LocalDate;
-import java.time.ZoneId;
+import java.net.URL;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -16,12 +17,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class OrderBookController implements Initializable{
@@ -29,27 +32,28 @@ public class OrderBookController implements Initializable{
 	@FXML private TextField bookNameTextField;
 	@FXML private Button searchBookButton;
 	@FXML private Button placeOrderButton;
-	@FXML private Text subscriberStatusLabel;
-	@FXML private Hyperlink bookCodeLabel;
 	@FXML private Button helpButton;
 	@FXML private Button returnButton;
 	@FXML private Text pathLabel;
 	@FXML private Button cancelButton;
-	@FXML private DatePicker abc;
+	@FXML private Label bookCodeLabel;
+    @FXML private Text soonestReturnLabel;
 	
 	@FXML private TableView<Book> ordersTableView;
 	@FXML private TableColumn<Book, String> tableColumnTitle;
     @FXML private TableColumn<Book, LocalDate> tableColumnOrderDate;
     @FXML private TableColumn<Book, String> tableColumnQueue;
-	public static Book wantedBook = null;
 	
+    public static Book wantedBook = null;
 	public static ArrayList<Book> bookResult = null;
 	private ObservableList<Book> listOfBooks = null;
 	public static String messageBookOrder = null;
+	public static Book bookForOrder;
 	
 
 	@FXML 
 	void searchBook(ActionEvent event) throws InterruptedException {
+		Alert alert = new Alert(AlertType.INFORMATION);
 		if(bookNameTextField.getText() == null)
 			System.out.println("empty field");
 		else
@@ -58,30 +62,39 @@ public class OrderBookController implements Initializable{
 			MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 			MainClient.client.accept(message);
 			Thread.sleep(400);
-			//LocalDate localDateConvert = wantedBook.getSoonestReturn().toLocalDate();//convert from Date to LocalDate
-			//abc.setValue(localDateConvert);
 			if(wantedBook == null)
 			{
+				soonestReturnLabel.setVisible(false);
+				bookCodeLabel.setVisible(false);
 				placeOrderButton.setDisable(true);
-				subscriberStatusLabel.setText("Book can't be found")	;
+				soonestReturnLabel.setText("Book can't be found");
+				alert.setTitle("Book Can't be ordered");
+				alert.setHeaderText("Book Can't be ordered");
+	 			alert.setContentText("Either the book title is wrong or you can it's available");
+	 			alert.showAndWait();
 			}
 			else
 			{
 				placeOrderButton.setDisable(false);
-				subscriberStatusLabel.setText(wantedBook.getSoonestReturn().toString());
+				soonestReturnLabel.setText(wantedBook.getSoonestReturn().toString());
+				bookCodeLabel.setText(wantedBook.getBookID());
+				soonestReturnLabel.setVisible(true);
+				bookCodeLabel.setVisible(true);
 			}
 				
 		}
 	}
 
-
+//initialize the page: all componenets that needed to be disabled and invisible
+	//initialize also the TableView
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	//	abc.getEditor().setEditable(false);
+		bookCodeLabel.setVisible(false);
+		soonestReturnLabel.setVisible(false);
 		placeOrderButton.setDisable(true);
+
 		tableColumnTitle.setCellValueFactory(new PropertyValueFactory<>("BookTitle"));
 		tableColumnOrderDate.setCellValueFactory(new PropertyValueFactory<>("DateOrder"));
-	//	tableColumnOrderDate.setCellValueFactory(new PropertyValueFactory<>("LocalDate"));
 		tableColumnQueue.setCellValueFactory(new PropertyValueFactory<>("Queue"));
 		
 		MessageCS message = new MessageCS(MessageType.LIST_OF_ORDERS,LoginController.subscriberResult);
@@ -96,7 +109,8 @@ public class OrderBookController implements Initializable{
 	}
 
     @FXML
-    void placeOrder(ActionEvent event) throws InterruptedException {
+    void placeOrder(ActionEvent event) throws InterruptedException, ParseException {
+    	Alert alert = new Alert(AlertType.INFORMATION);
     	if(wantedBook != null)
 		{
     		
@@ -106,44 +120,90 @@ public class OrderBookController implements Initializable{
     			{
     				if(listOfBooks.get(i).getBookID().equals(wantedBook.getBookID()))
     				{
-    					//remove the last book that has been added to the ArrayList
-    					System.out.println("Book Exists");
+    					alert.setTitle("Book Exists");
+    					alert.setHeaderText("Book Exists");
+    		 			alert.setContentText("You have this book already in your list");
+    		 			alert.showAndWait();
+    		 			placeOrderButton.setDisable(true);
     					return;
     				}
     			}
     		}		
 		}
     	BookOrder bookOrder = new BookOrder(bookNameTextField.getText(),LoginController.subscriberResult.getSubscriberDetails());
-		MessageCS message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,bookOrder);
+		MessageCS message = new MessageCS(MessageType.ORDER_BOOK,bookOrder);
 		MainClient.client.accept(message);
 		Thread.sleep(100);
-	/*	for(int i = 0; i<bookResult.size();i++)
+		//returned queue 0 from server which means the queue is full
+		if(bookForOrder == null)
 		{
-			System.out.println(bookResult.get(i).getLocalDate());
-			System.out.println();
-		}*/
-		System.out.println("bookResult: ");
-		for(int i=0 ; i<bookResult.size();i++) {
-			System.out.println(OrderBookController.bookResult.get(i).getBookID() + " " + bookResult.get(i).getBookTitle()
-					+ " " + OrderBookController.bookResult.get(i).getLocalDate() + " " + bookResult.get(i).getQueue());
+			alert.setTitle("Full queue");
+			alert.setHeaderText("The queue is full");
+ 			alert.setContentText("The queue is full please try again next time!");
+ 			alert.showAndWait();
+ 			placeOrderButton.setDisable(true);
+			return;
 		}
-		
-		System.out.println("listOfBooks");
-		bookResult.get(bookResult.size()-1).setLocalDate(LocalDate.now());
-		listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
-		for(int i = 0; i<listOfBooks.size();i++ ) {
-			System.out.println(listOfBooks.get(i).getBookID() + " " + listOfBooks.get(i).getBookTitle()
-					+ " " + listOfBooks.get(i).getLocalDate() + " " + listOfBooks.get(i).getQueue());
-		}
-		
-		ordersTableView.setItems(listOfBooks);
-		if(message.getError() != null)
-			System.out.println(message.getError());
+		//the book can be ordered
 		else
 		{
+			bookResult.add(bookForOrder);
+			//set the date from the controller to the last item of the ArrayList 
+			bookResult.get(bookResult.size()-1).setDateOrder(bookResult.get(bookResult.size()-1).getDateOrder());
+
+			listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
 			
+			ordersTableView.setItems(listOfBooks);
+			Thread.sleep(100);
+			if(message.getError() != null)
+				System.out.println(message.getError());
+			else
+			{
+				alert.setTitle("Success");
+				alert.setHeaderText("Success");
+	 			alert.setContentText("You have ordered "+ bookResult.get(bookResult.size()-1).getBookTitle()+ " successfully");
+	 			alert.showAndWait();
+			}
 		}
+		//disable the button, so won't be able to make 2nd attempt to order
+		placeOrderButton.setDisable(true);
     }
-  
+
+    /**
+     * a row in TableView has been clicked
+     * @param event
+     * @author Roman
+     */
+    @FXML
+    void chooseBookFromTableView(MouseEvent event) 
+    {
+    	if(ordersTableView.hasProperties())
+    		cancelButton.setDisable(false);
+    	if(ordersTableView.getSelectionModel().getSelectedItem() == null)
+    		cancelButton.setDisable(true);
+    	
+    }
+    
+    @FXML
+    void cancelOrder(ActionEvent event) throws InterruptedException {
+    	//get the bookID from the table
+    	BookOrder bookOrder = new BookOrder(ordersTableView.
+    			getSelectionModel().getSelectedItem().getBookID(),
+    			LoginController.subscriberResult.getSubscriberDetails());
+    	MessageCS message = new MessageCS(MessageType.CANCEL_ORDER,bookOrder);
+    	MainClient.client.accept(message);
+    	Book selectedItem = ordersTableView.getSelectionModel().getSelectedItem();
+    	ordersTableView.getItems().remove(selectedItem);
+    	bookResult.remove(selectedItem);
+    	listOfBooks.remove(selectedItem); 
+    	//disable the button every time deleted item just incase the last item is deleted
+    	//won't be able to press on it
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Book deletion");
+		alert.setHeaderText("book deleted");
+		alert.setContentText("The book has been deleted");
+		alert.showAndWait();
+    	cancelButton.setDisable(true);
+    }
 
 }

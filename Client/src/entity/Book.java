@@ -23,7 +23,7 @@ public class Book implements Serializable{
 	private String bookDetails;
 	private String wantedLevel;
 	private int CurrentBookQuanity;
-	private Date dateOrder;
+	private LocalDate dateOrder;
 	private int queue;
 	private String subscriptionNumber;
 	private LocalDate localDate;
@@ -84,7 +84,7 @@ public class Book implements Serializable{
 	 * @param queue
 	 */
 	
-	public Book(String bookID, String bookTitle, Date dateOrder,int queue)
+	public Book(String bookID, String bookTitle, LocalDate dateOrder,int queue)
 	{
 		this.bookID = bookID;
 		this.bookTitle = bookTitle;
@@ -108,16 +108,9 @@ public class Book implements Serializable{
 		this.subscriptionNumber = subscriptionNumber;
 	}
 	
-	public Book(String bookTitle, Date dateOrder, int queue) {
+	public Book(String bookTitle, LocalDate dateOrder, int queue) {
 		this.bookTitle = bookTitle;
 		this.dateOrder = dateOrder;
-		this.queue = queue;
-	}
-	
-	public Book(String bookID, String bookTitle, LocalDate localDate, int queue) {
-		this.bookID = bookID;
-		this.bookTitle = bookTitle;
-		this.localDate = localDate;
 		this.queue = queue;
 	}
 
@@ -209,11 +202,11 @@ public class Book implements Serializable{
 	public void setCurrentBookQuanity(int currentBookQuanity) {
 		CurrentBookQuanity = currentBookQuanity;
 	}
-	public Date getDateOrder() {
+	public LocalDate getDateOrder() {
 		return dateOrder;
 	}
-	public void setDateOrder(Date dateOrder) {
-		this.dateOrder = dateOrder;
+	public void setDateOrder(LocalDate date) {
+		this.dateOrder = date;
 	}
 	public int getQueue() {
 		return queue;

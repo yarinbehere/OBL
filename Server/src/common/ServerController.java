@@ -85,7 +85,7 @@ public class ServerController {
 			case SEARCH_SUBSCRIBER:
 				Subscriber subscriber = null;
 				query = "SELECT * FROM User u, Subscriber s WHERE u.userName = s.userName AND s.userName = '"+
-				message.getSubscriber().getSubscriberDetails() + "';";
+						message.getSubscriber().getSubscriberDetails() + "';";
 				rset = stmt.executeQuery(query);
 				if(rset.next())
 				{
@@ -117,7 +117,7 @@ public class ServerController {
 				break;
 			case SEARCH_BOOK:
 				ArrayList<Book> bookList = new ArrayList<>();
-			    book = null;
+				book = null;
 				//query to find title (substring), author(substring), category and description(substring) in the database
 				query = "SELECT * FROM book WHERE title LIKE '%"+message.getBook().getBookTitle()+"%' " 
 						+ "AND author LIKE '%"+ message.getBook().getAuthorName() + "%' "
@@ -207,7 +207,7 @@ public class ServerController {
 				break;
 			case LIST_OF_ORDERS:
 				query = "SELECT * FROM BookOrder o, Book b WHERE o.bookID = b.bookID AND o.subscriptionNumber = '" 
-			+ message.getSubscriber().getSubscriberDetails() + "';";
+						+ message.getSubscriber().getSubscriberDetails() + "';";
 				rset = stmt.executeQuery(query);
 				bookList = new ArrayList<Book>();
 				Statement stmtFindQueue = conn.createStatement();
@@ -215,19 +215,22 @@ public class ServerController {
 				while(rset.next())
 				{
 					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
-							+ rset.getDate("orderDate") + "'AND bookID = '" + rset.getString("bookID") + "' AND hour <= '"
-							+ rset.getTime("hour") + "';";
+							+ rset.getDate("orderDate") + "'AND bookID = '" + rset.getString("bookID") + "' AND orderTime <= '"
+							+ rset.getTime("orderTime") + "';";
 					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
 					if(rsetFindQueue.next())
 					{
-						book = new Book(rset.getString("bookID"),rset.getString("title"),rset.getDate("orderDate"),rsetFindQueue.getInt("count(bookID)"));
+						Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+						String format = formatter.format(rset.getDate("orderDate"));
+						//insert the converted LocalDate value
+						book = new Book(rset.getString("bookID"),rset.getString("title"),LocalDate.parse(format),rsetFindQueue.getInt("count(bookID)"));
 					}
 					bookList.add(book);
 				}
 				books = new MessageCS(MessageType.LIST_OF_ORDERS,bookList);
 				client.sendToClient(books);
 				break;
-			case CHECK_AVAILABLE_ORDER:
+			case ORDER_BOOK:
 				Statement stmtInsertOrder = conn.createStatement();		
 				//query to look if subscriber meets the requirements to order a book
 				query = "SELECT * FROM book WHERE bookID = '" + message.getBookOrder().getBookID()+ 
@@ -238,38 +241,31 @@ public class ServerController {
 				//if found a book that meet the conditions to order a book
 				if(rset.next()) 
 				{
-					
+
 					String insertOrder = "INSERT INTO BookOrder VALUES (NULL, '" + LocalDate.now() + "', '"
 							+ message.getBookOrder().getSubscriptionNumber() + "', '" 
-							+ message.getBookOrder().getBookID() + "', NULL, '" +LocalTime.now() + "');";
+							+ message.getBookOrder().getBookID() + "', '" + rset.getString("wanted") + "', '" +LocalTime.now() + "');";
 					//insert the order to the database 
 					stmtInsertOrder.executeUpdate(insertOrder);
 					//query to find the queue of given book
 					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
-							+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND hour <= '"
+							+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND orderTime <= '"
 							+ LocalTime.now() + "';";
 					//stmtFindQueue = conn.createStatement();
 					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
 					if(rsetFindQueue.next())
 					{
-						
 						//if there is already prior orders so this one will be the next in the queue that why we add 1
 						book = new Book(message.getBookOrder().getBookID(),rset.getString("title"),LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
-						System.out.println();
 					}
-					
-					//create the message of each types of the books
-					message = new MessageCS(MessageType.CHECK_AVAILABLE_ORDER,book);
-	
+
 				}
 				else
-				{
-					message = new MessageCS(MessageType.ERROR_MESSAGE,"The book exists in the library, you can borrow it");
-				}
+					book = null;
+				//create the message of each types of the books
+				message = new MessageCS(MessageType.ORDER_BOOK,book);
 				client.sendToClient(message);
 				break;
-			case ORDER_A_BOOK:
-				query = "";
 			case SEARCH_BOOK_FOR_RETURN:
 				book = null;
 				query = "SELECT * FROM BorrowedBook bor, Subscriber s WHERE bor.bookId= \"" + message.getBook().getBookID()  + "\" "
@@ -297,17 +293,17 @@ public class ServerController {
 				stmt.executeUpdate(query);
 				//update the book table and increase the amount by 1
 				query = "UPDATE Book SET currentQuantity = currentQuantity + 1 WHERE bookID = \""
-				+ message.getBook().getBookDetails()+ "\";";
+						+ message.getBook().getBookDetails()+ "\";";
 				stmt.executeUpdate(query);
 				//find if the subscriber has books left in the list
 				query = "SELECT * FROM borrowedBook bor, Subscriber s WHERE subscriptionNumber = \"" 
-				+message.getSubscriber().getSubscriberID() + "\" AND bor.subscriptionNumber = subscriberID;";
+						+message.getSubscriber().getSubscriberID() + "\" AND bor.subscriptionNumber = subscriberID;";
 				System.out.println(query);
 				rset = stmt.executeQuery(query);
 				if(rset.next() == false)
 				{
 					query = "SELECT * FROM Subscriber WHERE subscriberID = \"" + 
-				message.getSubscriber().getSubscriberID()+ "\"; ";
+							message.getSubscriber().getSubscriberID()+ "\"; ";
 					rset = stmt.executeQuery(query);
 					//move to the next row of the wanted subscriber
 					rset.next();
@@ -316,29 +312,32 @@ public class ServerController {
 					{
 						//convert from Date to LocalDate
 						Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-				    	String format = formatter.format(rset.getDate("graduationDate"));
-				    	//if date of today minus the graduated date is negative means he is graduated
-				    	if(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(format)) < 0)
-				    	{
-				    		//if the status is frozen and subscriber is already graduated
-				    		query = "UPDATE Subscriber SET subscriberStatus = \"Locked\" WHERE subscriberID = \""
-				    				+ message.getSubscriber().getSubscriberID()+ "\";";
+						String format = formatter.format(rset.getDate("graduationDate"));
+						//if date of today minus the graduated date is negative means he is graduated
+						if(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(format)) < 0)
+						{
+							//if the status is frozen and subscriber is already graduated
+							query = "UPDATE Subscriber SET subscriberStatus = \"Locked\" WHERE subscriberID = \""
+									+ message.getSubscriber().getSubscriberID()+ "\";";
 							stmt.executeUpdate(query);
-				    	}
-				    	else
-				    	{
-				    		//if the status is frozen and subscriber is not graduated yet return status back to active
-				    		query = "UPDATE Subscriber SET subscriberStatus = \"Active\" WHERE subscriberID = \""
-				    				+ message.getSubscriber().getSubscriberID()+ "\";";
-				    		stmt.executeUpdate(query);
-				    	}
+						}
+						else
+						{
+							//if the status is frozen and subscriber is not graduated yet return status back to active
+							query = "UPDATE Subscriber SET subscriberStatus = \"Active\" WHERE subscriberID = \""
+									+ message.getSubscriber().getSubscriberID()+ "\";";
+							stmt.executeUpdate(query);
+						}
 					}
 					query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
 					+"\", \"Returned a book\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
 					System.out.println(query);
-					stmt.executeUpdate(query);
-							
+					stmt.executeUpdate(query);		
 				}
+			case CANCEL_ORDER:
+				query = "DELETE FROM BookOrder WHERE bookID = \"" + message.getBookOrder().getBookID() + "\" " 
+						+ "AND subscriptionNumber = \"" + message.getBookOrder().getSubscriptionNumber() + "\";";
+				stmt.executeUpdate(query);
 				break;
 			default:
 				break;

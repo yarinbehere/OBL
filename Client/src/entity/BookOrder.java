@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class BookOrder implements Serializable{
 	
@@ -11,6 +12,7 @@ public class BookOrder implements Serializable{
 	private String bookTitle;
 	private Date dateOrder;
 	private int queue;
+	private LocalDate localDate;
 
 	public BookOrder(String bookID, String subscriptionNumber) {
 		this.setBookID(bookID);
@@ -30,6 +32,7 @@ public class BookOrder implements Serializable{
 		this.dateOrder = dateOrder;
 		this.queue = queue;
 	}
+	
 
 	public String getSubscriptionNumber() {
 		return subscriptionNumber;
@@ -69,6 +72,14 @@ public class BookOrder implements Serializable{
 
 	public void setQueue(int queue) {
 		this.queue = queue;
+	}
+
+	public LocalDate getLocalDate() {
+		return localDate;
+	}
+
+	public void setLocalDate(LocalDate localDate) {
+		this.localDate = localDate;
 	}
 	
 
