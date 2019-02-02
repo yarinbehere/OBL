@@ -52,6 +52,7 @@ public class RequestController {
 	private ObservableList<BorrowsExt> data;
 
 	@FXML
+	/** initializes the controller table view and populates it with user borrows */
 	private void initialize() throws InterruptedException {
 		String userName = LoginController.userResult.getUserName();
 		String password = LoginController.userResult.getPassword();
@@ -76,6 +77,7 @@ public class RequestController {
 	}
 
 	@FXML
+	/** tries to extend the currently selected row in the table view by a week */
 	void requestExtension() throws InterruptedException, IOException {
 		requestExtensionButton.setDisable(true);// if user pressed search again, disable the button
 		BorrowsExt borrowsExtCurrent = borrowedBooksTable.getSelectionModel().getSelectedItem();

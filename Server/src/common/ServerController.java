@@ -605,6 +605,8 @@ public class ServerController {
 		dbmanager.runUpdateQuery(query);
 	}
 
+	/** given an action description and a subscription number, updates the activity log 
+	 * with this information and the current date */
 	private void updateActivityLog(String actionDescription, String subscriptionNumber) {
 		// building query. example: INSERT INTO activitylog VALUES
 		// ('2019-02-02','Request to extend the borrow period', '201');

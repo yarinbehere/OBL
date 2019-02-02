@@ -39,6 +39,8 @@ public class CreateController {
 
 	// assumption: input is valid
 	@FXML
+	/** creates a new subscriber in the system with a randomly generated password, based on 
+	 * the details provided by the librarian/manager */
 	void create(ActionEvent event) throws InterruptedException {
 		// generates a password for the new subscriber
 		Random r = new Random();
