@@ -211,7 +211,6 @@ public class ServerController {
 				rset = stmt.executeQuery(query);
 				bookList = new ArrayList<Book>();
 				Statement stmtFindQueue = conn.createStatement();
-				System.out.println(query);
 				while(rset.next())
 				{
 					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
@@ -235,22 +234,26 @@ public class ServerController {
 			case ORDER_BOOK:
 				Statement stmtInsertOrder = conn.createStatement();		
 				//query to look if subscriber meets the requirements to order a book
-				query = "SELECT * FROM Book, Subscriber WHERE bookID = '" + message.getBookOrder().getBookID()+ 
+				query = "SELECT * FROM Subscriber s, Book b, BookOrder o WHERE b.bookID = o.bookID AND "
+						+ "s.subscriberID = o.subscriptionNumber AND b.bookID = '" + message.getBookOrder().getBookID()+ 
 						"' AND currentQuantity = '0' AND (SELECT COUNT(bookID) FROM BookOrder WHERE "
-						+ "bookID = '" + message.getBookOrder().getBookID()+ "') < originalQuantity";
+						+ "bookID = '" + message.getBookOrder().getBookID()+ "') <= originalQuantity";
 				rset = stmt.executeQuery(query);
+				
 				stmtFindQueue = conn.createStatement();
 				//if found a book that meet the conditions to order a book
 				if(rset.next()) 
 				{
+					String title = rset.getString("title");
+					String wanted = rset.getString("wanted");
 					//query just in case to find if the bookOrder is in the list
-					query = "SELECT * FROM BookOrder WHERE bookID = \"" + rset.getString("bookID") + "\""
-							+ "AND subscriptionNumber = \"" + rset.getString("subscriberID") +"\";";
+					query = "SELECT * FROM BookOrder o, subscriber s WHERE o.bookID = \"" + message.getBookOrder().getBookID() + "\""
+							+ "AND o.subscriptionNumber = \"" + message.getBookOrder().getSubscriptionNumber() +"\" AND o.subscriptionNumber = s.subscriberID;";
 					rset = stmt.executeQuery(query);
+					
 					//if there no match (means book is in the list)
 					if(!rset.next())
 					{
-						
 						//query to find the queue of given book
 						String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
 								+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND orderTime <= '"
@@ -258,15 +261,20 @@ public class ServerController {
 						ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
 						if(rsetFindQueue.next())
 						{
-							//the book that we want to order
-							book = new Book(message.getBookOrder().getBookID(),rset.getString("title"),LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
-							message = new MessageCS(MessageType.ORDER_BOOK,book);
+							query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
+							+"\", \"Ordered a book\",\""+ message.getBookOrder().getSubscriptionNumber() + "\")"; 
+							stmt.executeUpdate(query);	
 							//insert to the database
 							String insertOrder = "INSERT INTO BookOrder VALUES (NULL, '" + LocalDate.now() + "', '"
 									+ message.getBookOrder().getSubscriptionNumber() + "', '" 
-									+ message.getBookOrder().getBookID() + "', '" + rset.getString("wanted") + "', '" +LocalTime.now() + "');";
+									+ message.getBookOrder().getBookID() + "', '" + wanted + "', '" +LocalTime.now() + "');";
 							//insert the order to the database 
 							stmtInsertOrder.executeUpdate(insertOrder);
+							//the book that we want to order
+							book = new Book(message.getBookOrder().getBookID(),title,LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
+							message = new MessageCS(MessageType.ORDER_BOOK,book);
+							
+							
 						}
 					}
 					
@@ -284,7 +292,6 @@ public class ServerController {
 				query = "SELECT * FROM BorrowedBook bor, Subscriber s WHERE bor.bookId= \"" + message.getBook().getBookID()  + "\" "
 						+ "AND bor.subscriptionNumber = s.subscriberID AND s.subscriberID = \"" 
 						+ message.getBook().getSubscriptionNumber() + "\";";
-				System.out.println(query);
 				rset=stmt.executeQuery(query);
 				//if the book does not exist in the system
 				if(rset.next() == false)
@@ -311,7 +318,6 @@ public class ServerController {
 				//find if the subscriber has books left in the list
 				query = "SELECT * FROM borrowedBook bor, Subscriber s WHERE subscriptionNumber = \"" 
 						+message.getSubscriber().getSubscriberID() + "\" AND bor.subscriptionNumber = subscriberID;";
-				System.out.println(query);
 				rset = stmt.executeQuery(query);
 				if(rset.next() == false)
 				{
