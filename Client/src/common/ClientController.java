@@ -91,6 +91,9 @@ public class ClientController {
 		case REQUEST_EXTENSION_CHECK:
 			RequestController.requestAnswer = message.getTextMessage();
 			break;
+		case ERROR_MESSAGE:
+			LoginController.message=message.getTextMessage();
+			break;
 		default:
 			break;
 

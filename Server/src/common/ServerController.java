@@ -65,13 +65,15 @@ public class ServerController {
 						client.sendToClient(message);
 
 					} else {
+						MessageCS errorMessage = new MessageCS (MessageType.ERROR_MESSAGE,"Password inserted is incorrect!!");
 						// password is wrong
-						client.sendToClient("Password inserted is incorrect!!");
+						client.sendToClient(errorMessage);
 					}
 
 				} else {
+					MessageCS errorMessage = new MessageCS (MessageType.ERROR_MESSAGE,"User can't be found");
 					// Error message: user not found
-					client.sendToClient("User can't be found");
+					client.sendToClient(errorMessage);
 				}
 				break;
 			case SEARCH_BOOK:

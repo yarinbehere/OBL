@@ -23,6 +23,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 
+/**search book by bookID, then librarian can insert new details and update them
+ * @author omri braymok
+ *
+ */
+
 
 public class UpdateBookController implements Initializable{
 
