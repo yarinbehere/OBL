@@ -230,10 +230,12 @@ public class ServerController {
 				books = new MessageCS(MessageType.LIST_OF_ORDERS,bookList);
 				client.sendToClient(books);
 				break;
+				//Subscriber wants to order book
+				//will go here only when book doesn't exist in the list
 			case ORDER_BOOK:
 				Statement stmtInsertOrder = conn.createStatement();		
 				//query to look if subscriber meets the requirements to order a book
-				query = "SELECT * FROM book WHERE bookID = '" + message.getBookOrder().getBookID()+ 
+				query = "SELECT * FROM Book, Subscriber WHERE bookID = '" + message.getBookOrder().getBookID()+ 
 						"' AND currentQuantity = '0' AND (SELECT COUNT(bookID) FROM BookOrder WHERE "
 						+ "bookID = '" + message.getBookOrder().getBookID()+ "') < originalQuantity";
 				rset = stmt.executeQuery(query);
@@ -241,29 +243,40 @@ public class ServerController {
 				//if found a book that meet the conditions to order a book
 				if(rset.next()) 
 				{
-
-					String insertOrder = "INSERT INTO BookOrder VALUES (NULL, '" + LocalDate.now() + "', '"
-							+ message.getBookOrder().getSubscriptionNumber() + "', '" 
-							+ message.getBookOrder().getBookID() + "', '" + rset.getString("wanted") + "', '" +LocalTime.now() + "');";
-					//insert the order to the database 
-					stmtInsertOrder.executeUpdate(insertOrder);
-					//query to find the queue of given book
-					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
-							+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND orderTime <= '"
-							+ LocalTime.now() + "';";
-					//stmtFindQueue = conn.createStatement();
-					ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
-					if(rsetFindQueue.next())
+					//query just in case to find if the bookOrder is in the list
+					query = "SELECT * FROM BookOrder WHERE bookID = \"" + rset.getString("bookID") + "\""
+							+ "AND subscriptionNumber = \"" + rset.getString("subscriberID") +"\";";
+					rset = stmt.executeQuery(query);
+					//if there no match (means book is in the list)
+					if(!rset.next())
 					{
-						//if there is already prior orders so this one will be the next in the queue that why we add 1
-						book = new Book(message.getBookOrder().getBookID(),rset.getString("title"),LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
+						
+						//query to find the queue of given book
+						String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
+								+ LocalDate.now() + "'AND bookID = '" + message.getBookOrder().getBookID()+ "' AND orderTime <= '"
+								+ LocalTime.now() + "';";
+						ResultSet rsetFindQueue = stmtFindQueue.executeQuery(queryFindQueue);
+						if(rsetFindQueue.next())
+						{
+							//the book that we want to order
+							book = new Book(message.getBookOrder().getBookID(),rset.getString("title"),LocalDate.now(),rsetFindQueue.getInt("count(bookID)"));
+							message = new MessageCS(MessageType.ORDER_BOOK,book);
+							//insert to the database
+							String insertOrder = "INSERT INTO BookOrder VALUES (NULL, '" + LocalDate.now() + "', '"
+									+ message.getBookOrder().getSubscriptionNumber() + "', '" 
+									+ message.getBookOrder().getBookID() + "', '" + rset.getString("wanted") + "', '" +LocalTime.now() + "');";
+							//insert the order to the database 
+							stmtInsertOrder.executeUpdate(insertOrder);
+						}
 					}
+					
 
 				}
 				else
+				{
 					book = null;
-				//create the message of each types of the books
-				message = new MessageCS(MessageType.ORDER_BOOK,book);
+					message = new MessageCS(MessageType.ORDER_BOOK,book);
+				}
 				client.sendToClient(message);
 				break;
 			case SEARCH_BOOK_FOR_RETURN:
@@ -331,13 +344,15 @@ public class ServerController {
 					}
 					query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
 					+"\", \"Returned a book\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
-					System.out.println(query);
 					stmt.executeUpdate(query);		
 				}
 			case CANCEL_ORDER:
 				query = "DELETE FROM BookOrder WHERE bookID = \"" + message.getBookOrder().getBookID() + "\" " 
 						+ "AND subscriptionNumber = \"" + message.getBookOrder().getSubscriptionNumber() + "\";";
 				stmt.executeUpdate(query);
+				query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
+				+"\", \"Canceled an order\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
+				stmt.executeUpdate(query);	
 				break;
 			default:
 				break;

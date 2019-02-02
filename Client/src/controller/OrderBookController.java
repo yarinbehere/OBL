@@ -196,7 +196,7 @@ public class OrderBookController implements Initializable{
     	ordersTableView.getItems().remove(selectedItem);
     	bookResult.remove(selectedItem);
     	listOfBooks.remove(selectedItem); 
-    	//disable the button every time deleted item just incase the last item is deleted
+    	//disable the button every time deleted item just in case the last item is deleted
     	//won't be able to press on it
     	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("Book deletion");
