@@ -88,6 +88,7 @@ public class OrderBookController implements Initializable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 

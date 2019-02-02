@@ -58,6 +58,29 @@ public class ServerController {
 							break;
 						case "Manager":
 							message.getUser().setRole(Role.MANAGER);
+							///////////////////////////////////////////////////////////////////////////////////////////////////////////
+							ArrayList<String> subscribersLateRetuens=new ArrayList<>();
+							Boolean flagOfHavingSubscriberWithLateReturn=false;
+							MessageCS subscriberLate;
+
+							//SELECT * FROM subscriber WHERE lateReturn=3 or lateReturn>3;
+							query="SELECT * FROM subscriber WHERE lateReturn = \"" + 3 + "\" OR lateReturn >" + "\"" + 3 + "\"" + ";";
+							rset=stmt.executeQuery(query);
+							///if the subscriber have more than 3 late returns
+							while(rset.next() == true)
+							{
+								subscribersLateRetuens.add(rset.getString("subscriberId"));
+								flagOfHavingSubscriberWithLateReturn=true;
+							}
+							//if there isn't subscriber with late return
+							if(flagOfHavingSubscriberWithLateReturn==true)
+							{
+								subscriberLate = new MessageCS(MessageType.LATE_RETURNS,subscribersLateRetuens);
+								client.sendToClient(subscriberLate);
+							}
+							///////////////////////////////////////////////////////////////////////////////////////////////////////////
+						
+
 							break;
 
 						}
@@ -126,8 +149,8 @@ public class ServerController {
 				if (rset.next()) {
 
 					FileTransfer tableOfContent = new FileTransfer(rset.getString("title"));// initialize the entity
-																							// FileTransfer with the
-																							// title book
+					// FileTransfer with the
+					// title book
 					String path = "/common/" + rset.getString("pdf");// temporary (need to change it)
 					File newFile = new File(message.getBook().getBookTitle() + ".pdf");// get the file and it's location
 					byte[] mybytearray = new byte[(int) newFile.length()];
@@ -160,7 +183,7 @@ public class ServerController {
 				// sending confirmation message to the client
 				client.sendToClient(message);
 				break;
-				case SEARCH_SUBSCRIBER:
+			case SEARCH_SUBSCRIBER:
 				subscriber = null; 
 				query = "SELECT * FROM subscriber r, user u WHERE u.userName = r.userName AND (r.userName = \""+ 
 						message.getSubscriber().getSubscriberDetails() + "\" OR r.email = \"" + message.getSubscriber().getSubscriberDetails() + 
@@ -181,7 +204,7 @@ public class ServerController {
 				client.sendToClient(resultSearchSubscriber);
 				break;
 			case SEARCH_BOOK_FOR_BORROW:
-			    book = null;
+				book = null;
 				query = "SELECT * FROM book WHERE bookId= \"" + message.getBook().getBookDetails()  + "\";";
 				rset=stmt.executeQuery(query);
 				//if the book does not exist in the system
@@ -250,12 +273,12 @@ public class ServerController {
 					query += "','";
 					query += borrowingDescription; 
 					query += "','";
-				query += message.getBorrowedbook().getSubscriptionNumber();
-				query += "');";
-				stmt.executeUpdate(query);
+					query += message.getBorrowedbook().getSubscriptionNumber();
+					query += "');";
+					stmt.executeUpdate(query);
 				}
 				break;
-				case SEARCH_BOOK_FOR_UPDATE_BOOK:
+			case SEARCH_BOOK_FOR_UPDATE_BOOK:
 				//Query to find book in DB by bookID
 				query = "SELECT * FROM book WHERE bookID= '"+message.getBook().getBookID()+ "';";
 				//result of the query
@@ -266,7 +289,7 @@ public class ServerController {
 					//check if the book is available according to current Quantity
 					String available;
 					if(rset.getInt("currentQuantity")>0)
-							available = "available";
+						available = "available";
 					else 
 						available = "Not available";
 					//get book's details from the result
@@ -329,9 +352,9 @@ public class ServerController {
 						"'WHERE userName= '"+message.getUser().getUserName()+"';";
 				//send Query to DB
 				stmt.executeUpdate(query);
-		        //get date
+				//get date
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		        Date date = new Date();  
+				Date date = new Date();  
 				//Query to for registration action in activitylog
 				query = "INSERT INTO activitylog (actionDate, actionDescription, subscriberNumber) VALUES ('"+
 						dateFormat.format(date)+"', 'update personal information','"+
@@ -346,23 +369,23 @@ public class ServerController {
 				query = "SELECT * FROM subscriber;";
 				rset = stmt.executeQuery(query);
 				while(rset.next() == true) {
-							subscriber = new Subscriber(rset.getString("subscriberId"),
+					subscriber = new Subscriber(rset.getString("subscriberId"),
 							rset.getString("userName"), rset.getString("firstName"),
 							rset.getString("lastName"), rset.getString("phoneNumber"),
 							rset.getString("email"), rset.getString("subscriberStatus"),null);
-							
-							subscribersList.add(subscriber);
+
+					subscribersList.add(subscriber);
 				}
 				//Query to find Librarian in DB
 				query = "SELECT * FROM librarian;";
 				rset = stmt.executeQuery(query);
 				while(rset.next() == true) {
-							librarian = new Librarian(rset.getString("workerNumber"), 
-									rset.getString("userName"), rset.getString("firstName"),
-									rset.getString("lastName"), rset.getString("email"),
-									rset.getString("role"), rset.getString("phone"));
-							
-							librariansList.add(librarian);
+					librarian = new Librarian(rset.getString("workerNumber"), 
+							rset.getString("userName"), rset.getString("firstName"),
+							rset.getString("lastName"), rset.getString("email"),
+							rset.getString("role"), rset.getString("phone"));
+
+					librariansList.add(librarian);
 				}
 				MessageCS resultReturn1 = new MessageCS(MessageType.SEARCH_ALL_FOR_VIEW_DATABASE,subscribersList,librariansList);
 				client.sendToClient(resultReturn1);
@@ -387,10 +410,10 @@ public class ServerController {
 					subscriberActivity2=new ActivityLog(rset.getString("actionDate"),rset.getString("actionDescription"));
 					subscriberActivity.add(subscriberActivity2);
 				}
-		    	MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
+				MessageCS activity = new MessageCS(MessageType.ACTIVITY_LOG, subscriberActivity);
 				client.sendToClient(activity);
 				break;
-				case REQUEST_EXTENSION_INIT:
+			case REQUEST_EXTENSION_INIT:
 				MessageCS requestInitMessage = new MessageCS(MessageType.REQUEST_EXTENSION_INIT, message.getUser());
 				requestInitMessage.setUsersBorrows(selectBorrowsExt(requestInitMessage.getUser().getUserName()));
 				client.sendToClient(requestInitMessage);
@@ -401,7 +424,7 @@ public class ServerController {
 				MessageCS requestCheckMessage;
 				String actionDescription="Request to extend the borrow period";
 				updateActivityLog(actionDescription, subscriptionNumber);
-				
+
 				if (countBookOrders(bookId) > 0) {
 					requestCheckMessage = new MessageCS(MessageType.REQUEST_EXTENSION_CHECK, "orders exist");
 					client.sendToClient(requestCheckMessage);
@@ -521,9 +544,9 @@ public class ServerController {
 		query += subscriber.getSubscriberStatus();
 		query += "');";
 		dbmanager.runUpdateQuery(query);
-		
+
 	}
-	
+
 	/**
 	 * given a subscribers userName, retrieves the subscribers borrows extended from
 	 * the database
@@ -608,7 +631,7 @@ public class ServerController {
 	private void updateActivityLog(String actionDescription, String subscriptionNumber) {
 		// building query. example: INSERT INTO activitylog VALUES
 		// ('2019-02-02','Request to extend the borrow period', '201');
-		
+
 		String query="INSERT INTO activitylog VALUES ('";
 		query+=LocalDate.now();
 		query+="','";
@@ -617,5 +640,12 @@ public class ServerController {
 		query+=subscriptionNumber;
 		query+="');";
 		dbmanager.runUpdateQuery(query);
+
+
+
+
+
+
+
 	}
 }

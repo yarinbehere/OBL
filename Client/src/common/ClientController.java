@@ -90,6 +90,11 @@ public class ClientController {
 			break;
 		case REQUEST_EXTENSION_CHECK:
 			RequestController.requestAnswer = message.getTextMessage();
+			/////////////////////////////////////////////////////////////////////////////////
+		case LATE_RETURNS:
+			LoginController.finalSubscriberResult=(ArrayList<String>) message.getArrayList();
+			/////////////////////////////////////////////////////////////////////////////////
+
 			break;
 		default:
 			break;
