@@ -122,7 +122,7 @@ public class ServerController {
 					FileTransfer tableOfContent = new FileTransfer(rset.getString("title"));// initialize the entity
 																							// FileTransfer with the
 																							// title book
-//					String path = "/common/" + rset.getString("pdf");// temporary (need to change it) TODO: uncomment
+					String path = "/common/" + rset.getString("pdf");// temporary (need to change it) 
 					File newFile = new File(message.getBook().getBookTitle() + ".pdf");// get the file and it's location
 					byte[] mybytearray = new byte[(int) newFile.length()];
 					FileInputStream fis = new FileInputStream(newFile);
@@ -301,7 +301,7 @@ public class ServerController {
 		query += "WHERE";
 		query += " " + "'" + subscribersId + "'" + "=" + "subscriber" + "Id" + ";";
 		ResultSet rset = dbmanager.runQuery(query);
-		try { // TODO: maybe delete this row
+		try { 
 				// entity/s found
 			if (rset.next() == true) {
 				// initializes all object fields

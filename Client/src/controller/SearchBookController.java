@@ -1,7 +1,7 @@
 package controller;
 
 import java.awt.Desktop;
-//import java.awt.Scrollbar; TODO: uncomment
+import java.awt.Scrollbar;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,8 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-//import javafx.scene.control.ListView; TODO: uncomment
-//import javafx.scene.control.ScrollBar; TODO: uncomment
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
