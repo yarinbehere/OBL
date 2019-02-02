@@ -79,8 +79,8 @@ public class ServerController {
 				// query to find title (substring), author(substring), category and
 				// description(substring) in the database
 				query = "SELECT * FROM book WHERE title LIKE '%" + message.getBook().getBookTitle() + "%' "
-						+ "AND author LIKE '%" + message.getBook().getAuthorName() + "%' " + "AND category = '"
-						+ message.getBook().getBookGenre() + "' " + "AND description LIKE '%"
+						+ "AND author LIKE '%" + message.getBook().getAuthorName() + "%' " + "AND category LIKE '%"
+						+ message.getBook().getBookGenre() + "%'AND description LIKE '%"
 						+ message.getBook().getBookDescription() + "%';";
 				Statement stmtFindSoonestReturn = conn.createStatement();
 				rset = stmt.executeQuery(query);
