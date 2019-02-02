@@ -18,20 +18,6 @@ USE `obldb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `activitylog`
---
-
-DROP TABLE IF EXISTS `activitylog`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `activitylog` (
-  `actionDate` date NOT NULL,
-  `actionDescription` varchar(45) NOT NULL,
-  `subscriberNumber` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `activitylog`
 --
 
@@ -42,61 +28,14 @@ INSERT INTO `activitylog` VALUES ('2019-02-02','Request to extend the borrow per
 UNLOCK TABLES;
 
 --
--- Table structure for table `book`
---
-
-DROP TABLE IF EXISTS `book`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `book` (
-  `bookId` varchar(45) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `author` varchar(45) NOT NULL,
-  `edition` int(11) DEFAULT NULL,
-  `printData` date DEFAULT NULL,
-  `category` varchar(55) DEFAULT NULL,
-  `description` varchar(500) DEFAULT NULL,
-  `originalQuantity` int(11) DEFAULT NULL,
-  `purchaseDate` date DEFAULT NULL,
-  `location` varchar(55) DEFAULT NULL,
-  `pdf` varchar(150) DEFAULT NULL,
-  `currentQuantity` int(11) DEFAULT NULL,
-  `wanted` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`bookId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `book`
 --
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES ('1','The Lord of the Rings - The Fellowship of the Ring','J. R. R. Tolkien',2,'2018-01-01','Fantasy','The Lord of the Rings is an epic high fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien\'s 1937 fantasy novel The Hobbit, but eventually developed into a much larger work.',4,'2019-01-01','100A','/Resource/tableOfContent/The Lord of the Rings - The Fellowship of the Ring.pdf\n',4,'not wanted'),('2','The Lord of the Rings - The Two Towers','J. R. R. Tolkien',1,'2018-01-01','Fantasy','The Two Towers is the second volume of J. R. R. Tolkien\'s high fantasy novel The Lord of the Rings. It is preceded by The Fellowship of the Ring and followed by The Return of the King.',3,'2018-07-02','101A','/Resource/tableOfContent/The Lord of the Rings - The Two Towers.pdf\n',3,'wanted'),('3','Harry Potter and the Philosopher\'s Stone','J. K. Rowling',2013,'2018-01-01','Fantasy','Harry Potter and the Philosopher\'s Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling\'s debut novel, it follows Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry.',2,'2018-07-03','200A','/Resource/tableOfContent/Harry Potter and the Philosopher\'s Stone.pdf\n',1,'not wanted'),('4','Harry Potter and the Chamber of Secrets','J. K. Rowling',2013,'2018-01-01','Fantasy','Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry\'s second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school\'s corridors warn that the Chamber of Secrets has been opened and that the \"\"\"heir of Slytherin\"\"\"\" would kill all pupils who do not come from all-magical families.\"\"\"\"\"\"\"\"\"',3,'2018-12-12','201A','/Resource/tableOfContent/Harry Potter and the Chamber of Secrets.pdf\n',0,'not wanted'),('5','Harry Potter and the Prisoner of Azkaban','J. K. Rowling',2010,'2018-01-01','Fantasy','Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J. K. Rowling and the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban who they believe is one of Lord Voldemort\'s old allies.',2,'2018-12-29','203A','/Resource/tableOfContent/Harry Potter and the Prisoner of Azkaban.pdf\n',2,'wanted'),('6','Alice\'s Adventures in Wonderland','Lewis Carroll',1984,'2018-01-01','Fantasy','It tells of a girl named Alice falling through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures. The tale plays with logic, giving the story lasting popularity with adults as well as with children.',1,'2017-09-21','314B','/Resource/tableOfContent/Alice\'s Adventures in Wonderland.pdf',0,'not wanted'),('7','Database Management Systems','Raghu Ramakrishnan, Johannes Gehrke',3,'2018-01-01','Software','Database Management Systems provides comprehensive and up-to-date coverage of the fundamentals of database systems. Coherent explanations and practical examples have made this one of the leading texts in the field.',7,'2019-01-01','411C','/Resource/tableOfContent/Database Management Systems (Second Edition) Table of Contents.pdf\n',6,'wanted'),('8','Java Foundation Classes','Matthew T. Nelson',2013,'2018-01-01','Software','References are references, and tutorials are tutorials. So it is for most books in the programming pantheon. Java Foundation Classes, however, does a curious thing: it blends the genres.',4,'2018-05-25','320C','/Resource/tableOfContent/Java Foundation Classes.pdf\n',0,'not wanted');
+INSERT INTO `book` VALUES ('1','The Lord of the Rings - The Fellowship of the Ring','J. R. R. Tolkien',2,'2018-01-01','Fantasy','The Lord of the Rings is an epic high fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien\'s 1937 fantasy novel The Hobbit, but eventually developed into a much larger work.',4,'2019-01-01','100A','/Resource/tableOfContent/The Lord of the Rings - The Fellowship of the Ring.pdf\n',3,'not wanted'),('2','The Lord of the Rings - The Two Towers','J. R. R. Tolkien',1,'2018-01-01','Fantasy','The Two Towers is the second volume of J. R. R. Tolkien\'s high fantasy novel The Lord of the Rings. It is preceded by The Fellowship of the Ring and followed by The Return of the King.',3,'2018-07-02','101A','/Resource/tableOfContent/The Lord of the Rings - The Two Towers.pdf\n',3,'wanted'),('3','Harry Potter and the Philosopher\'s Stone','J. K. Rowling',2013,'2018-01-01','Fantasy','Harry Potter and the Philosopher\'s Stone is a fantasy novel written by British author J. K. Rowling. The first novel in the Harry Potter series and Rowling\'s debut novel, it follows Harry Potter, a young wizard who discovers his magical heritage on his eleventh birthday, when he receives a letter of acceptance to Hogwarts School of Witchcraft and Wizardry.',2,'2018-07-03','200A','/Resource/tableOfContent/Harry Potter and the Philosopher\'s Stone.pdf\n',1,'not wanted'),('4','Harry Potter and the Chamber of Secrets','J. K. Rowling',2013,'2018-01-01','Fantasy','Harry Potter and the Chamber of Secrets is a fantasy novel written by British author J. K. Rowling and the second novel in the Harry Potter series. The plot follows Harry\'s second year at Hogwarts School of Witchcraft and Wizardry, during which a series of messages on the walls of the school\'s corridors warn that the Chamber of Secrets has been opened and that the \"\"\"heir of Slytherin\"\"\"\" would kill all pupils who do not come from all-magical families.\"\"\"\"\"\"\"\"\"',3,'2018-12-12','201A','/Resource/tableOfContent/Harry Potter and the Chamber of Secrets.pdf\n',2,'not wanted'),('5','Harry Potter and the Prisoner of Azkaban','J. K. Rowling',2010,'2018-01-01','Fantasy','Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J. K. Rowling and the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban who they believe is one of Lord Voldemort\'s old allies.',2,'2018-12-29','203A','/Resource/tableOfContent/Harry Potter and the Prisoner of Azkaban.pdf\n',2,'wanted'),('6','Alice\'s Adventures in Wonderland','Lewis Carroll',1984,'2018-01-01','Fantasy','It tells of a girl named Alice falling through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures. The tale plays with logic, giving the story lasting popularity with adults as well as with children.',1,'2017-09-21','314B','/Resource/tableOfContent/Alice\'s Adventures in Wonderland.pdf',0,'not wanted'),('7','Database Management Systems','Raghu Ramakrishnan, Johannes Gehrke',3,'2018-01-01','Software','Database Management Systems provides comprehensive and up-to-date coverage of the fundamentals of database systems. Coherent explanations and practical examples have made this one of the leading texts in the field.',7,'2019-01-01','411C','/Resource/tableOfContent/Database Management Systems (Second Edition) Table of Contents.pdf\n',6,'wanted'),('8','Java Foundation Classes','Matthew T. Nelson',2013,'2018-01-01','Software','References are references, and tutorials are tutorials. So it is for most books in the programming pantheon. Java Foundation Classes, however, does a curious thing: it blends the genres.',4,'2018-05-25','320C','/Resource/tableOfContent/Java Foundation Classes.pdf\n',2,'not wanted');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `bookorder`
---
-
-DROP TABLE IF EXISTS `bookorder`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `bookorder` (
-  `bookOrderNum` int(11) NOT NULL AUTO_INCREMENT,
-  `orderDate` date NOT NULL,
-  `subscriptionNumber` varchar(45) NOT NULL,
-  `bookId` varchar(45) NOT NULL,
-  `status` varchar(45) NOT NULL,
-  `orderTime` time NOT NULL,
-  PRIMARY KEY (`bookOrderNum`),
-  KEY `fk_BookOrder_books1_idx` (`bookId`),
-  KEY `fk_BookOrder_subscribers_idx` (`subscriptionNumber`),
-  CONSTRAINT `fk_BookOrder_books1` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookid`),
-  CONSTRAINT `fk_BookOrder_subscribers` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `bookorder`
@@ -104,31 +43,9 @@ CREATE TABLE `bookorder` (
 
 LOCK TABLES `bookorder` WRITE;
 /*!40000 ALTER TABLE `bookorder` DISABLE KEYS */;
-INSERT INTO `bookorder` VALUES (1,'2019-01-15','207','6','wanted','12:55:03'),(2,'2019-01-10','208','8','not wanted','16:20:00');
+INSERT INTO `bookorder` VALUES (1,'2019-02-01','207','6','wanted','12:55:03'),(2,'2019-01-31','208','8','not wanted','16:20:00'),(3,'2019-01-31','200','6','not wanted','20:30:05'),(4,'2019-02-01','201','3','not wanted','15:15:20'),(5,'2019-02-02','201','4','wanted','20:00:00');
 /*!40000 ALTER TABLE `bookorder` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `borrowedbook`
---
-
-DROP TABLE IF EXISTS `borrowedbook`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `borrowedbook` (
-  `subscriptionNumber` varchar(45) NOT NULL,
-  `bookId` varchar(45) NOT NULL,
-  `returnDate` date NOT NULL,
-  `borrowDate` date NOT NULL,
-  `lostBook` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`bookId`,`subscriptionNumber`),
-  KEY `bookFK_idx` (`bookId`),
-  KEY `fk_borrowedbook_subscriber_idx` (`subscriptionNumber`) /*!80000 INVISIBLE */,
-  KEY `returnDate_idx` (`returnDate`),
-  CONSTRAINT `fk_borrowedbook_book` FOREIGN KEY (`bookId`) REFERENCES `book` (`bookId`),
-  CONSTRAINT `fk_borrowedbook_subscriber` FOREIGN KEY (`subscriptionNumber`) REFERENCES `subscriber` (`subscriberId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `borrowedbook`
@@ -136,31 +53,9 @@ CREATE TABLE `borrowedbook` (
 
 LOCK TABLES `borrowedbook` WRITE;
 /*!40000 ALTER TABLE `borrowedbook` DISABLE KEYS */;
-INSERT INTO `borrowedbook` VALUES ('201','1','2019-01-23','2019-01-15',0),('201','2','2019-02-11','2019-02-12',0),('203','4','2019-01-10','2019-01-01',0),('207','6','2019-01-02','2019-01-01',0);
+INSERT INTO `borrowedbook` VALUES ('201','1','2019-01-23','2019-01-15',0),('204','1','2019-02-03','2019-01-20',0),('201','2','2019-02-11','2019-02-12',0),('201','3','2019-02-16','2019-02-02',0),('201','4','2019-02-16','2019-02-02',0),('203','4','2019-01-10','2019-01-01',0),('206','5','2019-02-14','2019-01-31',0),('207','6','2019-01-02','2019-01-01',0),('205','7','2019-02-15','2019-02-01',0),('207','8','2019-01-29','2019-01-15',0),('208','8','2019-02-15','2019-01-10',0);
 /*!40000 ALTER TABLE `borrowedbook` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `librarian`
---
-
-DROP TABLE IF EXISTS `librarian`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `librarian` (
-  `workerNumber` varchar(45) NOT NULL,
-  `userName` varchar(45) NOT NULL,
-  `firstName` varchar(15) NOT NULL,
-  `lastName` varchar(15) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `role` varchar(200) NOT NULL,
-  `organizationalAffiliation` varchar(100) NOT NULL,
-  `phone` varchar(45) NOT NULL,
-  PRIMARY KEY (`workerNumber`),
-  KEY `fk_librarians_users1_idx` (`userName`),
-  CONSTRAINT `fk_librarians_users1` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `librarian`
@@ -173,26 +68,6 @@ INSERT INTO `librarian` VALUES ('1','101','Dalia','Zeerman','dzeierman@braude.ac
 UNLOCK TABLES;
 
 --
--- Table structure for table `manualextension`
---
-
-DROP TABLE IF EXISTS `manualextension`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `manualextension` (
-  `extensionDate` date NOT NULL,
-  `workerNumber` varchar(45) NOT NULL,
-  `bookId` varchar(45) NOT NULL,
-  `subscriptionNumber` varchar(45) NOT NULL,
-  PRIMARY KEY (`extensionDate`,`workerNumber`),
-  KEY `fk_extensions_librarians1_idx` (`workerNumber`),
-  KEY `fk_extension_borrowed book1_idx` (`bookId`,`subscriptionNumber`),
-  CONSTRAINT `fk_extension_borrowed book1` FOREIGN KEY (`bookId`, `subscriptionNumber`) REFERENCES `borrowedbook` (`bookid`, `subscriptionnumber`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_extensions_librarians` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workerNumber`) ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `manualextension`
 --
 
@@ -200,22 +75,6 @@ LOCK TABLES `manualextension` WRITE;
 /*!40000 ALTER TABLE `manualextension` DISABLE KEYS */;
 /*!40000 ALTER TABLE `manualextension` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `reporthistory`
---
-
-DROP TABLE IF EXISTS `reporthistory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `reporthistory` (
-  `reportDate` date NOT NULL,
-  `reportName` varchar(45) NOT NULL,
-  `workerNumber` varchar(45) NOT NULL,
-  KEY `fk_Report history_librarians1_idx` (`workerNumber`),
-  CONSTRAINT `fk_Report history_librarians1` FOREIGN KEY (`workerNumber`) REFERENCES `librarian` (`workerNumber`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `reporthistory`
@@ -227,29 +86,6 @@ LOCK TABLES `reporthistory` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `subscriber`
---
-
-DROP TABLE IF EXISTS `subscriber`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `subscriber` (
-  `subscriberId` varchar(45) NOT NULL,
-  `userName` varchar(45) NOT NULL,
-  `firstName` varchar(15) NOT NULL,
-  `lastName` varchar(15) NOT NULL,
-  `phoneNumber` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `subscriberStatus` varchar(15) NOT NULL,
-  `graduationDate` date DEFAULT NULL,
-  `lateReturn` int(11) DEFAULT NULL,
-  PRIMARY KEY (`subscriberId`),
-  KEY `fk_subscriber_user_idx` (`userName`),
-  CONSTRAINT `fk_subscriber_user` FOREIGN KEY (`userName`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `subscriber`
 --
 
@@ -258,21 +94,6 @@ LOCK TABLES `subscriber` WRITE;
 INSERT INTO `subscriber` VALUES ('200','200','shalev','kubi','0502171234','shalevku@gmail.com','Locked',NULL,0),('201','201','yarin','belker','0502272234','yarin@gmail.com','Frozen',NULL,0),('202','202','hai','chasidi','0502373234','hai@gmail.com','Active',NULL,0),('203','203','omri','braymok','0502474234','omri@gmail.com','Active',NULL,0),('204','204','bibi','netanyahu','0502575234','bibi@gmail.com','Frozen',NULL,0),('205','205','roman','cohen','0502676234','roman@gmail.com','Locked',NULL,0),('206','206','michal','yanay','0502777234','michal@gmail.com','Frozen',NULL,0),('207','207','eyal','golan','0502878234','eyal@gmail.com','Active',NULL,0),('208','208','moshe','perets','0502712993','moshe@gmail.com','Frozen',NULL,0);
 /*!40000 ALTER TABLE `subscriber` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `user` (
-  `userName` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `role` varchar(45) NOT NULL,
-  PRIMARY KEY (`userName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
@@ -293,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-02 19:58:33
+-- Dump completed on 2019-02-02 21:42:43
