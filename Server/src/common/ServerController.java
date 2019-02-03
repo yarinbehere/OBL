@@ -32,7 +32,7 @@ public class ServerController {
 		MessageCS message = (MessageCS) msg;
 		String query;
 		Statement stmt;
-		ResultSet rset;
+		ResultSet rset,rset2;
 		Book book = null;
 		User user = null;
 		Subscriber subscriber = null;
@@ -41,6 +41,7 @@ public class ServerController {
 			stmt = conn.createStatement();
 			switch (message.messageType) {
 			case LOGIN:
+				ArrayList<String> librarianFrozen = new ArrayList<>();
 				// Query to find user in DB
 				query = "SELECT * FROM user WHERE userName = '" + message.getUser().getUserName() + "'" + ";";
 				rset = stmt.executeQuery(query);
@@ -49,12 +50,36 @@ public class ServerController {
 					// If password is match
 					if (rset.getString("Password").equals(message.getUser().getPassword())) {
 						// Go to relevant main menu
-						switch (rset.getString("Role")) {
+						switch (rset.getString("Role"))
+						{
 						case "Subscriber":
 							message.getUser().setRole(Role.SUBSCRIBER);
 							break;
 						case "Librarian":
 							message.getUser().setRole(Role.LIBRARIAN);
+							/////////////////////////////////////////////////////////////////////////////////////
+							query= "SELECT * FROM borrowedbook WHERE returnDate < \"" + LocalDate.now() + "\";";
+							rset=stmt.executeQuery(query);
+							while(rset.next()==true)
+							{
+								librarianFrozen.add(rset.getString("subscriptionNumber"));
+							}
+							for(int i=0;i<librarianFrozen.size();i++)
+							{
+								query = "UPDATE subscriber SET ";
+								query += "subscriberStatus" +  "=" + "'";
+								query += "Frozen";
+								query += "',";
+								query += "lateReturn" + "=" + "'";
+								query += 1;
+								query += "'";
+								query += " WHERE ";
+								query += "subscriberId" + "=" + "'";
+								query += librarianFrozen.get(i);
+								query += "';";
+								stmt.executeUpdate(query);
+							}
+							//////////////////////////////////////////////////////////////////////////////////////
 							break;
 						case "Manager":
 							message.getUser().setRole(Role.MANAGER);
@@ -79,8 +104,6 @@ public class ServerController {
 								client.sendToClient(subscriberLate);
 							}
 							///////////////////////////////////////////////////////////////////////////////////////////////////////////
-						
-
 							break;
 
 						}
