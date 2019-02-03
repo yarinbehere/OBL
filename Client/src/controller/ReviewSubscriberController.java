@@ -5,10 +5,12 @@ package controller;
 
 import java.io.IOException;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Subscriber;
+import entity.User.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,6 +47,8 @@ public class ReviewSubscriberController {
 	private Button saveChangesButton;
 	@FXML
 	private Button resetButton;
+	@FXML
+	private Button returnButton;
 	@FXML
 	private Label feedbackLabel;
 	public static Subscriber foundSubscriber;
@@ -122,4 +126,21 @@ public class ReviewSubscriberController {
 		phoneTextField.setText("");
 		emailTextField.setText("");
 	}
+	
+	/**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml", returnButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml", returnButton);
+	    	}
+	 }
 }

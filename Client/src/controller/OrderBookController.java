@@ -1,9 +1,11 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -89,6 +91,17 @@ public class OrderBookController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Return to Subscriber Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+
+	    		LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+	 }
 
 
 }

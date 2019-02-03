@@ -41,7 +41,6 @@ public class SearchBookController implements Initializable{
     
     @FXML private Button searchButton;
     @FXML private Button clearButton;
-    @FXML private Button helpButton;
     @FXML private Button closeButton;
     @FXML private Button selectBookButton;
     

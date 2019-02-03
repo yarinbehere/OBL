@@ -29,7 +29,6 @@ import javafx.scene.text.Text;
 		@FXML private Hyperlink forgotLink;
 	    
 		@FXML private Button loginButton;
-	    @FXML private Button helpButton;
 	    @FXML private Button returnButton;
 	    @FXML private Button mainMenuButton;
 	    @FXML private Button searchBookButton;
@@ -65,7 +64,7 @@ import javafx.scene.text.Text;
 	    	}
 	    	else if(userResult.getRole() == Role.LIBRARIAN)
 	    	{
-	    		LoadGUI.loadFXML("LibrarianMenu.fxml",loginButton); 
+	    		LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml",loginButton); 
 	    	}
 	    	else
 	    	{

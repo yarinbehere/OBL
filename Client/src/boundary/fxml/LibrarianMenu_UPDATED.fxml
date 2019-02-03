@@ -166,15 +166,7 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Help">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../git/OBL/Client/src/boundary/images/help_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                  <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="559.0" layoutY="17.0" mnemonicParsing="false" text="Logout">
+                  <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="559.0" layoutY="17.0" mnemonicParsing="false" onAction="#logout" text="Logout">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>

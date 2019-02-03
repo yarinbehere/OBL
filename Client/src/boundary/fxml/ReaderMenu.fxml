@@ -111,15 +111,6 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Help">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icon/Help/drawable-xhdpi/help_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Exit">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">

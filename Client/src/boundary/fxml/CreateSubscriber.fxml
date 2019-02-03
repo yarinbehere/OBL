@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="585.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
+<VBox prefHeight="585.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -65,16 +65,7 @@
             </Text>
             <ButtonBar layoutX="13.0" layoutY="542.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/help_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="559.0" layoutY="17.0" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Cancel">
+                  <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="559.0" layoutY="17.0" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" onAction="#returnAction" prefHeight="27.0" text="Cancel">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                            <image>

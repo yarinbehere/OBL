@@ -3,18 +3,24 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Librarian;
 import entity.Subscriber;
+import entity.User.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +35,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ViewDatabaseController implements Initializable{
 	@FXML private TextField searchUserTextField;
+	
+	@FXML private Button returnButton;
 	
 	@FXML private CheckBox managerCheckBox;
 	@FXML private CheckBox librarianCheckBox;
@@ -67,6 +75,12 @@ public class ViewDatabaseController implements Initializable{
 	private ObservableList<Subscriber> listOfSubscribers;
 	private ObservableList<Librarian> listOfLibrarians;
 	private ObservableList<Librarian> listOfManagers;
+	
+	/**
+	 * Get all Subscribers,Librarians and Managers details from database 
+	 * and then present it on the screen in three different tables for each
+	 * @author Omri braymok
+	 */
 	
 	//initialize the TableView
     @Override
@@ -124,4 +138,15 @@ public class ViewDatabaseController implements Initializable{
 			e.printStackTrace();
 		}
 	}
+    
+	/**
+	 * Return to Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+
+	    		LoadGUI.loadFXML("ManagerMenu.fxml",returnButton);
+	 }
 }

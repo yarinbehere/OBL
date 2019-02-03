@@ -17,8 +17,6 @@ public class BookReturnController {
 	 @FXML private TextField subscriberTextField;
 
 	    @FXML private Button searchSubscriberButton;
-	  
-	    @FXML private Button helpButton;
 	    @FXML private Button returnBook;
 	    @FXML private Button searchBookButton;
 	    @FXML private Text subscriberStatusLabel;

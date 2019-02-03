@@ -1,16 +1,19 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
 import entity.BorrowedBook;
 import entity.Subscriber;
+import entity.User.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,7 +43,6 @@ public class BorrowBookController implements Initializable{
     @FXML private DatePicker borrowDate;
     @FXML private DatePicker returnDate;
     @FXML private Button borrowButton;
-    @FXML private Button helpButton;
     @FXML private Button returnButton;
     @FXML private Text pathLabel;
     
@@ -222,6 +224,24 @@ public class BorrowBookController implements Initializable{
 		borrowButton.setDisable(true);
 		
 	}
+	
+	/**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml", returnButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml", returnButton);
+	    	}
+	 }
+	    
 
 	
 
