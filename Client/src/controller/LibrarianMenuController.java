@@ -19,8 +19,11 @@ public class LibrarianMenuController {
     @FXML private Button reviewSubscriberButton;
     @FXML private Button searchBookButton;
     @FXML private Button createSubscriberButton;
-    @FXML private Button helpButton;
     @FXML private Button logoutButton;
+    @FXML private Button addNewBookButton;
+    @FXML private Button updateBookButton;
+    @FXML private Button deleteBookButton;
+    
     @FXML private Text pathLabel;
     @FXML private Text firstnameLabel;
     
@@ -42,6 +45,23 @@ public class LibrarianMenuController {
     	LoadGUI.loadFXML("BookReturn.fxml", returnBookButton);
     }
     
+    @FXML
+    public void addNewBook(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("AddNewBook.fxml", addNewBookButton);
+    }
+    
+    
+    @FXML
+    public void updateBook(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("UpdateBook.fxml", updateBookButton);
+    }
+  
+    @FXML
+    public void deleteBook(ActionEvent event) throws IOException
+    {
+    	LoadGUI.loadFXML("DeleteBook.fxml", deleteBookButton);
+    }
+    
     @FXML 
     public void createSubscriber(ActionEvent event) throws IOException
     {
@@ -53,6 +73,10 @@ public class LibrarianMenuController {
     	LoadGUI.loadFXML("ReviewSubscriber.fxml", reviewSubscriberButton);
     }
     
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ReaderMenu.fxml", logoutButton);
+    }
     
     
 }

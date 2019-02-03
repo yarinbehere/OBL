@@ -1,11 +1,13 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -108,6 +110,17 @@ public class OrderBookController implements Initializable{
 		}
 	}
 
+	/**
+	 * Return to Subscriber Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	@FXML
+	public void returnAction(ActionEvent event) throws IOException {
+
+		LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+	}
+
 	@FXML
 	void placeOrder(ActionEvent event) throws InterruptedException, ParseException {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -155,15 +168,12 @@ public class OrderBookController implements Initializable{
 
 			ordersTableView.setItems(listOfBooks);
 			Thread.sleep(100);
-			if(message.getTextMessage() != null)
-				System.out.println(message.getTextMessage());
-			else
-			{
-				alert.setTitle("Success");
-				alert.setHeaderText("Success");
-				alert.setContentText("You have ordered "+ bookResult.get(bookResult.size()-1).getBookTitle()+ " successfully");
-				alert.showAndWait();
-			}
+
+			alert.setTitle("Success");
+			alert.setHeaderText("Success");
+			alert.setContentText("You have ordered "+ bookResult.get(bookResult.size()-1).getBookTitle()+ " successfully");
+			alert.showAndWait();
+
 		}
 		//disable the button, so won't be able to make 2nd attempt to order
 		placeOrderButton.setDisable(true);

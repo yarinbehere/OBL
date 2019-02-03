@@ -4,10 +4,13 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
+import entity.User.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,11 +26,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 
+/**search book by bookID, then librarian can insert new details and update them
+ * @author omri braymok
+ *
+ */
+
 
 public class UpdateBookController implements Initializable{
 
 	@FXML private Button searchBookButton;
 	@FXML private Button saveChangeButton;
+	@FXML private Button returnButton;
 
 	@FXML private Text bookStatusLabel;
 	
@@ -136,4 +145,21 @@ public class UpdateBookController implements Initializable{
 	    	Thread.sleep(400);
 			}
 	}
+	
+	/**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml",returnButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml",returnButton);
+	    	}
+	 }
 }

@@ -3,9 +3,11 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -45,6 +47,7 @@ public class PersonalInformationController implements Initializable{
 	
 	@FXML private Button saveChangeButton;
 	@FXML private Button resetButton;
+	@FXML private Button returnButton;
 	
 	public static Subscriber subscriber = null;
 	public static User user = null;
@@ -131,4 +134,15 @@ public class PersonalInformationController implements Initializable{
 			lastnameTextField.setText(subscriber.getLastName());
 			phoneTextField.setText(subscriber.getMobileNumber().substring(3, 10));
 		}
+	 
+	 	/**
+		 * Return to Subscriber Menu
+		 * @param event
+		 * @throws IOException
+		 */
+		 @FXML
+		 public void returnAction(ActionEvent event) throws IOException {
+
+					LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+		 }
 }

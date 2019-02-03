@@ -22,7 +22,6 @@ public class ManagerMenuController {
 	@FXML private Button generateReportButton;
 	@FXML private Button viewDatabaseButton;
 	@FXML private Text pathLabel;
-	@FXML private Button helpButton;
 	@FXML private Button logoutButton;
 	@FXML private Text firstnameLabel;
 	
@@ -70,6 +69,11 @@ public class ManagerMenuController {
     @FXML
     void viewDataBase(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("ViewDatabase.fxml", viewDatabaseButton);
+    }
+    
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ReaderMenu.fxml", logoutButton);
     }
 
 }

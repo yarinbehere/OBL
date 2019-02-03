@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -15,6 +17,7 @@ import entity.BorrowsExt;
 import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,6 +34,8 @@ public class RequestController {
 	public static ArrayList<BorrowsExt> bookBorrowResults;
 	@FXML
 	private Button requestExtensionButton;
+	@FXML
+	private Button returnButton;
 	// table-view fields
 	@FXML
 	private TableView<BorrowsExt> borrowedBooksTable;
@@ -122,4 +127,15 @@ public class RequestController {
 			requestExtensionButton.setDisable(false);
 		}
 	}
+	
+	/**
+	 * Return to Subscriber Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+
+				LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+	 }
 }

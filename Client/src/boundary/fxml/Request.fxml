@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="505.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestController">
+<VBox prefHeight="505.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -106,15 +106,6 @@
             </Text>
             <ButtonBar layoutX="11.0" layoutY="433.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/help_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Return">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">

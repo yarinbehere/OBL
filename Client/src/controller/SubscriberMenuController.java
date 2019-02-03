@@ -16,7 +16,6 @@ public class SubscriberMenuController {
     @FXML private Button orderBookButton;
     @FXML private Button personalInformationButton;
     @FXML private Text pathLabel;
-    @FXML private Button helpButton;
     @FXML private Button logoutButton;
     @FXML private Text firstNameLabel;
  
@@ -44,6 +43,11 @@ public class SubscriberMenuController {
     @FXML
 	void extensionRequest(ActionEvent event) throws IOException  {
 		LoadGUI.loadFXML("Request.fxml", extensionRequestButton);
+    }
+    
+    @FXML
+    public void logout(ActionEvent event) throws IOException {
+    	LoadGUI.loadFXML("ReaderMenu.fxml", logoutButton);
     }
 }
 

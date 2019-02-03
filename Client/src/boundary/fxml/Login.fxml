@@ -99,15 +99,6 @@
             </Text>
             <ButtonBar layoutX="11.0" layoutY="431.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
               <buttons>
-                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
-                     <graphic>
-                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/help_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" onAction="#returnPreviousPage" prefHeight="27.0" text="Return">
                      <graphic>
                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">

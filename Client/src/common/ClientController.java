@@ -100,8 +100,11 @@ public class ClientController {
 			OrderBookController.bookForOrder = message.getBook();
 			break;
 		case ERROR_MESSAGE:
-			OrderBookController.messageBookOrder = message.getTextMessage();
+			LoginController.message=message.getTextMessage();
 			break;
+	/*	case ERROR_MESSAGE2:
+			OrderBookController.messageBookOrder = message.getTextMessage();*/
+			//break;
 		case LIST_OF_ORDERS:
 			OrderBookController.bookResult = (ArrayList<Book>) message.getArrayList();
 			break;
@@ -111,10 +114,8 @@ public class ClientController {
 		case SEARCH_BOOK_FOR_RETURN:
 			BookReturnController.resultBook = message.getBook();
 			break;
-			/////////////////////////////////////////////////////////////////////////////////
 		case LATE_RETURNS:
 			LoginController.finalSubscriberResult=(ArrayList<String>) message.getArrayList();
-			/////////////////////////////////////////////////////////////////////////////////
 			break;
 		default:
 			break;

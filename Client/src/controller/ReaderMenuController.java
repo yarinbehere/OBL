@@ -20,9 +20,6 @@ public class ReaderMenuController {
 	    private Button searchBookButton;
 
 	    @FXML
-	    private Button helpButton;
-
-	    @FXML
 	    private Button exitButton;
 
 	/**

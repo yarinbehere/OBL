@@ -1,10 +1,12 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -12,15 +14,18 @@ import entity.ActivityLog;
 import entity.Subscriber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ActivityLogController implements Initializable
 {
+	@FXML private Button returnButton;
 	@FXML private TableView<ActivityLog> activityLogTable;
 	@FXML private TableColumn<ActivityLog, String> columnDate;
 	@FXML private TableColumn<ActivityLog, String> columnAction;
@@ -65,5 +70,16 @@ public class ActivityLogController implements Initializable
 			activityLogTable.setItems(listOfActivities);
 		}
 	}
+	
+	/**
+	 * Return to Subscriber Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+
+				LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+	 }
 
 }

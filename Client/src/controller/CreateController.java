@@ -3,10 +3,12 @@ package controller;
 import java.io.IOException;
 import java.util.Random;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Subscriber;
+import entity.User.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,6 +35,8 @@ public class CreateController {
 	private TextField phoneTextField;
 	@FXML
 	private Button createButton;
+	@FXML
+	private Button cancelButton;
 	@FXML
 	public TextArea requestInfoTextArea;
 	public static Subscriber foundSubscriber;
@@ -70,4 +74,21 @@ public class CreateController {
 					foundSubscriber.getFirstName() + " " + foundSubscriber.getLastName() + " was created succesfully");
 		}
 	}
+	
+	/**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml",cancelButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml",cancelButton);
+	    	}
+	 }
 }
