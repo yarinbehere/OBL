@@ -27,6 +27,13 @@ public class ActivityLogController implements Initializable
 	public static ArrayList<ActivityLog> finalSubscriberActivity;
 	private ObservableList<ActivityLog> listOfActivities;
 	
+	 /**
+     * When the subscriber wants to see his activity log.
+     * Accessible subscriber the librarian menu.
+     * (action made by subscriber)
+     * @author Hai
+     * 
+     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{

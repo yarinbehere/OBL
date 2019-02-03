@@ -126,6 +126,8 @@ public class SearchBookController implements Initializable{
     {
     	if(searchResultTable.hasProperties())
     		selectBookButton.setDisable(false);
+    	if(searchResultTable.getSelectionModel().getSelectedItem() == null)
+    		selectBookButton.setDisable(true);
     	
     }
     

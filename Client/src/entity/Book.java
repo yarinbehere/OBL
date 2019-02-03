@@ -22,9 +22,21 @@ public class Book implements Serializable{
 	private String bookSerialNumber;
 	private String wantedLevel;
 	private int originalBookQuantity;
-	private String bookTableOfContents; 
-	
+	private String bookTableOfContents;
+	private int queue;
+	private LocalDate dateOrder;
+	private String subscriptionNumber;
+	private Date returnDate;
+	private Date borrowDate; 
 
+
+	/**constructor when a message to server has been sent, to look for the book with these parameters
+	 * @author Roman
+	 * @param bookTitle
+	 * @param authorName
+	 * @param bookGenre
+	 * @param @bookDescription
+	 */
 	public Book(String bookTitle, String authorName, String bookGenre, String bookDescription)
 	{
 		this.bookTitle = bookTitle;
@@ -41,7 +53,16 @@ public class Book implements Serializable{
 		this.setOriginalBookQuanity(OriginalBookQuanity);
 		this.setBookDetails(bookDetails);
 	}
-	
+
+	/** Constructor send message back to the client with the information should appear when user searching
+	 * for a book
+	 * @author Roman
+	 * @param bookID
+	 * @param bookTitle
+	 * @param shelfLocation
+	 * @param available
+	 * @param soonestReturn
+	 */
 	public Book(String bookID, String bookTitle, String shelfLocation, String available, Date soonestReturn)
 	{
 		this.bookID = bookID;
@@ -50,7 +71,7 @@ public class Book implements Serializable{
 		this.available = available;
 		this.setSoonestReturn(soonestReturn);
 	}
-	
+
 	/**find and update the books for update book's details
 	 * @author Omri Braymok
 	 * @param ID
@@ -76,41 +97,79 @@ public class Book implements Serializable{
 		this.shelfLocation=shelfLocation;
 		this.wantedLevel=wantedLevel;
 		this.setBookTableOfContents(bookTableOfContents);
-		
+
 	}
-	
-	public Book(String bookDetails) 
+
+	public Book(String bookID, String wantedLevel,int currentBookQuanity) 
 	{
-		this.setBookDetails(bookDetails);
+		this.bookID=bookID;
+		this.wantedLevel=wantedLevel;
+		this.currentBookQuanity=currentBookQuanity;
 	}
+
+	public Book(String bookID, String bookTitle, LocalDate dateOrder,int queue)
+	{
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.setDateOrder(dateOrder);
+		this.setQueue(queue);
+	}
+
+	public Book(String bookID, Date soonestReturn)
+	{
+		this.bookID = bookID;
+		this.soonestReturn = soonestReturn;
+	}
+
+	public Book(String bookDetails) 
+	{ 
+		this.bookDetails = bookDetails;
+	}
+
+	public Book(String bookID, String subscriptionNumber) {
+		this.bookID = bookID;
+		this.setSubscriptionNumber(subscriptionNumber);
+	}
+
+	public Book(String bookTitle, LocalDate dateOrder, int queue) {
+		this.bookTitle = bookTitle;
+		this.setDateOrder(dateOrder);
+		this.setQueue(queue);
+	}
+
+	public Book(Date borrowDate, Date returnDate) {
+		this.setBorrowDate(borrowDate);
+		this.setReturnDate(returnDate);
+	}
+
 	public String getBookTitle() {
 		return bookTitle;
 	}
-	
+
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
 	} 
-	
+
 	public String getAuthorName() {
 		return authorName;
 	}
-	
+
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
-	
+
 	public String getBookGenre() {
 		return bookGenre;
 	}
-	
+
 	public void setBookGenre(String bookGenre) {
 		this.bookGenre = bookGenre;
 	}
-	
+
 	public String getBookDescription() {
 		return bookDescription;
 	}
-	
+
 	public void setBookDescription(String bookDescription) {
 		this.bookDescription = bookDescription;
 	}
@@ -214,6 +273,46 @@ public class Book implements Serializable{
 	public void setBookTableOfContents(String bookTableOfContents) {
 		this.bookTableOfContents = bookTableOfContents;
 	}
-	
-	
+
+	public int getQueue() {
+		return queue;
+	}
+
+	public void setQueue(int queue) {
+		this.queue = queue;
+	}
+
+	public String getSubscriptionNumber() {
+		return subscriptionNumber;
+	}
+
+	public void setSubscriptionNumber(String subscriptionNumber) {
+		this.subscriptionNumber = subscriptionNumber;
+	}
+
+	public Date getBorrowDate() {
+		return borrowDate;
+	}
+
+	public void setBorrowDate(Date borrowDate) {
+		this.borrowDate = borrowDate;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public LocalDate getDateOrder() {
+		return dateOrder;
+	}
+
+	public void setDateOrder(LocalDate dateOrder) {
+		this.dateOrder = dateOrder;
+	}
+
+
 }

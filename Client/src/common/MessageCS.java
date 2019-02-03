@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import entity.Book;
+import entity.BookOrder;
 import entity.BorrowedBook;
 import entity.BorrowsExt;
 import entity.FileTransfer;
@@ -20,9 +21,12 @@ public class MessageCS implements Serializable {
 	 */
 	public enum MessageType {
 		LOGIN, SEARCH_BOOK, TABLE_OF_CONTENT, CREATE_SUBSCRIBER, REVIEW_SUBSCRIBER_SEARCH, 
-		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
+		REVIEW_SUBSCRIBER_UPDATE,SEARCH_SUBSCRIBER,SEARCH_BOOK_FOR_BORROW,BORROW,BORROW1,
+		SEARCH_BOOK_FOR_UPDATE_BOOK, UPDATE_BOOK, PERSONAL_INFORMATION,
 		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS,
-		ACTIVITY_LOG,SEARCH_ALL_FOR_VIEW_DATABASE, REQUEST_EXTENSION_CHECK, REQUEST_EXTENSION_INIT; 
+		ACTIVITY_LOG,SEARCH_ALL_FOR_VIEW_DATABASE, REQUEST_EXTENSION_CHECK, REQUEST_EXTENSION_INIT,
+		ERROR_MESSAGE, SEARCH_SUBSCRIBER_FOR_OPTIONS, SEARCH_BOOK_FOR_RETURN, ORDER_BOOK, RETURN_BOOK, CANCEL_ORDER, 
+		LATE_RETURNS; 
 	}
 
 	MessageType messageType;
@@ -38,6 +42,7 @@ public class MessageCS implements Serializable {
 	private String textMessage;
 	private ArrayList<BorrowsExt> usersBorrows;
 	private ArrayList<?> arrayList;
+	private BookOrder bookOrder;
 
 
 	/**
@@ -58,21 +63,15 @@ public class MessageCS implements Serializable {
 	 * @param book the book wishing to look for
 	 * @author Roman
 	 */
-	
+
 	public MessageCS(MessageType messageType, Book book)
 	{
 		this.messageType = messageType;
 		this.setBook(book);
 	}
-	
-	/**
-	 * returning search result.. a list of books that have been searched
-	 * @param messageType
-	 * @param books 
-	 * @author Roman
-	 */
-	
-	
+
+
+
 	/**
 	 * 1st scenario: subscriber wants to watch in his activity log
 	 * 2nd scenario: user wants to search for books
@@ -102,13 +101,13 @@ public class MessageCS implements Serializable {
 	 * @param tableOfContent saving the file we want to open
 	 * @author Roman
 	 */
-	
+
 	public MessageCS(MessageType messageType, FileTransfer tableOfContent)
 	{
 		this.messageType = messageType;
 		this.setTableOfContent(tableOfContent);
 	}
-	
+
 	/**
 	 * subscriber wants to borrow a book
 	 * @param messageType - messageType will be borrow book
@@ -120,7 +119,7 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setBorrowedbook(borrowedbook);
 	}
-	
+
 	/**constructor for the update Personal Information
 	 * @param messageType
 	 * @param user
@@ -132,7 +131,7 @@ public class MessageCS implements Serializable {
 		this.setUser(user);
 		this.setSubscriber(subscriber);	
 	}
-	
+
 	/**Constructor for find result to ViewDatabase in DB 
 	 * @param textMessage
 	 * @param subscribers
@@ -144,13 +143,24 @@ public class MessageCS implements Serializable {
 		this.setSubscribers(subscribers);
 		this.setLibrarians(librarians);
 	}
-	
+
 	/**Constructor for find result to ViewDatabase in DB 
 	 * @param textMessage
 	 * @author Omri Braymok
 	 */
 	public MessageCS(MessageType messageType) {
 		this.messageType = messageType;
+	}
+
+	public MessageCS(MessageType messageType, BookOrder bookOrder) 
+	{
+		this.messageType = messageType;
+		this.setBookOrder(bookOrder);
+	}
+	public MessageCS(MessageType messageType, Subscriber subscriber, Book book) {
+		this.messageType = messageType;
+		this.subscriber = subscriber;
+		this.book = book;
 	}
 	
 	public User getUser() {
@@ -165,14 +175,14 @@ public class MessageCS implements Serializable {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	
+
 	public FileTransfer getTableOfContent() {
 		return tableOfContent;
 	}
 	public void setTableOfContent(FileTransfer tableOfContent) {
 		this.tableOfContent = tableOfContent;
 	}
-	
+
 	/**
 	 * @param textMessage
 	 */
@@ -239,5 +249,11 @@ public class MessageCS implements Serializable {
 	 */
 	public void setUsersBorrows(ArrayList<BorrowsExt> usersBorrows) {
 		this.usersBorrows = usersBorrows;
+	}
+	public BookOrder getBookOrder() {
+		return bookOrder;
+	}
+	public void setBookOrder(BookOrder bookOrder) {
+		this.bookOrder = bookOrder;
 	}
 }

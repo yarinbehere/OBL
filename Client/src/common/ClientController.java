@@ -1,6 +1,7 @@
 package common;
 
 import controller.LoginController;
+import controller.OrderBookController;
 import controller.PersonalInformationController;
 import controller.RequestController;
 import controller.SearchBookController;
@@ -11,6 +12,7 @@ import controller.ReviewSubscriberController;
 import java.util.ArrayList;
 
 import controller.ActivityLogController;
+import controller.BookReturnController;
 import controller.BorrowBookController;
 import controller.CreateController;
 import entity.ActivityLog;
@@ -90,6 +92,29 @@ public class ClientController {
 			break;
 		case REQUEST_EXTENSION_CHECK:
 			RequestController.requestAnswer = message.getTextMessage();
+			break;
+		case SEARCH_BOOK_FOR_ORDER:
+			OrderBookController.wantedBook = message.getBook();
+			break;
+		case ORDER_BOOK:
+			OrderBookController.bookForOrder = message.getBook();
+			break;
+		case ERROR_MESSAGE:
+			OrderBookController.messageBookOrder = message.getTextMessage();
+			break;
+		case LIST_OF_ORDERS:
+			OrderBookController.bookResult = (ArrayList<Book>) message.getArrayList();
+			break;
+		case SEARCH_SUBSCRIBER_FOR_OPTIONS:
+			BookReturnController.resultSubscriber = message.getSubscriber();
+			break;
+		case SEARCH_BOOK_FOR_RETURN:
+			BookReturnController.resultBook = message.getBook();
+			break;
+			/////////////////////////////////////////////////////////////////////////////////
+		case LATE_RETURNS:
+			LoginController.finalSubscriberResult=(ArrayList<String>) message.getArrayList();
+			/////////////////////////////////////////////////////////////////////////////////
 			break;
 		default:
 			break;

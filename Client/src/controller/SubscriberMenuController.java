@@ -29,7 +29,7 @@ public class SubscriberMenuController {
     @FXML
     void orderBook(ActionEvent event) throws IOException {
     	LoadGUI.loadFXML("OrderBook.fxml", orderBookButton);
-    }
+    } 
     
     @FXML
     void personalInformation(ActionEvent event) throws IOException {

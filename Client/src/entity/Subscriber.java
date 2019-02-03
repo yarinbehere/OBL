@@ -14,6 +14,7 @@ public class Subscriber implements Serializable  {
 	private String subscriberID;
 	private String firstName;
 	private String lastName;
+	private String subscriberNumber;
 
 	/**
 	 * @param userName
@@ -36,27 +37,30 @@ public class Subscriber implements Serializable  {
 		this.email = email;
 		this.mobileNumber = mobileNumber;
 	}
-
 	
-	public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
+public Subscriber(String subscriberNumber,String userName,String firstName,String lastName,String mobileNumber,String email,String subscriberStatus,String subscriberDetails )
 	{
 		this.setSubscriberID(subscriberNumber);
 		this.setUserName(userName);
-		this.firstName=firstName;
-		this.lastName=lastName;
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
 		this.setMobileNumber(mobileNumber);
 		this.email=email;
 		this.subscriberStatus=subscriberStatus;
 		this.setSubscriberDetails(subscriberDetails);
 	}
+
+	
+	
 	public Subscriber(String subscriberNumber,String mobileNumber,String email,String subscriberStatus)
 	{
 		
-		this.setSubscriberID(subscriberNumber);
-		this.setMobileNumber(mobileNumber);
+		this.setSubscriberNumber(subscriberNumber);
+		this.mobileNumber=mobileNumber;
 		this.email=email;
 		this.subscriberStatus=subscriberStatus;
 	}
+	
 
 	public Subscriber(String subscriberDetails)
 	{
@@ -210,6 +214,14 @@ public class Subscriber implements Serializable  {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getSubscriberNumber() {
+		return subscriberNumber;
+	}
+
+	public void setSubscriberNumber(String subscriberNumber) {
+		this.subscriberNumber = subscriberNumber;
 	}
 
 }

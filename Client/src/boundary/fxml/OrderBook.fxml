@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -86,11 +86,11 @@
                   <Button fx:id="searchBookButton" layoutX="409.0" layoutY="46.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="27.0" prefWidth="131.0" text="Search Book" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book details:" />
                   <Separator layoutX="137.0" layoutY="21.0" prefHeight="3.0" prefWidth="478.0" />
-                  <Button fx:id="placeOrderButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
+                  <Button fx:id="placeOrderButton" layoutX="257.0" layoutY="115.0" mnemonicParsing="false" onAction="#placeOrder" prefHeight="27.0" prefWidth="106.0" text="Place Order" />
                   <Text layoutX="28.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soonest Return:" />
-                  <Text fx:id="subscriberStatusLabel" fill="#00a130" layoutX="137.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" />
+                  <Text fx:id="soonestReturnLabel" fill="#00a130" layoutX="137.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[status]" />
                   <Text layoutX="445.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book code:" />
-                  <Hyperlink fx:id="bookCodeLabel" layoutX="519.0" layoutY="85.0" text="[code]" />
+                  <Label fx:id="bookCodeLabel" layoutX="526.0" layoutY="88.0" text="Label" />
                </children>
             </Pane>
             <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Order a Book">
@@ -133,8 +133,8 @@
                   <Font size="11.0" />
                </font></Text>
             <Text layoutX="17.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Orders:" />
-            <Button fx:id="cancelButton" disable="true" layoutX="268.0" layoutY="395.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Cancel Order" />
-            <TableView fx:id="ordersTableView" layoutX="11.0" layoutY="247.0" prefHeight="144.0" prefWidth="619.0">
+            <Button fx:id="cancelButton" disable="true" layoutX="268.0" layoutY="395.0" mnemonicParsing="false" onAction="#cancelOrder" prefHeight="27.0" prefWidth="106.0" text="Cancel Order" />
+            <TableView fx:id="ordersTableView" layoutX="11.0" layoutY="247.0" onMouseClicked="#chooseBookFromTableView" prefHeight="144.0" prefWidth="619.0">
               <columns>
                 <TableColumn fx:id="tableColumnTitle" prefWidth="179.19997596740723" text="Title" />
                 <TableColumn fx:id="tableColumnOrderDate" prefWidth="169.60003662109375" text="Order Date" />

@@ -50,6 +50,14 @@ public class BorrowBookController implements Initializable{
     public static Book cancel_borrow;
    String checkSubscriberStatus;
 
+   /**
+    * When the Librarian wants to borrow a book to subscriber, first he need to search the subscriber
+    * Accessible through the librarian menu.
+    * (action made by librarian)
+    * @throws InterruptedException
+    * @author Hai
+    * 
+    */
     
     @FXML
     void searchSubscriber(ActionEvent event) throws InterruptedException
@@ -85,6 +93,15 @@ public class BorrowBookController implements Initializable{
     	subscriberIDLabel.setText(resultSubscriber.getSubscriberID());
     	searchBookButton.setDisable(false);
     }
+    
+    /**
+     * When the Librarian wants to borrow a book to subscriber, first he need to search the book he wants to borrow.
+     * Accessible through the librarian menu.
+     * (action made by librarian)
+     * @throws InterruptedException
+     * @author Hai
+     * 
+     */
 
     @FXML
     void searchBook(ActionEvent event) throws InterruptedException
@@ -215,7 +232,10 @@ public class BorrowBookController implements Initializable{
     	}
 
     }
-
+    /**
+     * initialize the buttons to be off, and gives the option to perform borrow only when searching first the subscriber and the book.
+     * @author Hai
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		searchBookButton.setDisable(true);
