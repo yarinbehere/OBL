@@ -3,7 +3,7 @@ package entity;
 import java.io.Serializable;
 
 public class FileTransfer implements Serializable {
-	
+
 	private String Description=null;
 	private String fileName=null;	
 	private int size=0;

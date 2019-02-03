@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GenerateReportController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="OBL">
+          <items>
+            <MenuItem fx:id="mainmenuMenuBar" mnemonicParsing="false" text="Main Menu" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="logoutMenuBar" mnemonicParsing="false" text="Logout" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Menu">
+          <items>
+            <MenuItem fx:id="searchbookMenuBar" mnemonicParsing="false" text="Search Book" />
+            <MenuItem fx:id="borrowbookMenuBar" mnemonicParsing="false" text="Borrow Book" />
+                  <MenuItem fx:id="returnbookMenuBar" mnemonicParsing="false" text="Return Book" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="addnewbookMenuBar" mnemonicParsing="false" text="Add New Book" />
+            <MenuItem fx:id="updatebookMenuBar" mnemonicParsing="false" text="Update Book" />
+            <MenuItem fx:id="deletebookMenuBar" mnemonicParsing="false" text="Delete Book" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="createsubscriberMenuBar" mnemonicParsing="false" text="Create Subscriber" />
+            <MenuItem fx:id="reviewsubscriberMenuBar" mnemonicParsing="false" text="Review Subscriber" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="generatereportMenuBar" disable="true" mnemonicParsing="false" text="Generate Report" />
+                  <MenuItem fx:id="viewdatabaseMenuBar" mnemonicParsing="false" text="View Database" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem fx:id="aboutoblMenuBar" mnemonicParsing="false" text="About OBL" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="569.0" prefWidth="663.0" VBox.vgrow="ALWAYS">
+      <children>
+            <ImageView fitHeight="476.0" fitWidth="640.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@fxml/images/background_image.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="11.0" layoutY="523.0" prefHeight="7.0" prefWidth="619.0" />
+            <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@fxml/images/borrow_icon.png" />
+               </image>
+               <effect>
+                  <Glow />
+               </effect>
+            </ImageView>
+            <Text fill="#282828" layoutX="65.0" layoutY="41.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.1" text="Generate Reports">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Text>
+            <ButtonBar layoutX="11.0" layoutY="523.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="619.0">
+              <buttons>
+                  <Button fx:id="helpButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" mnemonicParsing="false" text="Help">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxml/images/help_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="returnButton" alignment="CENTER" contentDisplay="RIGHT" maxWidth="-Infinity" minWidth="51.0" mnemonicParsing="false" prefHeight="27.0" text="Return">
+                     <graphic>
+                        <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@fxml/images/return_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+              </buttons>
+            </ButtonBar>
+            <ImageView fitHeight="45.0" fitWidth="150.0" layoutX="513.0" layoutY="513.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@fxml/images/braude_logo.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="pathLabel" layoutX="195.0" layoutY="548.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Generate Reports">
+               <font>
+                  <Font size="11.0" />
+               </font></Text>
+            <TabPane layoutX="6.0" layoutY="100.0" prefHeight="412.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Activity Report">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="640.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" layoutY="2.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="640.0" />
+                              <TableView fx:id="activityTableView" layoutY="2.0" prefHeight="381.0" prefWidth="640.0">
+                                <columns>
+                                  <TableColumn fx:id="tableColumnDate" prefWidth="84.80001831054688" text="Date" />
+                                  <TableColumn fx:id="tableColumnActive" prefWidth="111.99993896484375" text="Active Subscribers" />
+                                    <TableColumn fx:id="tableColumnFrozen" minWidth="4.79998779296875" prefWidth="118.39996337890625" text="Frozen Subscribers" />
+                                    <TableColumn fx:id="tableColumnLocked" prefWidth="112.0" text="Locked Subscribers" />
+                                    <TableColumn fx:id="tableColumnBooks" prefWidth="86.4000244140625" text="Total Books" />
+                                    <TableColumn fx:id="tableColumnLates" prefWidth="124.0" text="Late Subscribers" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Borrows Report">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="390.0" prefWidth="640.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" layoutY="2.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="640.0" />
+                                    <BarChart fx:id="borrowsBarChart" layoutX="5.0" layoutY="8.0" prefHeight="318.0" prefWidth="630.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
+                                    <Label layoutX="32.0" layoutY="318.0" text="Average Borrow Duration:" />
+                                    <Label layoutX="342.0" layoutY="318.0" text="Median:" />
+                                    <Label layoutX="32.0" layoutY="345.0" text="Normal Books:" />
+                                    <TextField fx:id="averageNormalTextField" layoutX="118.0" layoutY="341.0" prefHeight="26.0" prefWidth="56.0" />
+                                    <Label layoutX="183.0" layoutY="345.0" text="Wanted Books:" />
+                                    <TextField fx:id="wantedNormalTextField" layoutX="269.0" layoutY="341.0" prefHeight="26.0" prefWidth="56.0" />
+                                    <Label layoutX="342.0" layoutY="345.0" text="Normal Books:" />
+                                    <TextField fx:id="medianNormalTextField" layoutX="428.0" layoutY="341.0" prefHeight="26.0" prefWidth="56.0" />
+                                    <Label layoutX="493.0" layoutY="345.0" text="Wanted Books:" />
+                                    <TextField fx:id="medianNormalTextField" layoutX="579.0" layoutY="341.0" prefHeight="26.0" prefWidth="56.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Late Returns Report">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="640.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="380.0" layoutY="2.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="640.0" />
+                                    <BarChart fx:id="lateBarChart" layoutX="5.0" layoutY="2.0" prefHeight="318.0" prefWidth="630.0">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                    <Label layoutX="42.0" layoutY="314.0" text="Select Book:" />
+                                    <ComboBox layoutX="116.0" layoutY="311.0" prefHeight="26.0" prefWidth="316.0" />
+                                    <Button layoutX="440.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="View" />
+                                    <Label layoutX="42.0" layoutY="350.0" text="Median:" />
+                                    <TextField fx:id="medianLateTextField" layoutX="116.0" layoutY="345.0" prefHeight="26.0" prefWidth="56.0" />
+                                    <Label layoutX="213.0" layoutY="350.0" text="Average:" />
+                                    <TextField fx:id="medianLateTextField1" layoutX="275.0" layoutY="345.0" prefHeight="26.0" prefWidth="56.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Label layoutX="14.0" layoutY="77.0" text="Select Report:" />
+            <Separator layoutX="103.0" layoutY="84.0" prefHeight="7.0" prefWidth="541.0" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

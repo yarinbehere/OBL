@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="451.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="451.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddNewBookController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -112,25 +112,29 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="300.0" layoutY="-1.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="13.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Book's details:" />
                   <Separator layoutX="153.0" layoutY="24.0" prefHeight="4.0" prefWidth="454.0" />
-                  <Button fx:id="changeButton" layoutX="206.0" layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Save Changes" />
-                  <Button fx:id="resetButton" layoutX="319.0" layoutY="260.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="70.0" text="Reset" />
                   <Text layoutX="26.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:" />
-                  <TextField fx:id="titleTextField" layoutX="103.0" layoutY="40.0" prefHeight="27.0" prefWidth="188.0" />
-                  <Text layoutX="302.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
-                  <TextField fx:id="authorTextField" layoutX="379.0" layoutY="40.0" prefHeight="27.0" prefWidth="212.0" />
-                  <Text layoutX="26.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject:" />
-                  <Text layoutX="26.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
-                  <ChoiceBox fx:id="subjectChoiceBox" accessibleText="dsfsdf" layoutX="103.0" layoutY="79.0" prefHeight="27.0" prefWidth="188.0" />
-                  <TextField fx:id="freeTextField" layoutX="103.0" layoutY="115.0" prefHeight="27.0" prefWidth="490.0" />
-                  <Text layoutX="26.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" wrappingWidth="62.41991329193115" />
-                  <TextField fx:id="quantityTextField" layoutX="102.0" layoutY="153.0" prefHeight="27.0" prefWidth="85.0" />
-                  <Text layoutX="212.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="62.41991329193115" />
-                  <TextField fx:id="locationTextField" layoutX="280.0" layoutY="153.0" prefHeight="27.0" prefWidth="85.0" />
-                  <Text layoutX="390.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demand:" wrappingWidth="62.41991329193115" />
-                  <ChoiceBox fx:id="demandChoiceBok" accessibleText="dsfsdf" layoutX="450.0" layoutY="153.0" prefHeight="27.0" prefWidth="142.0" />
-                  <Text layoutX="25.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:" wrappingWidth="75.91113951802254" />
-                  <TextField fx:id="pdfPathTextField" layoutX="100.0" layoutY="199.0" prefHeight="27.0" prefWidth="341.0" />
-                  <Button fx:id="uploadPDFButton" layoutX="449.0" layoutY="199.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="144.0" text="Upload PDF..." />
+                  <TextField fx:id="titleTextField" layoutX="110.0" layoutY="40.0" prefHeight="27.0" prefWidth="224.0" />
+                  <Text layoutX="353.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author:" />
+                  <TextField fx:id="authorTextField" layoutX="416.0" layoutY="40.0" prefHeight="27.0" prefWidth="175.0" />
+                  <Text layoutX="26.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Serial Number:" />
+                  <TextField fx:id="serialNumberTextField" layoutX="110.0" layoutY="81.0" prefHeight="27.0" prefWidth="76.0" />
+                  <Text layoutX="194.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edition:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="editionTextField" layoutX="248.0" layoutY="81.0" prefHeight="27.0" prefWidth="85.0" />
+                  <Text layoutX="353.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject(s):" />
+                  <TextField fx:id="subjectsTextField" layoutX="416.0" layoutY="81.0" prefHeight="27.0" prefWidth="175.0" promptText="saperated by commas" />
+                  <Text layoutX="26.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="quantityTextField" layoutX="109.0" layoutY="123.0" prefHeight="27.0" prefWidth="76.0" promptText="0" />
+                  <Text layoutX="193.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" wrappingWidth="62.41991329193115" />
+                  <TextField fx:id="locationTextField" layoutX="248.0" layoutY="124.0" prefHeight="27.0" prefWidth="85.0" />
+                  <Text layoutX="353.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demand:" wrappingWidth="62.41991329193115" />
+                  <ChoiceBox fx:id="demandChoiceBox" accessibleText="dsfsdf" layoutX="417.0" layoutY="124.0" prefHeight="27.0" prefWidth="175.0" />
+                  <Text layoutX="26.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
+                  <TextField fx:id="freeTextField" layoutX="107.0" layoutY="163.0" prefHeight="27.0" prefWidth="483.0" />
+                  <Text layoutX="26.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:" wrappingWidth="75.91113951802254" />
+                  <TextField fx:id="pdfPathTextField" layoutX="108.0" layoutY="208.0" prefHeight="27.0" prefWidth="361.0" />
+                  <Button fx:id="uploadPdfButton" layoutX="479.0" layoutY="208.0" mnemonicParsing="false" onAction="#uploadPDF" prefHeight="27.0" prefWidth="113.0" text="Upload PDF" />
+                  <Button fx:id="addNewBookButton" layoutX="206.0" layoutY="260.0" mnemonicParsing="false" onAction="#addNewBook" prefHeight="27.0" prefWidth="106.0" text="Add Book" />
+                  <Button fx:id="clearButton" layoutX="319.0" layoutY="260.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="70.0" text="Clear" />
                </children>
             </Pane>
       </children>

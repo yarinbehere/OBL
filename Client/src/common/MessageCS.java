@@ -8,6 +8,7 @@ import entity.BookOrder;
 import entity.BorrowedBook;
 import entity.BorrowsExt;
 import entity.FileTransfer;
+import entity.GenerateReport;
 import entity.Librarian;
 import entity.Subscriber;
 import entity.User;
@@ -26,7 +27,8 @@ public class MessageCS implements Serializable {
 		PERSONAL_INFORMATION_RESULT, UPDATE_PERSONAL_INFORMATION, SEARCH_BOOK_FOR_ORDER, LIST_OF_ORDERS,
 		ACTIVITY_LOG,SEARCH_ALL_FOR_VIEW_DATABASE, REQUEST_EXTENSION_CHECK, REQUEST_EXTENSION_INIT,
 	 SEARCH_SUBSCRIBER_FOR_OPTIONS, SEARCH_BOOK_FOR_RETURN, ORDER_BOOK, RETURN_BOOK, CANCEL_ORDER, 
-		LATE_RETURNS, ERROR_MESSAGE; 
+		LATE_RETURNS, ERROR_MESSAGE,SEARCH_BOOK_FOR_ADDNEWBOOK,
+		ADD_NEW_BOOK,SEARCH_BOOK_FOR_DELETEBOOK,DELETE_BOOK,UPLOAD_NEW_PDF, ACTIVITY_REPORT; 
 	}
 
 	MessageType messageType;
@@ -43,6 +45,7 @@ public class MessageCS implements Serializable {
 	private ArrayList<BorrowsExt> usersBorrows;
 	private ArrayList<?> arrayList;
 	private BookOrder bookOrder;
+	private GenerateReport generateReport;
 
 
 	/**
@@ -151,6 +154,11 @@ public class MessageCS implements Serializable {
 	public MessageCS(MessageType messageType) {
 		this.messageType = messageType;
 	}
+	
+	public MessageCS(MessageType messageType, GenerateReport generateReport) {
+		this.messageType = messageType;
+		this.setGenerateReport(generateReport);
+	}
 
 	public MessageCS(MessageType messageType, BookOrder bookOrder) 
 	{
@@ -255,5 +263,11 @@ public class MessageCS implements Serializable {
 	}
 	public void setBookOrder(BookOrder bookOrder) {
 		this.bookOrder = bookOrder;
+	}
+	public GenerateReport getGenerateReport() {
+		return generateReport;
+	}
+	public void setGenerateReport(GenerateReport generateReport) {
+		this.generateReport = generateReport;
 	}
 }

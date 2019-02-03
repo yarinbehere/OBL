@@ -27,7 +27,11 @@ public class Book implements Serializable{
 	private LocalDate dateOrder;
 	private String subscriptionNumber;
 	private Date returnDate;
-	private Date borrowDate; 
+	private Date borrowDate;
+	private String pdfPath;
+	private int originalQuantity;
+	private int amountOfBooks;
+	private String bookDemand; 
 
 
 	/**constructor when a message to server has been sent, to look for the book with these parameters
@@ -99,6 +103,123 @@ public class Book implements Serializable{
 		this.setBookTableOfContents(bookTableOfContents);
 
 	}
+	
+		/**
+	 * Add new book with data for columns in DB
+	 * @author Yarin
+	 */
+	public Book(String bookID, String bookTitle, String authorName, int editionNumber, String publishedDate,
+			String bookGenre, String bookDescription, int originalQuantity, String datePurchase, String shelfLocation,
+			String pdfPath, int amountOfBooks, String available) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.authorName = authorName;
+		this.editionNumber = editionNumber+"";
+		this.publishedDate = publishedDate;
+		this.bookGenre = bookGenre;
+		this.bookDescription = bookDescription;
+		this.originalQuantity = originalQuantity;
+		this.datePurchase = datePurchase;
+		this.shelfLocation = shelfLocation;
+		this.pdfPath = pdfPath;
+		this.amountOfBooks = amountOfBooks;
+		this.bookDemand = available;
+	}
+
+	
+	public String getEditionNumber() {
+			return editionNumber;
+		}
+
+		public void setEditionNumber(String editionNumber) {
+			this.editionNumber = editionNumber;
+		}
+
+		public String getPublishedDate() {
+			return publishedDate;
+		}
+
+		public void setPublishedDate(String publishedDate) {
+			this.publishedDate = publishedDate;
+		}
+
+		public String getCataologNumber() {
+			return cataologNumber;
+		}
+
+		public void setCataologNumber(String cataologNumber) {
+			this.cataologNumber = cataologNumber;
+		}
+
+		public String getDatePurchase() {
+			return datePurchase;
+		}
+
+		public void setDatePurchase(String datePurchase) {
+			this.datePurchase = datePurchase;
+		}
+
+		public String getPdfPath() {
+			return pdfPath;
+		}
+
+		public void setPdfPath(String pdfPath) {
+			this.pdfPath = pdfPath;
+		}
+
+		public int getOriginalQuantity() {
+			return originalQuantity;
+		}
+
+		public void setOriginalQuantity(int originalQuantity) {
+			this.originalQuantity = originalQuantity;
+		}
+
+		public int getAmountOfBooks() {
+			return amountOfBooks;
+		}
+
+		public void setAmountOfBooks(int amountOfBooks) {
+			this.amountOfBooks = amountOfBooks;
+		}
+
+		public String getBookDemand() {
+			return bookDemand;
+		}
+
+		public void setBookDemand(String bookDemand) {
+			this.bookDemand = bookDemand;
+		}
+
+	/***
+	 * Add completely new book with all attributes of Book
+	 * @author Yarin
+	 * @return
+	 */
+	public Book(String bookID, String bookTitle, String authorName, String editionNumber, String bookGenre,
+			String bookDescription, int originalQuantity, String publishedDate, String cataologNumber,
+			String datePurchase, String shelfLocation, String pdfPath, int amountOfBooks, String available,
+			Date soonestReturn,String bookDemand) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.authorName = authorName;
+		this.editionNumber = editionNumber+"";
+		this.bookGenre = bookGenre;
+		this.bookDescription = bookDescription;
+		this.originalQuantity = originalQuantity;
+		this.publishedDate = publishedDate;
+		this.cataologNumber = cataologNumber;
+		this.datePurchase = datePurchase;
+		this.shelfLocation = shelfLocation;
+		this.pdfPath = pdfPath;
+		this.amountOfBooks = amountOfBooks;
+		this.available = available;
+		this.soonestReturn = soonestReturn;
+		this.bookDemand=bookDemand;
+	}
+	
 
 	public Book(String bookID, String wantedLevel,int currentBookQuanity) 
 	{

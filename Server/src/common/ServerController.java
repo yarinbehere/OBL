@@ -1,8 +1,10 @@
 package common;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,6 +25,7 @@ import entity.ActivityLog;
 import entity.Book;
 import entity.BorrowsExt;
 import entity.FileTransfer;
+import entity.GenerateReport;
 import entity.Librarian;
 import entity.Subscriber;
 import entity.User;
@@ -176,8 +179,8 @@ public class ServerController {
 					FileTransfer tableOfContent = new FileTransfer(rset.getString("title"));// initialize the entity
 					// FileTransfer with the
 					// title book
-					String path = "/common/" + rset.getString("pdf");// temporary (need to change it)
-					File newFile = new File(message.getBook().getBookTitle() + ".pdf");// get the file and it's location
+					String path = "C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" + rset.getString("pdf") + ".pdf";// temporary (need to change it)
+					File newFile = new File(path);// get the file and it's location
 					byte[] mybytearray = new byte[(int) newFile.length()];
 					FileInputStream fis = new FileInputStream(newFile);
 					BufferedInputStream bis = new BufferedInputStream(fis);
@@ -644,6 +647,169 @@ public class ServerController {
 					book = null;
 				MessageCS soonestReturn = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 				client.sendToClient(soonestReturn);
+				break;
+				/**
+				 * Search book for Add new book
+				 * @author Yarin	
+				 */
+			case SEARCH_BOOK_FOR_ADDNEWBOOK:
+				Book newBook = null;
+				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
+				rset=	stmt.executeQuery(query);
+				if(rset.next() == true)
+				{
+					newBook = new Book(rset.getString("title"),rset.getString("author"),rset.getString("category"),rset.getString("description"));
+				}
+				MessageCS resultBookForAddNewBook = new MessageCS(MessageType.SEARCH_BOOK_FOR_ADDNEWBOOK, newBook);
+				client.sendToClient(resultBookForAddNewBook);
+				break;
+
+				/**
+				 * Upload PDF file to OBL DB
+				 * @author Yarin
+				 */
+			case UPLOAD_NEW_PDF:
+				File newPDFFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" +message.getTableOfContent().getFileName() + ".pdf");//write the file to location and added "1" to differ from main file
+				FileOutputStream fos = new FileOutputStream(newPDFFile);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);			  
+				bos.write(message.getTableOfContent().getMybytearray(),0,message.getTableOfContent().getSize());
+				bos.flush();
+				bos.close();
+				break;
+
+
+				/**
+				 * Add new book (after searching it on DB and verify it's doesn't exists)
+				 * @author Yarin	
+				 */
+			case ADD_NEW_BOOK:
+
+				int n;
+				query="INSERT INTO book VALUES ('";
+				query+=message.getBook().getBookID()+"','";
+				query+=message.getBook().getBookTitle()+"','";
+				query+=message.getBook().getAuthorName()+"','";
+				query+=message.getBook().getEditionNumber()+"','";
+				query+=message.getBook().getPublishedDate()+"','";
+				query+=message.getBook().getBookGenre()+"','";
+				query+=message.getBook().getBookDescription()+"','";
+				query+=message.getBook().getOriginalQuantity()+"','";
+				query+=LocalDate.now()+"','"; 
+				query+=message.getBook().getShelfLocation()+"','";
+				query+=message.getBook().getBookTitle()+".pdf"+"','";
+				query+=message.getBook().getOriginalQuantity()+"','";
+				query+=message.getBook().getBookDemand();
+				query+="');";
+				n=stmt.executeUpdate(query);
+
+				break;
+
+				/**
+				 * Search book for Delete Book
+				 * @author Yarin	
+				 */
+			case SEARCH_BOOK_FOR_DELETEBOOK:
+
+				Book tempBook=null;
+				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
+				rset=stmt.executeQuery(query);
+				Date tempDate=new Date(0);
+
+				if(rset.next()==true) {
+					tempBook=new Book(rset.getString("bookID"),rset.getString("title"),rset.getString("author"),Integer.parseInt(rset.getString("edition")),
+							tempDate.toString() ,rset.getString("category"),rset.getString("description"),
+							Integer.parseInt(rset.getString("originalQuantity")),tempDate.toString(),rset.getString("location"),
+							rset.getString("pdf"),Integer.parseInt(rset.getString("currentQuantity")),rset.getString("wanted"));
+				}
+
+				MessageCS resultBookForDeleteBook=new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK, tempBook);
+				client.sendToClient(resultBookForDeleteBook);
+				break;
+
+				/**
+				 * Delete Book
+				 * @author Yarin
+				 */
+			case DELETE_BOOK:
+
+				int deleteReturnValue;
+				query="DELETE FROM book WHERE bookID = '";
+				query+=message.getBook().getBookID()+"';";
+				//query+="');";
+				deleteReturnValue=stmt.executeUpdate(query);
+				break;
+
+				/**
+				 * @author Yarin
+				 */
+			case ACTIVITY_REPORT:
+				ArrayList<GenerateReport> generateList=new ArrayList<>();
+				int active=0;
+				int frozen=0;
+				int locked=0;
+				int booksQuantity=0;
+				int lates=0;
+				int shalevislame;
+				// Get subscriber statuses
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Active\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					active=rset.getInt("COUNT(subscriberStatus)");
+				}
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Frozen\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					frozen=rset.getInt("COUNT(subscriberStatus)");
+				}
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Locked\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					locked=rset.getInt("COUNT(subscriberStatus)");
+				}
+
+				// Get books originalQuantity
+				query = "SELECT SUM(originalQuantity) FROM book ";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					booksQuantity=rset.getInt("SUM(originalQuantity)");
+				}
+
+				// Get laters
+				query = "SELECT COUNT(lateReturn) FROM subscriber WHERE lateReturn > 0";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					lates=rset.getInt("COUNT(lateReturn)");
+				}
+
+
+				/* Check if report of today already exists in the system */
+				query="SELECT * FROM activityreport WHERE date = \"";
+				query+=LocalDate.now()+"\"";
+				rset=stmt.executeQuery(query);
+				if(rset.next()) {
+					// Is exist, need to UPDATE
+					query="UPDATE activityreport SET active = \"" + active + "\", frozen = \"" + frozen + "\", "
+							+ "locked = \""+locked+"\", books = \"" + booksQuantity + "\", late = \"" +lates +"\" WHERE date = \"" + LocalDate.now()+"\";";
+					shalevislame=stmt.executeUpdate(query);
+				}
+				else {
+					// is not exist, need to INSERT
+					query="INSERT INTO activityreport VALUES ('";
+					query+=LocalDate.now()+"','";
+					query+=active+"','";
+					query+=frozen+"','";
+					query+=locked+"','";
+					query+=booksQuantity+"','";
+					query+=lates;
+					query+="');";
+					shalevislame=stmt.executeUpdate(query);
+				}
+				GenerateReport generateReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
+				message = new MessageCS(MessageType.ACTIVITY_REPORT,generateReport);
+				client.sendToClient(message);
 				break;
 			default:
 				break;
