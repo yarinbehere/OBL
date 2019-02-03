@@ -242,6 +242,7 @@ public class AddNewBookController implements Initializable{
 	/* Click on Upload PDF */
 	@FXML
     void uploadPDF(ActionEvent event) throws IOException {
+		Alert successAlert=new Alert(AlertType.CONFIRMATION);
 		FileTransfer tableOfContent = new FileTransfer(pdfPathTextField.getText());//initialize the entity FileTransfer with the title book
 //		String path =  "/common/" + rset.getString("pdf");//temporary (need to change it)
 		File newFile = new File (pdfPathTextField.getText() + ".pdf");//get the file and it's location
@@ -257,6 +258,9 @@ public class AddNewBookController implements Initializable{
 		
 		// Turn flag ON
 		this.pdfUploadedFlag=true;
+		successAlert.setTitle("Add New Book");
+    	successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
+    	successAlert.showAndWait();
     }
 
 

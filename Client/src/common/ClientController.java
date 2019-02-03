@@ -75,13 +75,17 @@ public class ClientController {
 			break;
 			
 		/**
-		 * Generate Activity Report
+		 * Return PDF of table of content after uploading it
 		 * @author Yarin
 		 */
-		case GENERATE_ACTIVITY_REPORT:
-			GenerateReportController.resultActivityReport=message.getReport();
+		case UPLOAD_NEW_PDF:
+			AddNewBookController.tableOfContent=message.getTableOfContent();
 			break;
 			
+		case ACTIVITY_REPORT:
+			GenerateReportController.reportResult=message.getGenerateReport();
+			
+			break;
 			
 		case TABLE_OF_CONTENT:
 			SearchBookController.tableOfContent = message.getTableOfContent();

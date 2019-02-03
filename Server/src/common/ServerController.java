@@ -10,13 +10,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.sql.Date;
 import java.util.ArrayList;
+
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 
 import common.MessageCS.MessageType;
 import common.ocsf.server.ConnectionToClient;
 import entity.Book;
 import entity.FileTransfer;
+import entity.GenerateReport;
 import entity.User.Role;
 
 public class ServerController {
@@ -160,46 +165,81 @@ public class ServerController {
 				query+=message.getBook().getBookID()+"';";
 				//query+="');";
 				deleteReturnValue=stmt.executeUpdate(query);
-				
 				break;
 				
-			/**
-			 * Generate Activity Report
-			 * @author Yarin
-			 */
-			case GENERATE_ACTIVITY_REPORT:
-				ArrayList<String> report=new ArrayList<>();
-				int tempCount=0;
+				/**
+				 * @author Yarin
+				 */
+			case ACTIVITY_REPORT:
+				ArrayList<GenerateReport> generateList=new ArrayList<>();
+				int active=0;
+				int frozen=0;
+				int locked=0;
+				int booksQuantity=0;
+				int lates=0;
+				int shalevislame;
+				// Get subscriber statuses
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Active\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					active=rset.getInt("COUNT(subscriberStatus)");
+				}
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Frozen\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					frozen=rset.getInt("COUNT(subscriberStatus)");
+				}
+				query = "SELECT COUNT(subscriberStatus) FROM subscriber "
+						+ "WHERE subscriberStatus = \"Locked\"";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					locked=rset.getInt("COUNT(subscriberStatus)");
+				}
 				
-				/* Subscriber */
-				query="SELECT COUNT(*) FROM subscriber';";
-				rset=stmt.executeQuery(query);
-				report.add("Total subscribers: "+rset.getString(1));
-				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Active';";
-				rset=stmt.executeQuery(query);
-				report.add("Active subscribers: "+rset.getString(1));
-				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Frozen';";
-				rset=stmt.executeQuery(query);
-				report.add("Frozen subscribers: "+rset.getString(1));
-				query="SELECT COUNT(*) FROM subscriber WHERE subscriberStatus = 'Locked';";
-				rset=stmt.executeQuery(query);
-				report.add("Locked subscribers: "+rset.getString(1));
-				/* Books */
-				query="SELECT COUNT(*) FROM book';";
-				rset=stmt.executeQuery(query);
-				report.add("Total books: "+rset.getString(1));
-				query="SELECT SUM(originalQuantity) FROM book';";
-				rset=stmt.executeQuery(query);
-				report.add("Total books quantity (copies): "+rset.getString(1));
-				/* Borrows */
-				query="SELECT COUNT(*) FROM borrowedbook';";
-				rset=stmt.executeQuery(query);
-				report.add("Total borrowed books: "+rset.getString(1));
-				System.out.println(report);
-				MessageCS returnedData=new MessageCS(MessageType.GENERATE_ACTIVITY_REPORT, report.toString());
-				client.sendToClient(returnedData.toString());
+				// Get books originalQuantity
+				query = "SELECT SUM(originalQuantity) FROM book ";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					booksQuantity=rset.getInt("SUM(originalQuantity)");
+				}
 				
+				// Get laters
+				query = "SELECT COUNT(lateReturn) FROM subscriber WHERE lateReturn > 0";
+				rset = stmt.executeQuery(query);
+				if(rset.next()) {
+					lates=rset.getInt("COUNT(lateReturn)");
+				}
+				
+				
+				/* Check if report of today already exists in the system */
+				query="SELECT * FROM activityreport WHERE date = \"";
+				query+=LocalDate.now()+"\"";
+				rset=stmt.executeQuery(query);
+				if(rset.next()) {
+					// Is exist, need to UPDATE
+					query="UPDATE activityreport SET active = \"" + active + "\", frozen = \"" + frozen + "\", "
+							+ "locked = \""+locked+"\", books = \"" + booksQuantity + "\", late = \"" +lates +"\" WHERE date = \"" + LocalDate.now()+"\";";
+					shalevislame=stmt.executeUpdate(query);
+				}
+				else {
+					// is not exist, need to INSERT
+					query="INSERT INTO activityreport VALUES ('";
+					query+=LocalDate.now()+"','";
+					query+=active+"','";
+					query+=frozen+"','";
+					query+=locked+"','";
+					query+=booksQuantity+"','";
+					query+=lates;
+					query+="');";
+					shalevislame=stmt.executeUpdate(query);
+				}
+				GenerateReport generateReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
+				message = new MessageCS(MessageType.ACTIVITY_REPORT,generateReport);
+				client.sendToClient(message);
 				break;
+				
 				
 			case SEARCH_BOOK: 
 				ArrayList<Book> bookList = new ArrayList<>();

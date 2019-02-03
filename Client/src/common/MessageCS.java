@@ -1,10 +1,12 @@
 package common;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import entity.Book;
 import entity.FileTransfer;
+import entity.GenerateReport;
 import entity.User;
 
 public class MessageCS implements Serializable {
@@ -15,7 +17,8 @@ public class MessageCS implements Serializable {
 	 * @author Roman
 	 */
 	public enum MessageType {
-		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ADDNEWBOOK,ADD_NEW_BOOK,SEARCH_BOOK_FOR_DELETEBOOK,DELETE_BOOK,GENERATE_ACTIVITY_REPORT, UPLOAD_NEW_PDF;
+		LOGIN, SEARCH_BOOK,TABLE_OF_CONTENT,SEARCH_BOOK_FOR_ADDNEWBOOK,
+		ADD_NEW_BOOK,SEARCH_BOOK_FOR_DELETEBOOK,DELETE_BOOK,UPLOAD_NEW_PDF, ACTIVITY_REPORT;
 	}
 	
 	
@@ -27,7 +30,9 @@ public class MessageCS implements Serializable {
 	private ArrayList<Book> books;
 	private FileTransfer tableOfContent;
 
-	private String report;
+	private GenerateReport generateReport;
+	
+	//private String dates;
 	
 	/**
 	 * user wants to login to the system
@@ -77,14 +82,12 @@ public class MessageCS implements Serializable {
 		this.setTableOfContent(tableOfContent);
 	}
 	
-	/**
-	 * @author Yarin
-	 */
-	public MessageCS(MessageType messageType,String report) {
-		this.messageType=messageType;
-		this.report=report;
-	}
 	
+	
+	public MessageCS(MessageType messageType, GenerateReport generateReport) {
+		this.messageType = messageType;
+		this.setGenerateReport(generateReport);
+	}
 	public User getUser() {
 		return user;
 	}
@@ -109,9 +112,11 @@ public class MessageCS implements Serializable {
 	public void setTableOfContent(FileTransfer tableOfContent) {
 		this.tableOfContent = tableOfContent;
 	}
-	
-	public String getReport() {
-		return report;
+	public GenerateReport getGenerateReport() {
+		return generateReport;
 	}
-
+	public void setGenerateReport(GenerateReport generateReport) {
+		this.generateReport = generateReport;
+	}
+	
 }
