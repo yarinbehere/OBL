@@ -669,7 +669,9 @@ public class ServerController {
 				 * @author Yarin
 				 */
 			case UPLOAD_NEW_PDF:
-				File newPDFFile = new File ("C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" +message.getTableOfContent().getFileName() + ".pdf");//write the file to location and added "1" to differ from main file
+				String path = "C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" +message.getTableOfContent().getFileName() + ".pdf";
+				System.out.println(path);
+				File newPDFFile = new File (path);//write the file to location and added "1" to differ from main file
 				FileOutputStream fos = new FileOutputStream(newPDFFile);
 				BufferedOutputStream bos = new BufferedOutputStream(fos);			  
 				bos.write(message.getTableOfContent().getMybytearray(),0,message.getTableOfContent().getSize());

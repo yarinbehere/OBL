@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Desktop;
 import common.MainClient;
@@ -244,32 +245,42 @@ public class AddNewBookController implements Initializable{
     void uploadPDF(ActionEvent event) throws IOException {
 		Alert successAlert=new Alert(AlertType.INFORMATION);
 		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
-		if(titleTextField.getText() == null)
+		if(titleTextField.getText().equals(pdfPathTextField.getText())==false)
 		{
 			// Show error
 			errorAlert.setTitle("Failed");
-    		errorAlert.setContentText("Couldn't open file.");
+    		errorAlert.setContentText("Please enter matching Title and PDF File Name.");
     		errorAlert.showAndWait();
     		return;
 		}
-		FileTransfer tableOfContent = new FileTransfer(titleTextField.getText());//initialize the entity FileTransfer with the title book
-//		String path =  "/common/" + rset.getString("pdf");//temporary (need to change it)
-		File newFile = new File (pdfPathTextField.getText());//get the file and it's location
-		byte [] mybytearray  = new byte [(int)newFile.length()];
-		FileInputStream fis = new FileInputStream(newFile);
-		BufferedInputStream bis = new BufferedInputStream(fis);			 
-		tableOfContent.initArray(mybytearray.length);
-		tableOfContent.setSize(mybytearray.length);
-		bis.read(tableOfContent.getMybytearray(),0,mybytearray.length);
-		MessageCS file = new MessageCS(MessageType.UPLOAD_NEW_PDF,tableOfContent);
-		MainClient.client.accept(file);
-		bis.close();
+		try
+		{
+			FileTransfer tableOfContent = new FileTransfer(titleTextField.getText());//initialize the entity FileTransfer with the title book
+			File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Client\\pdf\\" + pdfPathTextField.getText() +".pdf");//get the file and it's location
+			byte [] mybytearray  = new byte [(int)newFile.length()];
+			FileInputStream fis = new FileInputStream(newFile);
+			BufferedInputStream bis = new BufferedInputStream(fis);			 
+			tableOfContent.initArray(mybytearray.length);
+			tableOfContent.setSize(mybytearray.length);
+			bis.read(tableOfContent.getMybytearray(),0,mybytearray.length);
+			MessageCS file = new MessageCS(MessageType.UPLOAD_NEW_PDF,tableOfContent);
+			MainClient.client.accept(file);
+			bis.close();
+			
+			// Turn flag ON
+			this.pdfUploadedFlag=true;
+			successAlert.setTitle("Add New Book");
+	    	successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
+	    	successAlert.showAndWait();
+		}
+		catch(FileNotFoundException e)
+		{
+			// Show error
+			errorAlert.setTitle("Failed");
+			errorAlert.setContentText("Could not upload file.");
+			errorAlert.showAndWait();
+		}
 		
-		// Turn flag ON
-		this.pdfUploadedFlag=true;
-		successAlert.setTitle("Add New Book");
-    	successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
-    	successAlert.showAndWait();
     }
 
 
