@@ -70,7 +70,7 @@
             <Separator layoutX="11.0" layoutY="419.0" prefHeight="7.0" prefWidth="619.0" />
             <ImageView fitHeight="40.0" fitWidth="70.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@fxml/images/extensionRequest_icon.png" />
+                  <Image url="@../../../../Resource/images/activityLog_icon.png" />
                </image>
                <effect>
                   <Glow />
@@ -116,7 +116,8 @@
             <Text fx:id="pathLabel" layoutX="197.0" layoutY="458.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Activity Log">
                <font>
                   <Font size="11.0" />
-               </font></Text>
+               </font>
+            </Text>
       </children>
     </AnchorPane>
   </children>

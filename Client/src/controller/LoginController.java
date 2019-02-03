@@ -48,7 +48,7 @@ public class LoginController
 		MessageCS message = new MessageCS(MessageType.LOGIN,user);
 		MainClient.client.accept(message);
 		//	new ThreadTest.ThreadTest2(message).run();
-		Thread.sleep(400);
+		Thread.sleep(800);
 		//load the page for the specific user
 		if(userResult==null) 
 		{
