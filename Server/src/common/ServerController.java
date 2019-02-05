@@ -942,7 +942,7 @@ public class ServerController {
 		 * (u.userName = s.userName) AND (bb.bookId = b.bookId) AND
 		 * (bb.subscriptionNumber = s.subscriberId);
 		 */
-		String query = "SELECT bb.subscriptionNumber, s.firstName, bb.bookId, b.title, bb.borrowDate, bb.returnDate, u.userName FROM borrowedbook bb, book b, subscriber s, user u WHERE  u.userName= ";
+		String query = "SELECT bb.subscriptionNumber, s.firstName, bb.bookId, b.title, bb.borrowDate, bb.returnDate, u.userName, b.wanted FROM borrowedbook bb, book b, subscriber s, user u WHERE  u.userName= ";
 		query += "\"" + userName + "\" ";
 		query += "AND (u.userName = s.userName) AND (bb.bookId = b.bookId) AND (bb.subscriptionNumber = s.subscriberId);";
 		ResultSet rset = dbmanager.runQuery(query);
