@@ -211,6 +211,15 @@ public class BorrowBookController implements Initializable{
         	MessageCS message = new MessageCS(MessageType.BORROW,borrowedbook);
         	MainClient.client.accept(message); 
         	Thread.sleep(1500);
+        	
+        	if(cancel_borrow == null)
+        	{
+        		alert5.setTitle("Borrowed book");
+            	alert5.setContentText("Book successfully borrowed");
+        		alert5.showAndWait();
+        		resultBook.setCurrentBookQuanity(resultBook.getCurrentBookQuanity()-1);
+        		return;
+        	}
         	 
         	if(cancel_borrow.getBookDetails().equals("subscriber already borrowed this book"))
         	{
@@ -221,11 +230,7 @@ public class BorrowBookController implements Initializable{
         		return;
         	}
         
-        	alert5.setTitle("Borrowed book");
-        	alert5.setContentText("Book successfully borrowed");
-    		alert5.showAndWait();
-    		resultBook.setCurrentBookQuanity(resultBook.getCurrentBookQuanity()-1);
-    		return;
+        	
     	}
 
     }
