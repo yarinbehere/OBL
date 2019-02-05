@@ -256,7 +256,7 @@ public class AddNewBookController implements Initializable{
 		try
 		{
 			FileTransfer tableOfContent = new FileTransfer(titleTextField.getText());//initialize the entity FileTransfer with the title book
-			File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Client\\pdf\\" + pdfPathTextField.getText() +".pdf");//get the file and it's location
+			File newFile = new File ("C:\\Client\\pdf\\" + pdfPathTextField.getText() +".pdf");//get the file and it's location
 			byte [] mybytearray  = new byte [(int)newFile.length()];
 			FileInputStream fis = new FileInputStream(newFile);
 			BufferedInputStream bis = new BufferedInputStream(fis);			 

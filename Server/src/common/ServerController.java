@@ -179,7 +179,7 @@ public class ServerController {
 					FileTransfer tableOfContent = new FileTransfer(rset.getString("title"));// initialize the entity
 					// FileTransfer with the
 					// title book
-					String path = "C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" + rset.getString("pdf") + ".pdf";// temporary (need to change it)
+					String path = "C:\\Server\\pdf\\" + rset.getString("pdf") + ".pdf";// temporary (need to change it)
 					File newFile = new File(path);// get the file and it's location
 					byte[] mybytearray = new byte[(int) newFile.length()];
 					FileInputStream fis = new FileInputStream(newFile);
@@ -670,7 +670,7 @@ public class ServerController {
 				 * @author Yarin
 				 */
 			case UPLOAD_NEW_PDF:
-				String path = "C:\\Users\\rami\\git\\OBL\\Server\\pdf\\" +message.getTableOfContent().getFileName() + ".pdf";
+				String path = "C:\\Server\\pdf\\" +message.getTableOfContent().getFileName() + ".pdf";
 				System.out.println(path);
 				File newPDFFile = new File (path);//write the file to location and added "1" to differ from main file
 				FileOutputStream fos = new FileOutputStream(newPDFFile);

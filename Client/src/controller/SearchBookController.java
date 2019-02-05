@@ -145,7 +145,7 @@ public class SearchBookController implements Initializable{
     	MainClient.client.accept(message);//send message to the client
     	Thread.sleep(1500);
     	//String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
-    	File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Client\\pdf\\" +tableOfContent.getFileName()+ ".pdf");//write the file to location and added "1" to differ from main file
+    	File newFile = new File ("C:\\Client\\pdf\\" +tableOfContent.getFileName()+ ".pdf");//write the file to location and added "1" to differ from main file
 	    FileOutputStream fos = new FileOutputStream(newFile);
 	    BufferedOutputStream bos = new BufferedOutputStream(fos);			  
 	    bos.write(tableOfContent.getMybytearray(),0,tableOfContent.getSize());
