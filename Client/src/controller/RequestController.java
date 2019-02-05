@@ -89,11 +89,12 @@ public class RequestController {
 		requestExtensionButton.setDisable(true);// if user pressed search again, disable the button
 		BorrowsExt borrowsExtCurrent = borrowedBooksTable.getSelectionModel().getSelectedItem();
 		
+		System.out.println(borrowsExtCurrent.getWanted());
 		if(borrowsExtCurrent.getWanted().equals("wanted"))
 		{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("wanted request extension");
-			alert.setContentText("wanted request extension");
+			alert.setContentText("You cant extend the period time for wanted book");
 			alert.showAndWait();
 			return;
 		}
