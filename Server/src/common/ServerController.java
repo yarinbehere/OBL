@@ -633,7 +633,7 @@ public class ServerController {
 						+ "AND subscriptionNumber = \"" + message.getBookOrder().getSubscriptionNumber() + "\";";
 				stmt.executeUpdate(query);
 				query = "INSERT INTO ActivityLog VALUES (\""+ LocalDate.now()
-				+"\", \"Canceled an order\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
+				+"\", \"Canceled an order\",\""+ message.getBookOrder().getSubscriptionNumber() + "\")"; 
 				stmt.executeUpdate(query);	
 				break;
 			case SEARCH_BOOK_FOR_ORDER:

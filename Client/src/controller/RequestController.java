@@ -89,7 +89,6 @@ public class RequestController {
 		requestExtensionButton.setDisable(true);// if user pressed search again, disable the button
 		BorrowsExt borrowsExtCurrent = borrowedBooksTable.getSelectionModel().getSelectedItem();
 		
-		System.out.println(borrowsExtCurrent.getWanted());
 		if(borrowsExtCurrent.getWanted().equals("wanted"))
 		{
 			Alert alert = new Alert(AlertType.INFORMATION);
