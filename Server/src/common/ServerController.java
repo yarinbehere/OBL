@@ -724,7 +724,24 @@ public class ServerController {
 							Integer.parseInt(rset.getString("originalQuantity")),tempDate.toString(),rset.getString("location"),
 							rset.getString("pdf"),Integer.parseInt(rset.getString("currentQuantity")),rset.getString("wanted"));
 				}
-
+				query = "SELECT * FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookID() + "\";";
+				rset = stmt.executeQuery(query);
+				if(rset.next())
+				{
+					tempBook=null;
+					MessageCS resultBookForDeleteBook=new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK, tempBook);
+					client.sendToClient(resultBookForDeleteBook);
+					break;
+				}
+				query = "SELECT * FROM bookorder WHERE bookID = \"" + message.getBook().getBookID() + "\";";
+				rset = stmt.executeQuery(query);
+				if(rset.next())
+				{
+					tempBook=null;
+					MessageCS resultBookForDeleteBook=new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK, tempBook);
+					client.sendToClient(resultBookForDeleteBook);
+					break;
+				}
 				MessageCS resultBookForDeleteBook=new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK, tempBook);
 				client.sendToClient(resultBookForDeleteBook);
 				break;
@@ -734,7 +751,7 @@ public class ServerController {
 				 * @author Yarin
 				 */
 			case DELETE_BOOK:
-
+				
 				int deleteReturnValue;
 				query="DELETE FROM book WHERE bookID = '";
 				query+=message.getBook().getBookID()+"';";

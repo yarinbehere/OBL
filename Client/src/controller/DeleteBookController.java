@@ -84,7 +84,7 @@ public class DeleteBookController {
 		// Check if book not exists.
     	if (resultBookForDeleteBook == null) {
     		errorAlert.setTitle("Failed");
-    		errorAlert.setContentText("Book is not exists in library's inventory.");
+    		errorAlert.setContentText("Book is not exists in library's inventory,or the book is borrowed or ordered by subscriber!");
     		errorAlert.showAndWait(); 
   			return;
     	}
@@ -126,6 +126,7 @@ public class DeleteBookController {
 				// deletes Table of Content
 				boolean pdfFileDelete = new File(pdfPathTextField.getText()).delete();
 			}
+			
 			catch (Exception e) { 
 				errorAlert.setTitle("Failed");
 				errorAlert.setContentText("Delete book failed.");
