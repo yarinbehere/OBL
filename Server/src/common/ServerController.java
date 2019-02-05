@@ -453,7 +453,7 @@ public class ServerController {
 				String actionDescription="Request to extend the borrow period";
 				updateActivityLog(actionDescription, subscriptionNumber);
 
-				if (countBookOrders(bookId) > 0) {
+				if (countBookOrders(bookId) > 0) { 
 					requestCheckMessage = new MessageCS(MessageType.REQUEST_EXTENSION_CHECK, "orders exist");
 					client.sendToClient(requestCheckMessage);
 				} else {
@@ -491,7 +491,7 @@ public class ServerController {
 				rset = stmt.executeQuery(query);
 				bookList = new ArrayList<Book>();
 				Statement stmtFindQueue = conn.createStatement();
-				while(rset.next())
+				while(rset.next()) 
 				{
 					String queryFindQueue = "SELECT count(bookID) FROM bookorder WHERE orderDate <= '"
 							+ rset.getDate("orderDate") + "'AND bookID = '" + rset.getString("bookID") + "' AND orderTime <= '"
@@ -714,7 +714,7 @@ public class ServerController {
 			case SEARCH_BOOK_FOR_DELETEBOOK:
 
 				Book tempBook=null;
-				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookID()+"';";
+				query = "SELECT * FROM book WHERE bookID= '" + message.getBook().getBookDetails()+"';";
 				rset=stmt.executeQuery(query);
 				Date tempDate=new Date(0);
 
@@ -920,6 +920,10 @@ public class ServerController {
 		query += "\",\"";
 		subscriber.setSubscriberStatus("Active"); // status = Active
 		query += subscriber.getSubscriberStatus();
+		query += "\",\"";
+		query += LocalDate.now().plusYears(4);
+		query += "\",\"";
+		query += 0;
 		query += "\");";
 		dbmanager.runUpdateQuery(query);
 

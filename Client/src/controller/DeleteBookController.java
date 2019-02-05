@@ -79,7 +79,7 @@ public class DeleteBookController {
 		// Search DB for a book with this serial number
 		MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK,tempBook);
 		MainClient.client.accept(message);
-		Thread.sleep(100);
+		Thread.sleep(400);
 		
 		// Check if book not exists.
     	if (resultBookForDeleteBook == null) {
@@ -122,11 +122,11 @@ public class DeleteBookController {
 			MessageCS message = new MessageCS(MessageType.DELETE_BOOK,resultBookForDeleteBook);
 			try {
 				MainClient.client.accept(message);
-				Thread.sleep(100);
+				Thread.sleep(400);
 				// deletes Table of Content
 				boolean pdfFileDelete = new File(pdfPathTextField.getText()).delete();
 			}
-			catch (Exception e) {
+			catch (Exception e) { 
 				errorAlert.setTitle("Failed");
 				errorAlert.setContentText("Delete book failed.");
 				errorAlert.showAndWait(); 
