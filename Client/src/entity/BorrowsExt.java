@@ -18,6 +18,7 @@ public class BorrowsExt implements Serializable {
 	private String bookTitle;
 	private LocalDate borrowDate;
 	private LocalDate returnDate;
+	private String wanted;
 
 	/**
 	 * @param subscriptionNumber
@@ -28,13 +29,14 @@ public class BorrowsExt implements Serializable {
 	 * @param returnDate
 	 */
 	public BorrowsExt(String subscriptionNumber, String firstName, String bookID, String bookTitle,
-			LocalDate borrowDate, LocalDate returnDate) {
+			LocalDate borrowDate, LocalDate returnDate,String wanted) {
 		this.subscriptionNumber = subscriptionNumber;
 		this.firstName = firstName;
 		this.bookID = bookID;
 		this.bookTitle = bookTitle;
 		this.borrowDate = borrowDate;
 		this.returnDate = returnDate;
+		this.setWanted(wanted);
 	}
 
 	/**
@@ -119,5 +121,13 @@ public class BorrowsExt implements Serializable {
 	 */
 	public void setfirstName(String userName) {
 		this.firstName = userName;
+	}
+
+	public String getWanted() {
+		return wanted;
+	}
+
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
 	}
 }

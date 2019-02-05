@@ -954,6 +954,7 @@ public class ServerController {
 				String firstName = rset.getString("firstName");
 				String bookID = rset.getString("bookId");
 				String bookTitle = rset.getString("title");
+				String wanted = rset.getString("wanted");
 				LocalDate borrowDate = null, returnDate = null;
 				// converting to localdate
 				try {
@@ -965,7 +966,7 @@ public class ServerController {
 					e.printStackTrace();
 				}
 				BorrowsExt borrowsExt = new BorrowsExt(subscriptionNumber, firstName, bookID, bookTitle, borrowDate,
-						returnDate);
+						returnDate,wanted);
 				usersBorrows.add(borrowsExt);
 			}
 		} catch (SQLException e) {
