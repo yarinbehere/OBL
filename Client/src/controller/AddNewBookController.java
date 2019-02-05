@@ -165,7 +165,7 @@ public class AddNewBookController implements Initializable{
 		// Search DB for a book with this serial number
 		MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ADDNEWBOOK,tempBook);
     	MainClient.client.accept(message);
-    	Thread.sleep(100);
+    	Thread.sleep(1500);
     	
     	// Check if book already exists.
     	if (!(resultBookForAddNewBook == null)) {
@@ -183,7 +183,7 @@ public class AddNewBookController implements Initializable{
     	// Add this Book object to DB
     	message = new MessageCS(MessageType.ADD_NEW_BOOK,tempBook);
     	MainClient.client.accept(message); 
-    	Thread.sleep(100);
+    	Thread.sleep(1500);
     	successAlert.setTitle("Add New Book");
     	successAlert.setContentText("Book "+tempBook.getBookID()+": "+tempBook.getBookTitle()+" successfully added to inventory.");
     	successAlert.showAndWait();

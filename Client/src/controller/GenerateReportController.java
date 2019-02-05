@@ -82,7 +82,7 @@ public class GenerateReportController implements Initializable{
 		MessageCS message = new MessageCS(MessageType.ACTIVITY_REPORT, generateReport);
 		MainClient.client.accept(message);
 		try {
-			Thread.sleep(400);
+			Thread.sleep(1500);
 			tempReports.add(reportResult);
 			listOfReports = FXCollections.observableArrayList(tempReports);//insert those items first in the collection
 			activityTableView.setItems(listOfReports);

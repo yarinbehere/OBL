@@ -69,7 +69,7 @@ public class ReviewSubscriberController {
 		MessageCS message = new MessageCS(MessageType.REVIEW_SUBSCRIBER_SEARCH, subscriberId);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(400);
+		Thread.sleep(1500);
 		if (foundSubscriber == null) {
 			subscriberEdittxt.setText("not valid, try again!");
 		} else {
@@ -103,7 +103,7 @@ public class ReviewSubscriberController {
 			MainClient.client.accept(message);
 			// wait for server processing
 			try {
-				Thread.sleep(400);
+				Thread.sleep(1500);
 			} catch (InterruptedException e) {
 				System.out.println("interrupted while sleeping");
 			}

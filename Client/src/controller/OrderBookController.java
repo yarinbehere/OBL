@@ -63,7 +63,7 @@ public class OrderBookController implements Initializable{
 			Book book = new Book(bookNameTextField.getText());
 			MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_ORDER,book);
 			MainClient.client.accept(message);
-			Thread.sleep(400);
+			Thread.sleep(1500);
 			if(wantedBook == null)
 			{
 				soonestReturnLabel.setVisible(false);
@@ -102,7 +102,7 @@ public class OrderBookController implements Initializable{
 		MessageCS message = new MessageCS(MessageType.LIST_OF_ORDERS,LoginController.subscriberResult);
 		MainClient.client.accept(message);
 		try {
-			Thread.sleep(400);
+			Thread.sleep(1500);
 			listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
 			ordersTableView.setItems(listOfBooks);
 		} catch (InterruptedException e) {
@@ -146,7 +146,7 @@ public class OrderBookController implements Initializable{
 		BookOrder bookOrder = new BookOrder(bookNameTextField.getText(),LoginController.subscriberResult.getSubscriberDetails());
 		MessageCS message = new MessageCS(MessageType.ORDER_BOOK,bookOrder);
 		MainClient.client.accept(message);
-		Thread.sleep(100);
+		Thread.sleep(1500);
 		//returned queue 0 from server which means the queue is full
 		if(bookForOrder == null)
 		{
@@ -167,7 +167,7 @@ public class OrderBookController implements Initializable{
 			listOfBooks = FXCollections.observableArrayList(bookResult);//insert those items first in the collection
 
 			ordersTableView.setItems(listOfBooks);
-			Thread.sleep(100);
+			Thread.sleep(1500);
 
 			alert.setTitle("Success");
 			alert.setHeaderText("Success");

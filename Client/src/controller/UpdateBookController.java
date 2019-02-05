@@ -77,7 +77,7 @@ public class UpdateBookController implements Initializable{
     	Book book = new Book(serialNumberTextField.getText(), null, null, null, null);
     	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_UPDATE_BOOK, book);
     	MainClient.client.accept(message);
-    	Thread.sleep(400);
+    	Thread.sleep(1500);
     	if(resultBook == null)
 		{
         	//Alert java
@@ -142,7 +142,7 @@ public class UpdateBookController implements Initializable{
 					Integer.parseInt(quantityTextField.getText()),locationTextField.getText(),demandChoiceBox.getValue(),resultBook.getBookTableOfContents());
 			MessageCS message = new MessageCS(MessageType.UPDATE_BOOK, book);
 	    	MainClient.client.accept(message);
-	    	Thread.sleep(400);
+	    	Thread.sleep(1500);
 			}
 	}
 	

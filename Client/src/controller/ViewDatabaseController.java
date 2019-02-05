@@ -89,7 +89,7 @@ public class ViewDatabaseController implements Initializable{
 		MessageCS message = new MessageCS(MessageType.SEARCH_ALL_FOR_VIEW_DATABASE);
     	MainClient.client.accept(message);
     	try {
-			Thread.sleep(400);
+			Thread.sleep(1500);
 			//Separates managers and librarians
 			for(int i =0; i<ViewDatabaseController.librarianResult.size();i++)
 			{

@@ -48,7 +48,7 @@ public class LoginController
 		MessageCS message = new MessageCS(MessageType.LOGIN,user);
 		MainClient.client.accept(message);
 		//	new ThreadTest.ThreadTest2(message).run();
-		Thread.sleep(800);
+		Thread.sleep(1500);
 		//load the page for the specific user
 		if(userResult==null) 
 		{
@@ -63,7 +63,7 @@ public class LoginController
 				Subscriber subscriber = new Subscriber(userResult.getUserName());
 				message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 				MainClient.client.accept(message);
-				Thread.sleep(400);
+				Thread.sleep(1500);
 				LoadGUI.loadFXML("SubscriberMenu.fxml",loginButton);
 			}
 			else if(userResult.getRole() == Role.LIBRARIAN)

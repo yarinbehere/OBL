@@ -148,7 +148,7 @@ public class BookReturnController implements Initializable{
     	Book book = new Book(bookTextField.getText(),subscriberTextField.getText());
     	message = new MessageCS(MessageType.SEARCH_BOOK_FOR_RETURN,book);
     	MainClient.client.accept(message);
-    	Thread.sleep(15000);
+    	Thread.sleep(1500);
     	
     	alert = new Alert(AlertType.ERROR);
     	if(resultBook == null)

@@ -63,7 +63,7 @@ public class PersonalInformationController implements Initializable{
 	    	MessageCS message = new MessageCS(MessageType.PERSONAL_INFORMATION,LoginController.userResult);
 	    	MainClient.client.accept(message);
 	    	try {
-				Thread.sleep(400);
+				Thread.sleep(1500);
 				ObservableList<String> subjectList = FXCollections.observableArrayList
 						("050","051","052","053","054","055");
 				if(subscriber==null||user==null)
@@ -117,7 +117,7 @@ public class PersonalInformationController implements Initializable{
 			subscriber.setMobileNumber(phoneChoiceBox.getValue()+phoneTextField.getText());
 			MessageCS message = new MessageCS(MessageType.UPDATE_PERSONAL_INFORMATION, user,subscriber);
 	    	MainClient.client.accept(message);
-	    	Thread.sleep(400);
+	    	Thread.sleep(1500);
 			}
 	 }
 	 

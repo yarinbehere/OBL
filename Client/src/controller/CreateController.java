@@ -65,7 +65,7 @@ public class CreateController {
 		MessageCS message = new MessageCS(MessageType.CREATE_SUBSCRIBER, newSubscriber);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(400);
+		Thread.sleep(1500);
 		// informs the librarian that the subscriber was added successfully
 		if (foundSubscriber == null) {
 			requestInfoTextArea.setText("Subscriber already exists");

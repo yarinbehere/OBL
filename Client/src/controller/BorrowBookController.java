@@ -75,7 +75,7 @@ public class BorrowBookController implements Initializable{
 		Subscriber subscriber = new Subscriber(subscriberEditLabel.getText());
 		MessageCS message = new MessageCS(MessageType.SEARCH_SUBSCRIBER,subscriber);
 		MainClient.client.accept(message);
-		Thread.sleep(1000);
+		Thread.sleep(1500);
 		//if the subscriber does not exist
 		if(resultSubscriber.getSubscriberDetails().equals("null"))
 		{
@@ -119,7 +119,7 @@ public class BorrowBookController implements Initializable{
 		Book book = new Book(bookLabel.getText());
 		MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_BORROW,book);
 		MainClient.client.accept(message);
-		Thread.sleep(1000);
+		Thread.sleep(1500);
 		//if the book does not exist in the system
 		if(resultBook.getBookDetails().equals("null"))
 		{

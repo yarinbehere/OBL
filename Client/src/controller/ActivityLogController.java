@@ -48,7 +48,7 @@ public class ActivityLogController implements Initializable
 		MainClient.client.accept(message);
 		try {
 			// TODO Auto-generated catch block
-			Thread.sleep(100);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

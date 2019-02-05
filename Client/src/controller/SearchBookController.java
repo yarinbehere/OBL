@@ -101,7 +101,7 @@ public class SearchBookController implements Initializable{
     					subjectChoiceBox.getSelectionModel().getSelectedItem(), freeTextField.getText());
     	MessageCS message = new MessageCS(MessageType.SEARCH_BOOK, book); //build the type of message we want the server to perfrom
     	MainClient.client.accept(message);//send message to the client
-    	Thread.sleep(400);//need to fix this with real threads instead of making main thread sleep
+    	Thread.sleep(1500);//need to fix this with real threads instead of making main thread sleep
     	if(bookResult.isEmpty()) {
     		//Alert java
     		Alert alert = new Alert(AlertType.ERROR, "No book found", ButtonType.CANCEL);
@@ -143,7 +143,7 @@ public class SearchBookController implements Initializable{
     	Book book = searchResultTable.getSelectionModel().getSelectedItem();
     	MessageCS message = new MessageCS(MessageType.TABLE_OF_CONTENT,book);
     	MainClient.client.accept(message);//send message to the client
-    	Thread.sleep(400);
+    	Thread.sleep(1500);
     	//String path = "/Resources/" + tableOfContent.getFileName() + ".pdf";
     	File newFile = new File ("C:\\Users\\rami\\git\\OBL\\Client\\pdf\\" +tableOfContent.getFileName()+ ".pdf");//write the file to location and added "1" to differ from main file
 	    FileOutputStream fos = new FileOutputStream(newFile);

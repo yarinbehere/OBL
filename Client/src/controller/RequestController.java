@@ -68,7 +68,7 @@ public class RequestController {
 		MessageCS message = new MessageCS(MessageType.REQUEST_EXTENSION_INIT, newUser);
 		MainClient.client.accept(message);
 		// wait for server processing
-		Thread.sleep(400);
+		Thread.sleep(1500);
 		// set properties to columns
 		subscriptionNumber.setCellValueFactory(new PropertyValueFactory<BorrowsExt, String>("SubscriptionNumber"));
 		firstName.setCellValueFactory(new PropertyValueFactory<BorrowsExt, String>("FirstName"));
@@ -111,7 +111,7 @@ public class RequestController {
 			BorrowedBook borrowedBook = new BorrowedBook(subscriptionNumber, bookId, returnDate, borrowDate, -1);
 			MessageCS message = new MessageCS(MessageType.REQUEST_EXTENSION_CHECK, borrowedBook);
 			MainClient.client.accept(message);
-			Thread.sleep(400);
+			Thread.sleep(1500);
 			// checking servers answer
 			if (requestAnswer.equals("orders exist")) {
 				requestFeedback.setText("There are orders on this book, can't let you extend");

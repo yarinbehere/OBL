@@ -724,7 +724,7 @@ public class ServerController {
 							Integer.parseInt(rset.getString("originalQuantity")),tempDate.toString(),rset.getString("location"),
 							rset.getString("pdf"),Integer.parseInt(rset.getString("currentQuantity")),rset.getString("wanted"));
 				}
-				query = "SELECT * FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookID() + "\";";
+				query = "SELECT * FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookDetails() + "\";";
 				rset = stmt.executeQuery(query);
 				if(rset.next())
 				{
@@ -733,7 +733,7 @@ public class ServerController {
 					client.sendToClient(resultBookForDeleteBook);
 					break;
 				}
-				query = "SELECT * FROM bookorder WHERE bookID = \"" + message.getBook().getBookID() + "\";";
+				query = "SELECT * FROM bookorder WHERE bookID = \"" + message.getBook().getBookDetails() + "\";";
 				rset = stmt.executeQuery(query);
 				if(rset.next())
 				{
