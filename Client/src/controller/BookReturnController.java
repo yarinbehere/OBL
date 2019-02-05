@@ -87,7 +87,7 @@ public class BookReturnController implements Initializable{
 		subscriber = new Subscriber(subscriberTextField.getText());
 		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER_FOR_OPTIONS,subscriber);
 		MainClient.client.accept(message);
-		Thread.sleep(400);
+		Thread.sleep(1500);
     	//if the subscriber does not exist
 		alert = new Alert(AlertType.ERROR);
     	if(resultSubscriber.getSubscriberDetails().equals("null"))
@@ -134,7 +134,7 @@ public class BookReturnController implements Initializable{
     	subscriber = new Subscriber(subscriberTextField.getText());
 		message = new MessageCS(MessageType.SEARCH_SUBSCRIBER_FOR_OPTIONS,subscriber);
 		MainClient.client.accept(message);
-		Thread.sleep(400);
+		Thread.sleep(1500);
     	//no reason to look for a book if subscriber doesn't exist
 		alert = new Alert(AlertType.ERROR);
 		if(resultSubscriber.getSubscriberDetails().equals("null"))
@@ -148,7 +148,7 @@ public class BookReturnController implements Initializable{
     	Book book = new Book(bookTextField.getText(),subscriberTextField.getText());
     	message = new MessageCS(MessageType.SEARCH_BOOK_FOR_RETURN,book);
     	MainClient.client.accept(message);
-    	Thread.sleep(100);
+    	Thread.sleep(15000);
     	
     	alert = new Alert(AlertType.ERROR);
     	if(resultBook == null)
@@ -182,7 +182,7 @@ public class BookReturnController implements Initializable{
     	Book book = new Book(bookTextField.getText());
 		message = new MessageCS(MessageType.RETURN_BOOK,resultSubscriber,book);
 		MainClient.client.accept(message);
-		Thread.sleep(100);
+		Thread.sleep(1500);
 		alert =new Alert(Alert.AlertType.INFORMATION);
 		alert.setContentText("Succeed to return the book");
 		alert.showAndWait();
