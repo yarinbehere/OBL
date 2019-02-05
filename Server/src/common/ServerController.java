@@ -627,6 +627,7 @@ public class ServerController {
 					+"\", \"Returned a book\",\""+ message.getSubscriber().getSubscriberID() + "\")"; 
 					stmt.executeUpdate(query);		
 				}
+				break;
 			case CANCEL_ORDER:
 				query = "DELETE FROM BookOrder WHERE bookID = \"" + message.getBookOrder().getBookID() + "\" " 
 						+ "AND subscriptionNumber = \"" + message.getBookOrder().getSubscriptionNumber() + "\";";
