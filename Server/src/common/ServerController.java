@@ -584,10 +584,14 @@ public class ServerController {
 				break;
 			case RETURN_BOOK:
 				// update returnedbook table
+
 				query = "SELECT * FROM borrowedbook bor, book b WHERE bor.bookID = b.bookID AND b.bookID = \""+ 
-				message.getBook().getBookDetails() +"\"";
+						message.getBook().getBookDetails() +"\"";
 				rset = stmt.executeQuery(query);
 				rset.next();
+				Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String borrowDate = formatter.format(rset.getDate("borrowDate"));
+				String returnDate = formatter.format(rset.getDate("returnDate"));
 				query = "INSERT INTO ReturnedBook VALUES (\"";
 				query += message.getSubscriber().getSubscriberID();
 				query += "\",\"";
@@ -599,17 +603,17 @@ public class ServerController {
 				query += "\",\"";
 				query += rset.getDate("borrowDate");
 				query += "\",\"";
-				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("borrowDate"), LocalDate.now());
+				query += ChronoUnit.DAYS.between(LocalDate.parse(borrowDate), LocalDate.now());
 				query += "\",\"";
 				query += rset.getString("wanted");
 				query += "\",\"";
-				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("returnDate"), LocalDate.now());
+				query += ChronoUnit.DAYS.between(LocalDate.parse(returnDate), LocalDate.now());
 				query += "\");";
 				stmt.executeUpdate(query);
-				
+
 				//delete the book that returned to the library from borrowed book table
 				query = "DELETE FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookDetails()
-				+ "\" AND subscriptionNumber = \"" + message.getSubscriber().getSubscriberID() + "\";";
+						+ "\" AND subscriptionNumber = \"" + message.getSubscriber().getSubscriberID() + "\";";
 				stmt.executeUpdate(query);
 				//update the book table and increase the amount by 1
 				query = "UPDATE Book SET currentQuantity = currentQuantity + 1 WHERE bookID = \""
@@ -630,7 +634,7 @@ public class ServerController {
 					if(message.getSubscriber().getSubscriberStatus().equals("Frozen"))
 					{
 						//convert from Date to LocalDate
-						Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+						formatter = new SimpleDateFormat("yyyy-MM-dd");
 						String format = formatter.format(rset.getDate("graduationDate"));
 						//if date of today minus the graduated date is negative means he is graduated
 						if(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(format)) < 0)
@@ -776,7 +780,7 @@ public class ServerController {
 				 * @author Yarin
 				 */
 			case DELETE_BOOK:
-				
+
 				int deleteReturnValue;
 				query="DELETE FROM book WHERE bookID = '";
 				query+=message.getBook().getBookID()+"';";
@@ -838,7 +842,7 @@ public class ServerController {
 				if(rset.next()) {
 					// Is exist, need to UPDATE
 					query="UPDATE activityreport SET active = \"" + active + "\", frozen = \"" + frozen + "\", "
-							+ "locked = \""+locked+"\", books = \"" + booksQuantity + "\", late = \"" +lates +"\" WHERE date = \"" + LocalDate.now()+"\";";
+							+ "locked = \""+locked+"\", book = \"" + booksQuantity + "\", lates = \"" +lates +"\" WHERE date = \"" + LocalDate.now()+"\";";
 					shalevislame=stmt.executeUpdate(query);
 				}
 				else {
@@ -853,10 +857,65 @@ public class ServerController {
 					query+="');";
 					shalevislame=stmt.executeUpdate(query);
 				}
-				GenerateReport generateReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
-				message = new MessageCS(MessageType.ACTIVITY_REPORT,generateReport);
+				GenerateReport activityReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
+				
+				
+				query="SELECT * FROM returnedbook";
+				
+				ArrayList<Integer> histogram=new ArrayList<>();
+				
+				rset=stmt.executeQuery(query);
+				
+				while(rset.next())
+				{
+					histogram.add(rset.getInt("duration"));
+				}
+				
+				
+				int normalCount;
+				int normalSum;
+				double normalAvg;
+				
+				query="SELECT COUNT(wanted) FROM returnedbook WHERE wanted = \"wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+				normalCount=rset.getInt("COUNT(wanted)");
+				
+				query="SELECT SUM(wanted) FROM returnedbook WHERE wanted = \"wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				normalSum=rset.getInt("SUM(wanted)");
+				
+				normalAvg=normalSum/normalCount;
+				
+				int wantedCount;
+				int wantedSum;
+				double wantedAvg;
+				
+				query="SELECT COUNT(wanted) FROM returnedbook WHERE wanted = \"not wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				wantedCount=rset.getInt("COUNT(wanted)");
+				
+				query="SELECT SUM(wanted) FROM returnedbook WHERE wanted = \"not wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				wantedSum=rset.getInt("SUM(wanted)");
+				
+				wantedAvg=wantedSum/wantedCount;
+				
+				GenerateReport borrowReport = new GenerateReport(histogram, normalAvg, wantedAvg, 0.0, 0.0);
+				
+				message = new MessageCS(MessageType.ACTIVITY_REPORT,activityReport,borrowReport);
+				
+				
 				client.sendToClient(message);
 				break;
+				
+				
 			default:
 				break;
 			}

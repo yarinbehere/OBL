@@ -64,7 +64,8 @@ public class GenerateReportController implements Initializable{
     @FXML private TextField averageLateTextField;
     
     //public static ArrayList<Book> dateResults;
-	public static GenerateReport reportResult;
+	public static GenerateReport reportActivityResult;
+	public static GenerateReport reportBorrowResult;
     private ObservableList<GenerateReport> listOfReports;
     private ArrayList<GenerateReport> tempReports = new ArrayList<>();
     
@@ -78,14 +79,19 @@ public class GenerateReportController implements Initializable{
 		tableColumnLocked.setCellValueFactory(new PropertyValueFactory<>("Locked"));
 		tableColumnBooks.setCellValueFactory(new PropertyValueFactory<>("Books"));
 		tableColumnLates.setCellValueFactory(new PropertyValueFactory<>("Lates"));
-		GenerateReport generateReport = null;
-		MessageCS message = new MessageCS(MessageType.ACTIVITY_REPORT, generateReport);
+		GenerateReport activityReport = null;
+		GenerateReport borrowReport=null;
+		MessageCS message = new MessageCS(MessageType.ACTIVITY_REPORT, activityReport,borrowReport);
 		MainClient.client.accept(message);
 		try {
 			Thread.sleep(1500);
-			tempReports.add(reportResult);
+			tempReports.add(reportActivityResult);
 			listOfReports = FXCollections.observableArrayList(tempReports);//insert those items first in the collection
 			activityTableView.setItems(listOfReports);
+			
+		//	averageNormalTextField.setText(message.getBorrowReport().getNormalAvg() + "");
+			
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

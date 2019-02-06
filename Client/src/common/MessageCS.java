@@ -45,7 +45,8 @@ public class MessageCS implements Serializable {
 	private ArrayList<BorrowsExt> usersBorrows;
 	private ArrayList<?> arrayList;
 	private BookOrder bookOrder;
-	private GenerateReport generateReport;
+	private GenerateReport activityReport;
+	private GenerateReport borrowReport;
 
 
 	/**
@@ -155,11 +156,13 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 	}
 	
-	public MessageCS(MessageType messageType, GenerateReport generateReport) {
-		this.messageType = messageType;
-		this.setGenerateReport(generateReport);
-	}
 
+	public MessageCS(MessageType messageType, GenerateReport activityReport,GenerateReport borrowReport) {
+		this.messageType = messageType;
+		this.setActivityReport(activityReport);
+		this.setBorrowReport(borrowReport);
+	}
+	
 	public MessageCS(MessageType messageType, BookOrder bookOrder) 
 	{
 		this.messageType = messageType;
@@ -198,6 +201,7 @@ public class MessageCS implements Serializable {
 		this.messageType = messageType;
 		this.setTextMessage(textMessage);
 	}
+	
 	public Subscriber getSubscriber() {
 		return subscriber;
 	}
@@ -264,10 +268,16 @@ public class MessageCS implements Serializable {
 	public void setBookOrder(BookOrder bookOrder) {
 		this.bookOrder = bookOrder;
 	}
-	public GenerateReport getGenerateReport() {
-		return generateReport;
+	public GenerateReport getActivityReport() {
+		return activityReport;
 	}
-	public void setGenerateReport(GenerateReport generateReport) {
-		this.generateReport = generateReport;
+	public void setActivityReport(GenerateReport activityReport) {
+		this.activityReport = activityReport;
+	}
+	public GenerateReport getBorrowReport() {
+		return borrowReport;
+	}
+	public void setBorrowReport(GenerateReport borrowReport) {
+		this.borrowReport = borrowReport;
 	}
 }
