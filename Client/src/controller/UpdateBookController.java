@@ -155,7 +155,7 @@ public class UpdateBookController implements Initializable{
 	 public void returnAction(ActionEvent event) throws IOException {
 		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
 		 {
-			 LoadGUI.loadFXML("LibrarianMenu_UPDATED.fxml",returnButton); 
+			 LoadGUI.loadFXML("LibrarianMenu.fxml",returnButton); 
 		 }
 		 else
 	    	{

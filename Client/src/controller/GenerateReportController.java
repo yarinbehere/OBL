@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ResourceBundle;
 import javax.activity.ActivityRequiredException;
 import javax.naming.spi.InitialContextFactory;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
@@ -16,6 +18,7 @@ import entity.FileTransfer;
 import entity.GenerateReport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -42,7 +45,7 @@ public class GenerateReportController implements Initializable{
     @FXML private MenuItem generatereportMenuBar;
     @FXML private MenuItem viewdatabaseMenuBar;
     @FXML private MenuItem aboutoblMenuBar;
-    @FXML private Button helpButton;
+   
     @FXML private Button returnButton;
     @FXML private Text pathLabel;
     /* Activity Report */
@@ -92,5 +95,16 @@ public class GenerateReportController implements Initializable{
 		}
 				
 	}
+    
+    /**
+	 * Return to Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+
+	    		LoadGUI.loadFXML("ManagerMenu.fxml",returnButton);
+	 }
     
 }

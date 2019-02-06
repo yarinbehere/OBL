@@ -10,11 +10,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
 import entity.FileTransfer;
+import entity.User.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,6 +45,7 @@ public class SearchBookController implements Initializable{
     @FXML private Button clearButton;
     @FXML private Button closeButton;
     @FXML private Button selectBookButton;
+    @FXML private Button returnButton;
     
     @FXML private ChoiceBox<String> subjectChoiceBox;
     
@@ -154,5 +157,22 @@ public class SearchBookController implements Initializable{
     	Desktop desktop = Desktop.getDesktop();
     	desktop.open(newFile);//open the file after it finished writing it
     }
+    
+    /**
+	 * Return to Librarian Menu, Manager Menu, Subscriber Menu or Reader Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult==null)
+			 LoadGUI.loadFXML("ReaderMenu.fxml",returnButton);
+		 else if(LoginController.userResult.getRole()==Role.MANAGER)
+	    	 LoadGUI.loadFXML("ManagerMenu.fxml", returnButton);
+		 else if(LoginController.userResult.getRole()==Role.SUBSCRIBER)
+			 LoadGUI.loadFXML("SubscriberMenu.fxml",returnButton);
+		 else  LoadGUI.loadFXML("LibrarianMenu.fxml", returnButton); 
+		 
+	 }
 
 }

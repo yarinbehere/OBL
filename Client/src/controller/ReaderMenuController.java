@@ -33,7 +33,7 @@ public class ReaderMenuController {
 		    LoadGUI.loadFXML("Login.fxml", loginButton); 
 	    }
 	   /**
-	    * moving toe page for searching a book
+	    * moving to page for searching a book
 	    * @param evet
 	    * @throws IOException
 	    */
@@ -42,6 +42,18 @@ public class ReaderMenuController {
 	   	{
 	   		LoadGUI.loadFXML("SearchBook.fxml", searchBookButton);
 	   	}
+	   	/**
+		 * exit page
+		 * @param evet
+		 * @throws IOException
+		 */
+		 @FXML
+		 void exitAction(ActionEvent event) throws IOException
+		 {
+			 System.exit(0);
+		 }
+	   	
+	   	
 	   	
 	   
 	   

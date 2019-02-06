@@ -111,7 +111,7 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <Button fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" text="Exit">
+                  <Button fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#exitAction" text="Exit">
                      <graphic>
                         <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>

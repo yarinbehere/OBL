@@ -5,6 +5,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import boundary.LoadGUI;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +19,7 @@ import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
 import entity.FileTransfer;
+import entity.User.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -250,6 +254,23 @@ public class AddNewBookController implements Initializable{
 		successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
 		successAlert.showAndWait();
     }
+	
+	/**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu.fxml", returnButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml", returnButton);
+	    	}
+	 }
 
 
 

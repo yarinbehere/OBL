@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.Format;
@@ -10,11 +11,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+import boundary.LoadGUI;
 import common.MainClient;
 import common.MessageCS;
 import common.MessageCS.MessageType;
 import entity.Book;
 import entity.Subscriber;
+import entity.User.Role;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,8 +36,8 @@ public class BookReturnController implements Initializable{
 	@FXML private TextField subscriberTextField;
 	@FXML private Button searchSubscriberButton;
 
-	@FXML private Button returnBook;
 	@FXML private Button searchBookButton;
+	@FXML private Button returnButton;
 	@FXML private Text subscriberStatusLabel;
 	@FXML private DatePicker borrowDate;
 	@FXML private DatePicker returnDate;
@@ -188,5 +191,22 @@ public class BookReturnController implements Initializable{
 		alert.showAndWait();
 		returnBookButton.setDisable(true);
 	}
+    
+    /**
+	 * Return to Librarian Menu or Manager Menu
+	 * @param event
+	 * @throws IOException
+	 */
+	 @FXML
+	 public void returnAction(ActionEvent event) throws IOException {
+		 if(LoginController.userResult.getRole()==Role.LIBRARIAN)
+		 {
+			 LoadGUI.loadFXML("LibrarianMenu.fxml", returnButton); 
+		 }
+		 else
+	    	{
+	    		LoadGUI.loadFXML("ManagerMenu.fxml", returnButton);
+	    	}
+	 }
 	
 }
