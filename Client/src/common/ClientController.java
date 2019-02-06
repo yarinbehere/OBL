@@ -162,7 +162,8 @@ public class ClientController {
 			break;
 			
 		case ACTIVITY_REPORT:
-			GenerateReportController.reportResult=message.getGenerateReport();
+			GenerateReportController.reportActivityResult=message.getActivityReport();
+			GenerateReportController.reportBorrowResult=message.getBorrowReport();
 			
 			break;
 		default:

@@ -857,8 +857,61 @@ public class ServerController {
 					query+="');";
 					shalevislame=stmt.executeUpdate(query);
 				}
-				GenerateReport generateReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
-				message = new MessageCS(MessageType.ACTIVITY_REPORT,generateReport);
+					GenerateReport activityReport = new GenerateReport(LocalDate.now(), active, frozen, locked, booksQuantity, lates);
+				
+				
+				query="SELECT * FROM returnedbook";
+				
+				ArrayList<Integer> histogram=new ArrayList<>();
+				
+				rset=stmt.executeQuery(query);
+				
+				while(rset.next())
+				{
+					histogram.add(rset.getInt("duration"));
+				}
+				
+				
+				int normalCount;
+				int normalSum;
+				double normalAvg;
+				
+				query="SELECT COUNT(wanted) FROM returnedbook WHERE wanted = \"wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+				normalCount=rset.getInt("COUNT(wanted)");
+				
+				query="SELECT SUM(wanted) FROM returnedbook WHERE wanted = \"wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				normalSum=rset.getInt("SUM(wanted)");
+				
+				normalAvg=normalSum/normalCount;
+				
+				int wantedCount;
+				int wantedSum;
+				double wantedAvg;
+				
+				query="SELECT COUNT(wanted) FROM returnedbook WHERE wanted = \"not wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				wantedCount=rset.getInt("COUNT(wanted)");
+				
+				query="SELECT SUM(wanted) FROM returnedbook WHERE wanted = \"not wanted\"";
+				rset=stmt.executeQuery(query);
+				rset.next();
+
+				wantedSum=rset.getInt("SUM(wanted)");
+				
+				wantedAvg=wantedSum/wantedCount;
+				
+				GenerateReport borrowReport = new GenerateReport(histogram, normalAvg, wantedAvg, 0.0, 0.0);
+				
+				message = new MessageCS(MessageType.ACTIVITY_REPORT,activityReport,borrowReport);
+				
+				
 				client.sendToClient(message);
 				break;
 			default:
