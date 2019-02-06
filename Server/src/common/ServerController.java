@@ -584,10 +584,14 @@ public class ServerController {
 				break;
 			case RETURN_BOOK:
 				// update returnedbook table
+			
 				query = "SELECT * FROM borrowedbook bor, book b WHERE bor.bookID = b.bookID AND b.bookID = \""+ 
 				message.getBook().getBookDetails() +"\"";
 				rset = stmt.executeQuery(query);
 				rset.next();
+				Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String borrowDate = formatter.format(rset.getDate("borrowDate"));
+				String returnDate = formatter.format(rset.getDate("returnDate"));
 				query = "INSERT INTO ReturnedBook VALUES (\"";
 				query += message.getSubscriber().getSubscriberID();
 				query += "\",\"";
@@ -599,11 +603,11 @@ public class ServerController {
 				query += "\",\"";
 				query += rset.getDate("borrowDate");
 				query += "\",\"";
-				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("borrowDate"), LocalDate.now());
+				query += ChronoUnit.DAYS.between(LocalDate.parse(borrowDate), LocalDate.now());
 				query += "\",\"";
 				query += rset.getString("wanted");
 				query += "\",\"";
-				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("returnDate"), LocalDate.now());
+				query += ChronoUnit.DAYS.between(LocalDate.parse(returnDate), LocalDate.now());
 				query += "\");";
 				stmt.executeUpdate(query);
 				
@@ -630,8 +634,8 @@ public class ServerController {
 					if(message.getSubscriber().getSubscriberStatus().equals("Frozen"))
 					{
 						//convert from Date to LocalDate
-						Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-						String format = formatter.format(rset.getDate("graduationDate"));
+						 formatter = new SimpleDateFormat("yyyy-MM-dd");
+						 String format = formatter.format(rset.getDate("graduationDate"));
 						//if date of today minus the graduated date is negative means he is graduated
 						if(ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(format)) < 0)
 						{
