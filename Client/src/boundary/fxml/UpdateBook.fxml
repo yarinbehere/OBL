@@ -82,7 +82,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="176.0" layoutX="-3.0" layoutY="7.0" opacity="0.71" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="619.0" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Book:" />
                   <Text layoutX="28.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Book:" />
-                  <TextField fx:id="serialNumberTextField" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" text="Serial number" />
+                  <TextField fx:id="serialNumberTextField" layoutX="136.0" layoutY="45.0" prefHeight="27.0" prefWidth="256.0" promptText="Serial number" />
                   <Button fx:id="searchBookButton" layoutX="409.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchBookButtonAction" text="Search Book" />
                   <Separator layoutX="119.0" layoutY="22.0" prefHeight="6.0" prefWidth="491.0" />
                   <Button fx:id="updateBookButton" layoutX="254.0" layoutY="149.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Update Book" />

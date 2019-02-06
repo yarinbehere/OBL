@@ -74,8 +74,10 @@ public class LoginController
 			{
 				LoadGUI.loadFXML("ManagerMenu.fxml", loginButton);
 				Alert alert=new Alert(Alert.AlertType.INFORMATION);
-				//if there are subscribers with 3 or more late return book
+				if(finalSubscriberResult == null)
+					return;
 
+				//if there are subscribers with 3 or more late return book
 				if(finalSubscriberResult.size()>0)
 				{
 					for (int i = 0; i < finalSubscriberResult.size(); i++) 

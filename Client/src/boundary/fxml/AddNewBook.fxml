@@ -102,7 +102,7 @@
                   <Image url="@fxml/images/braude_logo.png" />
                </image>
             </ImageView>
-            <Text fx:id="pathLabel" layoutX="195.0" layoutY="407.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Add New Book">
+            <Text fx:id="pathLabel" layoutX="100.0" layoutY="407.0" opacity="0.61" strokeType="OUTSIDE" strokeWidth="0.0" text="OBL &gt; Main Menu &gt; Add New Book">
                <font>
                   <Font size="11.0" />
                </font>

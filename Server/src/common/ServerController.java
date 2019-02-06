@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -582,6 +583,30 @@ public class ServerController {
 				client.sendToClient(resultBook);
 				break;
 			case RETURN_BOOK:
+				// update returnedbook table
+				query = "SELECT * FROM borrowedbook bor, book b WHERE bor.bookID = b.bookID AND b.bookID = \""+ 
+				message.getBook().getBookDetails() +"\"";
+				rset = stmt.executeQuery(query);
+				rset.next();
+				query = "INSERT INTO ReturnedBook VALUES (\"";
+				query += message.getSubscriber().getSubscriberID();
+				query += "\",\"";
+				query += message.getBook().getBookDetails();
+				query += "\",\"";
+				query += rset.getDate("returnDate");
+				query += "\",\"";
+				query += LocalDate.now();
+				query += "\",\"";
+				query += rset.getDate("borrowDate");
+				query += "\",\"";
+				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("borrowDate"), LocalDate.now());
+				query += "\",\"";
+				query += rset.getString("wanted");
+				query += "\",\"";
+				query += ChronoUnit.DAYS.between((Temporal) rset.getDate("returnDate"), LocalDate.now());
+				query += "\");";
+				stmt.executeUpdate(query);
+				
 				//delete the book that returned to the library from borrowed book table
 				query = "DELETE FROM BorrowedBook WHERE bookID = \"" + message.getBook().getBookDetails()
 				+ "\" AND subscriptionNumber = \"" + message.getSubscriber().getSubscriberID() + "\";";
@@ -756,6 +781,7 @@ public class ServerController {
 				query="DELETE FROM book WHERE bookID = '";
 				query+=message.getBook().getBookID()+"';";
 				//query+="');";
+				boolean pdfFileDelete = new File("C:\\Server\\pdf\\" + message.getBook().getBookTitle() +".pdf").delete();
 				deleteReturnValue=stmt.executeUpdate(query);
 				break;
 

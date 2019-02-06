@@ -70,7 +70,7 @@ public class AddNewBookController implements Initializable{
 		ObservableList<String> demandList=FXCollections.observableArrayList("Normal","Wanted");
 		demandChoiceBox.setValue("Normal"); // Default value is Normal
 		demandChoiceBox.setItems(demandList);
-	
+		this.pdfUploadedFlag=false;
 	}
 	
 	/*
@@ -126,34 +126,16 @@ public class AddNewBookController implements Initializable{
 			return;
 		}
 		
-		// Check PDF file path
-		File pdfFile;
-		Desktop desktop;
-		if(!pdfPathTextField.getText().isEmpty()) {
-			pdfFile=new File(pdfPathTextField.getText());
-			if(!pdfFile.exists()) {
-				// Show error
-				errorAlert.setTitle("Failed");
-				errorAlert.setContentText("Enter new PDF file and try again.");
-				errorAlert.showAndWait();
-				return;
-			}
-			if (!pdfPathTextField.getText().toLowerCase().endsWith(".pdf")) {
-				// Show error
-				errorAlert.setTitle("Failed");
-				errorAlert.setContentText("Please try to upload PDF file.");
-				errorAlert.showAndWait();
-				return;
-			}
-		}
+		
 		// Check if it's avaliable to open the PDF file & check the Flag
 		if (pdfUploadedFlag==false) {
 			// Show error
 			errorAlert.setTitle("Failed");
-			errorAlert.setContentText("Couldn't use this PDF file. Please try another one and try again.");
+			errorAlert.setContentText("Please upload PDF file and try again.");
 			errorAlert.showAndWait();
 			return;
 		}
+		
 		
 		/* Continue by creating temporary book Object and validate it in the DB */
 		
@@ -213,46 +195,31 @@ public class AddNewBookController implements Initializable{
 		pdfUploadedFlag=false;
 	}
 
-	/*
-	 * Open PDF files that contains the book's Table of Contents.
-	 */
-	public boolean openPDF() {
-		
-		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
-		File pdfFile;
-		Desktop desktop;
-		if(!pdfPathTextField.getText().isEmpty()) {
-			pdfFile=new File(pdfPathTextField.getText());
-			if(pdfFile.exists()) {
-				desktop=Desktop.getDesktop();
-				try {
-					desktop.open(pdfFile);
-				} catch (IOException e) {
-					// Show error
-					errorAlert.setTitle("Failed");
-		    		errorAlert.setContentText("Couldn't open file.");
-		    		errorAlert.showAndWait();
-					e.printStackTrace();
-					return false;
-				}
-			}
-		}
-		return true;
-	}
 	
 	/* Click on Upload PDF */
 	@FXML
     void uploadPDF(ActionEvent event) throws IOException {
 		Alert successAlert=new Alert(AlertType.INFORMATION);
 		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
+		
+		// Check PDF file path
+		if(pdfPathTextField.getText().isEmpty()) {
+			errorAlert.setTitle("Failed");
+			errorAlert.setContentText("Please enter PDF file name, same as the Title of the book.");
+			errorAlert.showAndWait();
+			return;
+		}
+		
+		// Check if title match to PDF file name
 		if(titleTextField.getText().equals(pdfPathTextField.getText())==false)
 		{
-			// Show error
+			// Show error if not
 			errorAlert.setTitle("Failed");
     		errorAlert.setContentText("Please enter matching Title and PDF File Name.");
     		errorAlert.showAndWait();
     		return;
 		}
+		// Check if valid
 		try
 		{
 			FileTransfer tableOfContent = new FileTransfer(titleTextField.getText());//initialize the entity FileTransfer with the title book
@@ -267,11 +234,6 @@ public class AddNewBookController implements Initializable{
 			MainClient.client.accept(file);
 			bis.close();
 			
-			// Turn flag ON
-			this.pdfUploadedFlag=true;
-			successAlert.setTitle("Add New Book");
-	    	successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
-	    	successAlert.showAndWait();
 		}
 		catch(FileNotFoundException e)
 		{
@@ -279,8 +241,14 @@ public class AddNewBookController implements Initializable{
 			errorAlert.setTitle("Failed");
 			errorAlert.setContentText("Could not upload file.");
 			errorAlert.showAndWait();
+			return;
 		}
 		
+		// Turn flag ON
+		this.pdfUploadedFlag=true;
+		successAlert.setTitle("Add New Book");
+		successAlert.setContentText("Table of content PDF has been successfully uploaded to the system.");
+		successAlert.showAndWait();
     }
 
 

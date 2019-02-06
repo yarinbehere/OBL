@@ -137,8 +137,7 @@
                   <Text layoutX="29.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Free Text:" />
                   <TextField fx:id="freeTextField" editable="false" layoutX="110.0" layoutY="170.0" prefHeight="27.0" prefWidth="483.0" />
                   <Text layoutX="29.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table of Contents:" wrappingWidth="75.91113951802254" />
-                  <TextField fx:id="pdfPathTextField" editable="false" layoutX="111.0" layoutY="215.0" prefHeight="27.0" prefWidth="295.0" />
-                  <Button fx:id="openPdfButton" layoutX="420.0" layoutY="215.0" mnemonicParsing="false" onAction="#openPDF" prefHeight="27.0" prefWidth="175.0" text="Open PDF" />
+                  <TextField fx:id="pdfPathTextField" editable="false" layoutX="111.0" layoutY="215.0" prefHeight="27.0" prefWidth="483.0" />
                   <Button fx:id="deleteBookButton" layoutX="218.0" layoutY="264.0" mnemonicParsing="false" onAction="#deleteBook" prefHeight="27.0" prefWidth="106.0" text="Delete Book" />
                   <Text layoutX="356.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject(s):" />
                   <Button fx:id="clearButton" layoutX="339.0" layoutY="264.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="62.0" text="Clear" />

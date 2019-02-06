@@ -80,7 +80,6 @@ public class DeleteBookController {
 		MessageCS message = new MessageCS(MessageType.SEARCH_BOOK_FOR_DELETEBOOK,tempBook);
 		MainClient.client.accept(message);
 		Thread.sleep(1500);
-		System.out.println(resultBookForDeleteBook);
 		// Check if book not exists.
     	if (resultBookForDeleteBook == null) {
     		errorAlert.setTitle("Failed");
@@ -114,7 +113,7 @@ public class DeleteBookController {
 		
 		confirmAlert.setTitle("Confirm");
 		confirmAlert.setHeaderText("Are you sure?");
-		confirmAlert.setContentText("Delete a book cannot be reverted.");
+		confirmAlert.setContentText("Delete a book cannot be undone.");
 
 		Optional<ButtonType> result = confirmAlert.showAndWait();
 		if (result.get() == ButtonType.OK){
@@ -124,7 +123,7 @@ public class DeleteBookController {
 				MainClient.client.accept(message);
 				Thread.sleep(1500);
 				// deletes Table of Content
-				boolean pdfFileDelete = new File(pdfPathTextField.getText()).delete();
+				
 			}
 			
 			catch (Exception e) { 
@@ -163,31 +162,6 @@ public class DeleteBookController {
 		demandTextField.setText("");
 	}
 
-	/*
-	 * Open PDF files that contains the book's Table of Contents.
-	 */
-	@FXML
-	void openPDF(ActionEvent event) {
-		
-		Alert errorAlert=new Alert(Alert.AlertType.ERROR);
-		File pdfFile;
-		Desktop desktop;
-		if(!pdfPathTextField.getText().isEmpty()) {
-			pdfFile=new File(pdfPathTextField.getText());
-			if(pdfFile.exists()) {
-				desktop=Desktop.getDesktop();
-				try {
-					desktop.open(pdfFile);
-				} catch (IOException e) {
-					// Show error
-					errorAlert.setTitle("Failed");
-		    		errorAlert.setContentText("Couldn't open file.");
-		    		errorAlert.showAndWait();
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 	
 	
 }
