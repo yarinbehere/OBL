@@ -41,9 +41,9 @@ public class LoginController
 	public static ArrayList<String> finalSubscriberResult;
 	public static String message;
 	public String listOfLateReturnsSubscribers="There are several subscribers with 3 or more delays in returning a book. \n The Subscribers are:\n\n";
-
+	
 	@FXML
-	void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
+	public void loginToOBL(ActionEvent event) throws IOException, InterruptedException {
 		User user = new User(usernameTextField.getText(),passwordTextField.getText());
 		MessageCS message = new MessageCS(MessageType.LOGIN,user);
 		MainClient.client.accept(message);
