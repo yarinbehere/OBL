@@ -39,7 +39,7 @@ public class TestServerMessage {
 	@Test
 	public void testLibrarianMessage() {
 		// testing validity of username and password
-		User user = new User("100", "12");
+		User user = new User("100", "1111");
 		msg = new MessageCS(MessageType.LOGIN, user);
 		echoServer.handleMessageFromClient(msg, null);
 		msg = echoServer.getServer().getMessage();
@@ -54,7 +54,7 @@ public class TestServerMessage {
 	 */
 	@Test
 	public void testSubscriberMessage() {
-		User user = new User("205", "0");
+		User user = new User("200", "3333");
 		msg = new MessageCS(MessageType.LOGIN, user);
 		echoServer.handleMessageFromClient(msg, null);
 		msg = echoServer.getServer().getMessage();
@@ -69,7 +69,7 @@ public class TestServerMessage {
 	 */
 	@Test
 	public void testManagerMessage() {
-		User user = new User("101", "skre544");
+		User user = new User("101", "2222");
 		msg = new MessageCS(MessageType.LOGIN, user);
 		echoServer.handleMessageFromClient(msg, null);
 		msg = echoServer.getServer().getMessage();
