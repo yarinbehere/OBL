@@ -22,4 +22,4 @@ Engineering Methods for Software Systems Development - Ort Braude College of Eng
 | -------| --------------------------| ------------------| ------------|
 |1|[Initial Version](https://drive.google.com/file/d/12a7PqRIhnVGxzQJu8xPEMC_QUpPxNH6w/view?usp=sharing)|Complete|10.12.2018|
 |2|[Prototype](https://drive.google.com/file/d/1wAxsbzrhtbeR8ND2x6PZCwbLrZnK3nW0/view?usp=sharing)| Complete|30.12.2018|
-|3|[Final](https://drive.google.com/file/d/1PG0mUecEWleua4bkF43OnxOL3DmYSxX0/view?usp=sharing)| In Progress|03.02.2019|
+|3|[Final](https://drive.google.com/file/d/1PG0mUecEWleua4bkF43OnxOL3DmYSxX0/view?usp=sharing)| Complete |03.02.2019|
